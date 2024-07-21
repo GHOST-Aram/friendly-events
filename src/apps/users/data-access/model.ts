@@ -2,6 +2,7 @@ import { compare, hash } from "bcrypt"
 import { HydratedDocument, Model, Schema, model } from "mongoose"
 
 export interface User{
+    profilePicture?: Buffer
     fullName: string
     userGroup: string
     email: string
@@ -21,6 +22,11 @@ export const userSchema = new Schema<User, UserModel, UserMethods,{}>({
         minlength: 2,
         maxlength: 100,
         required: true
+    },
+    profilePicture:{
+        data: Buffer,
+        name: String,
+        contentType: String
     },
     userGroup:{
         type: String,
