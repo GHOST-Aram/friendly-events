@@ -28,9 +28,7 @@ export class ResponseAssertion{
     
     public respondsWithCreatedResource = (response: Response) =>{
         expect(response.status).toEqual(201)
-        expect(response.body.message).toMatch(/created/i)
-        expect(response.body).toHaveProperty('item')
-        expect(response.body.item).toHaveProperty('_id')
+        expect(response.body).toHaveProperty('_id')
         expect(response.headers['content-type']).toMatch(/json/)
         expect(response.header.location).toMatch(/^\/\w+(?:-\w+)*\/[0-9a-fA-F]{24}$/)
     }

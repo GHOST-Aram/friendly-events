@@ -19,7 +19,7 @@ export class HttpResponse{
 
     public respondWithCreatedResource = (resource: HydratedDocument<Object>, res: Response) =>{
         res.location(`/${this.microserviceName}/${resource.id}`)
-        res.status(201).json({message: 'Created', item: resource})
+        res.status(201).json(resource)
     }
 
     public respondWithFoundResource = (
