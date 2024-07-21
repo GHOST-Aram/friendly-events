@@ -59,6 +59,16 @@ export class UsersController extends GenericController<UsersDAL>{
         return formatedUserDoc
     }
 
+    private formatPictureProfile = (imageBuffer: any) =>{
+        const profilePicture =  {
+            name: imageBuffer.name,
+            data: imageBuffer.data,
+            contentType: imageBuffer.contentType  
+        }
+
+        return profilePicture
+    }
+
     public getMany = async(req: Request, res: Response, next: NextFunction) =>{
         const paginator: Paginator = this.paginate(req) 
 
@@ -75,17 +85,6 @@ export class UsersController extends GenericController<UsersDAL>{
         } catch (error) {
             next(error)
         }
-    }
-
-
-    private formatPictureProfile = (imageBuffer: any) =>{
-        const profilePicture =  {
-            name: imageBuffer.name,
-            data: imageBuffer.data,
-            contentType: imageBuffer.contentType  
-        }
-
-        return profilePicture
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
