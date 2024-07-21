@@ -60,5 +60,4 @@ userSchema.pre('save', async function(){
 
 export type HydratedUserDoc = HydratedDocument<User, UserMethods >
 
-export const User: UserModel = model<User, UserModel>(
-    'User', userSchema)
+export const User: UserModel = model<User, UserModel>('User', userSchema)
