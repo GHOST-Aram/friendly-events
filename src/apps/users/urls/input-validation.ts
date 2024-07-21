@@ -17,13 +17,16 @@ export const userValidators = [
     validator.validateName('fullName', { required: true}),
     validator.validateString('password', { required: true}),
     validator.validateString('email', { required: true}),
+    validator.validateUrl('pictureUrl', {required: false })
 ]
 
 export const patchValidators = [
     validator.validateUserGroup({ required:false }),
     validator.validateName('fullName', { required: false}),
     validator.validateString('email', { required: false}),
-    validator.validateString('password', { required: false})
+    validator.validateString('password', { required: false}),
+    validator.validateUrl('pictureUrl', {required: false })
+
 ]
 
 export {validator}

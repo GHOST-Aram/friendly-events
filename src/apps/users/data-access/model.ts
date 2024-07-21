@@ -3,6 +3,7 @@ import { HydratedDocument, Model, Schema, model } from "mongoose"
 
 export interface User{
     profilePicture?: Buffer
+    pictureUrl?: string
     fullName: string
     userGroup: string
     email: string
@@ -28,10 +29,11 @@ export const userSchema = new Schema<User, UserModel, UserMethods,{}>({
         name: String,
         contentType: String
     },
+    pictureUrl: { type: String },
     userGroup:{
         type: String,
         enum: ['host', 'attendee', 'superuser'],
-        required: true
+        default: 'attendee'
     },
     email: {
         type: String,
