@@ -22,10 +22,7 @@ export class HttpResponse{
         res.status(201).json(resource)
     }
 
-    public respondWithFoundResource = (
-        resource: Object[]| Object, 
-        res: Response
-        ) =>{
+    public respondWithFoundResource = ( resource: Object[]| Object, res: Response) =>{
             res.status(200).json(resource)
     }
 
