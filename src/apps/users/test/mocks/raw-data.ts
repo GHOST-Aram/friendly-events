@@ -16,9 +16,9 @@ export const userWithExistingEmail: User = {
 
 export const invalidUserData = {
     name: 'John doe',
-    email: 'johndoe@gmail.com',
-    password: 'password',
-    userGroup: 'host',
+    email: 'johndoe@gmail',
+    password: 44,
+    userGroup: 'hello world',
 }
 
 export const validPartialData = {
@@ -26,11 +26,4 @@ export const validPartialData = {
     email: 'johndoe@gmail.com',
     userGroup: 'superuser',
     password: 'password'
-}
-
-export const invalidPartialData = {
-    email: 'johndoe@gm',
-    password: "ee",
-    fullName: 90,
-    userGroup: 'host',
 }

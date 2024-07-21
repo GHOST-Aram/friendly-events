@@ -30,7 +30,7 @@ describe('PATCH Users route', () =>{
         async() =>{
             const response = await request(app).patch(
                 '/users/64c9e4f2df7cc072af2ac9e4')
-                .send(data.invalidPartialData)
+                .send(data.invalidUserData)
 
             assert.respondsWithBadRequest(response)
             assert.respondsWithValidationErrors(response)
