@@ -1,8 +1,8 @@
 import { UsersController } from "../controller/controller";
 import { Router } from "express";
-import * as middlewear from "./input-validation";
-import { validator } from "../../../z-library/validation/validator";
+import { validator, userValidators, patchValidators} from "./input-validation";
 import { Authenticatable, Authenticator } from "../../../z-library/auth/auth";
+import { uploadSingleFile } from "../../../z-library/uploads/upload";
 
 const router = Router()
 
@@ -11,7 +11,9 @@ export const routesWrapper = (
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
-        middlewear.userValidators ,
+        uploadSingleFile('profilePicture'),
+        validator.validateFile,
+        userValidators ,
         validator.handleValidationErrors,
         controller.addNew
     )
@@ -32,7 +34,7 @@ export const routesWrapper = (
     router.put('/:id', 
         authenticator.authenticate(),
         validator.validateReferenceId('id', { required: true }),
-        middlewear.userValidators, 
+        userValidators, 
         validator.handleValidationErrors,
         controller.updateOne
     )
@@ -41,7 +43,7 @@ export const routesWrapper = (
     router.patch('/:id', 
         authenticator.authenticate(),
         validator.validateReferenceId('id', { required: true }),
-        middlewear.patchValidators, 
+        patchValidators, 
         validator.handleValidationErrors,
         controller.modifyOne
     )
