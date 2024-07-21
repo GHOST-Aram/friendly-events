@@ -2,7 +2,7 @@
   "name": "friendly-events",
   "version": "1.0.0",
   "main": "src/app.ts",
-  "description": "Backend for friendly events platform",
+  "description": "Backend for an events platform",
   "scripts": {
     "test": "jest --watch",
     "dev": "nodemon src/app",
