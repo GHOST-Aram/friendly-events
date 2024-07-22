@@ -15,17 +15,6 @@ describe('PUT users route', () =>{
         }
     )
 
-    test('Responds with validation errors (status 400): Invalid reference Id.',
-        async () => {
-            const response = await request(app).put(
-                '/users/invalidId')
-                .send(rawData.validUserData)
-
-            assert.respondsWithBadRequest(response)
-            assert.respondsWithValidationErrors(response)
-        }
-    )
-
     test('Responds with validation errors (status 400): Invalid input.', 
         async() =>{
             const response = await request(app).put(

@@ -11,29 +11,26 @@ export const routesWrapper = (
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
-        uploadSingleFile('profilePicture'),
-        validator.validateFile,
         userValidators ,
         validator.handleValidationErrors,
         controller.addNew
     )
-
+    
     router.get('/', 
         authenticator.authenticate(),
         authenticator.allowAdminUser,
         controller.getMany
     )
+    
     router.get('/:id',
         authenticator.authenticate(), 
-        validator.validateReferenceId('id', { required: true }),
         validator.handleValidationErrors,
         controller.getOne
     )
-
+    
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
         authenticator.authenticate(),
-        validator.validateReferenceId('id', { required: true }),
         userValidators, 
         validator.handleValidationErrors,
         controller.updateOne
@@ -41,8 +38,9 @@ export const routesWrapper = (
     
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
+        uploadSingleFile('profilePicture'),
+        validator.validateFile,
         authenticator.authenticate(),
-        validator.validateReferenceId('id', { required: true }),
         patchValidators, 
         validator.handleValidationErrors,
         controller.modifyOne
@@ -52,7 +50,6 @@ export const routesWrapper = (
     router.delete('/:id', 
         authenticator.authenticate(),
         authenticator.allowAdminUser,
-        validator.validateReferenceId('id', { required: true }),
         validator.handleValidationErrors,
         controller.deleteOne
     )

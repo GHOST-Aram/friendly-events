@@ -11,16 +11,6 @@ describe('DELETE users route', () =>{
         }
     )
 
-    test('Responds with validation errors (status 400): Invalid reference Id.',
-        async () => {
-            const response = await request(app).delete(
-                '/users/invalidId78327874823')
-
-            assert.respondsWithBadRequest(response)
-            assert.respondsWithValidationErrors(response)  
-        }
-    )
-
     test('Responds with Not Found (status 404): User does not exist.', 
         async() =>{
             const response = await request(app).delete(

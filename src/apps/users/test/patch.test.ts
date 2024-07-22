@@ -16,16 +16,6 @@ describe('PATCH Users route', () =>{
         }
     )
 
-    test('Responds with Validation errors (status 400): Invalid reference Id.',
-        async () => {
-            const response = await request(app).patch(
-                '/users/7ryew8qwq').send(data.validPartialData)
-
-            assert.respondsWithBadRequest(response)
-            assert.respondsWithValidationErrors(response)
-        }
-    )
-
     test('Responds with validation errors (status 400): Invalid input', 
         async() =>{
             const response = await request(app).patch(

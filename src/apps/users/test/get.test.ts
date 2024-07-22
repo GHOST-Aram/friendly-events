@@ -5,15 +5,6 @@ import request from 'supertest'
 
 describe('GET Users Route', () =>{
 
-    test('Responds with validationErrors (status 400): If referenceId is Invalid.',  
-        async() =>{
-            const response = await request(app).get(
-                '/users/9jdiks9sk0xx34')
-            assert.respondsWithBadRequest(response)
-            assert.respondsWithValidationErrors(response)
-        }
-    )
-
     test('Responds with Not Found(status 404): User does not exist.', 
         async() =>{
             const response = await request(app).get(
