@@ -21,7 +21,7 @@ interface UserVirtuals{
 
 export type UserModel = Model<User,{}, UserMethods, UserVirtuals>
 
-export const userSchema = new Schema<User, UserModel, UserMethods,UserVirtuals>({
+export const userSchema = new Schema<User, UserModel, UserMethods, {}, UserVirtuals>({
     fullName: {
         type: String,
         minlength: 2,
@@ -68,6 +68,6 @@ userSchema.pre('save', async function(){
     this.password = hashedPassword
 })
 
-export type HydratedUserDoc = HydratedDocument<User, UserMethods >
+export type HydratedUserDoc = HydratedDocument<User, UserMethods & UserVirtuals>
 
 export const User: UserModel = model<User, UserModel>('User', userSchema)
