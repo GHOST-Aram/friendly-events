@@ -14,10 +14,14 @@ interface UserMethods{
     isValidPassword:(password: string) => Promise<boolean>
 }
 
+interface UserVirtuals{
+    isAdmin: boolean
+}
 
-export type UserModel = Model<User,{}, UserMethods>
 
-export const userSchema = new Schema<User, UserModel, UserMethods,{}>({
+export type UserModel = Model<User,{}, UserMethods, UserVirtuals>
+
+export const userSchema = new Schema<User, UserModel, UserMethods,UserVirtuals>({
     fullName: {
         type: String,
         minlength: 2,
@@ -53,6 +57,10 @@ export const userSchema = new Schema<User, UserModel, UserMethods,{}>({
 userSchema.method('isValidPassword', 
     async function(password: string): Promise<boolean>{
         return await compare(password, this.password)
+})
+
+userSchema.virtual('isAdmin').get(function(){
+    return this.userGroup === 'superuser'
 })
 
 userSchema.pre('save', async function(){
