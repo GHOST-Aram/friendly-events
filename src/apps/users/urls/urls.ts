@@ -33,7 +33,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         userValidators, 
         validator.handleValidationErrors,
-        controller.updateOne
+        controller.respondWithMethodNotAllowed
     )
     
     router.patch('/', controller.respondWithMethodNotAllowed)
@@ -43,7 +43,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         patchValidators, 
         validator.handleValidationErrors,
-        controller.modifyOne
+        controller.respondWithMethodNotAllowed
     )
 
     router.delete('/', controller.respondWithMethodNotAllowed)
@@ -51,7 +51,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         authenticator.allowAdminUser,
         validator.handleValidationErrors,
-        controller.deleteOne
+        controller.respondWithMethodNotAllowed
     )
 
     return router
