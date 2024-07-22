@@ -29,9 +29,10 @@ export class UsersDAL extends UsersDataAccess{
 
             if(userID === ID_OF_EXISTING_DOCUMENT){
                 const mockFoundUser = new this.model({
-                    last_name: 'John',
-                    first_name: 'Does',
-                    email: 'johndoe@gmail.com'
+                    fullName: 'John Doe',
+                    password: 'redxdterewfwefwe',
+                    email: 'johndoe@gmail.com',
+                    userGroup: 'superuser'
                 })
 
                 return mockFoundUser
@@ -49,8 +50,8 @@ export class UsersDAL extends UsersDataAccess{
             if(email === existingDocumentEmail){
 
                 const mockDocumentWithExistingEmail =  new this.model({
-                    last_name: 'John',
-                    first_name: 'Does',
+                    fullName: 'John Doe',
+                    password: 'redxdterewfwefwe',
                     email: 'existingEmail@gmail.com'
                 })
 
@@ -76,8 +77,8 @@ export class UsersDAL extends UsersDataAccess{
         let userCount = 0
         while(userCount < limit){
             mockUsers.push(new this.model({
-                first_name: 'John',
-                last_name: 'Doe',
+                password: 'redxdterewfwefwe',
+                fullName: 'Doe Doe',
                 email: 'johnDoes@gmail.com'
             }))
 
@@ -93,8 +94,8 @@ export class UsersDAL extends UsersDataAccess{
 
             if(userId === ID_OF_EXISTING_DOCUMENT){
                 const mockDeletedUserDoc =  new this.model({
-                    first_name: 'John', 
-                    last_name: 'Doe',
+                    password: 'redxdterewfwefwe',
+                    fullName: 'Doe Doe',
                     email: 'johndoe@gmail.com'
                 })
 
@@ -110,8 +111,8 @@ export class UsersDAL extends UsersDataAccess{
 
             if(userId === ID_OF_EXISTING_DOCUMENT){
                 const mockUpdatedUserDoc =  new this.model({
-                    first_name: 'John', 
-                    last_name: 'Doe',
+                    password: 'redxdterewfwefwe',
+                    fullName: 'Doe Doe',
                     email: 'johndoe@gmail.com'
                 })
 

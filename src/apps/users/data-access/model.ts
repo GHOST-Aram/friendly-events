@@ -48,7 +48,7 @@ export const userSchema = new Schema<User, UserModel, UserMethods, {}, UserVirtu
     password: {
         type: String,
         minlength: 8,
-        maxlength: 24,
+        maxlength: 100,
         required: true
     },
 })
