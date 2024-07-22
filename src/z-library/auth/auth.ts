@@ -43,13 +43,19 @@ export class Authenticator{
         return passport.authenticate('jwt',{ session: false})
     }
 
-    public allowAdminUser = (req: Request, res: Response, next: NextFunction) =>{
-        const user:any = req.user
-        if(user.isAdmin){
-            next()
-        } else {
-            this.respondWithForbidden(res)
+    public allowAdminUser = (checkAdmin: (user:any) => boolean ) =>{
+
+        const handler =  (req: Request, res: Response, next: NextFunction) =>{
+            const user:any = req.user
+
+            if(checkAdmin(user)){
+                next()
+            } else {
+                this.respondWithForbidden(res)
+            }
         }
+
+        return handler
     }
 
     private respondWithForbidden = (res: Response) =>{
@@ -61,5 +67,5 @@ export class Authenticator{
 export const authenticator = new Authenticator()
 export interface Authenticatable{
     authenticate: Function, 
-    allowAdminUser: (req: Request, res: Response, next: NextFunction) => void
+    allowAdminUser: Function
 }
