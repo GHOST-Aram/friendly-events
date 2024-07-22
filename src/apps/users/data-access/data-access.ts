@@ -17,7 +17,7 @@ export class UsersDAL extends GenericDataAccess<UserModel, User>{
 
     public findWithPagination = async(paginator: Paginator)
     : Promise<HydratedUserDoc[]> => {
-        return await this.model.find({ password: 0 }).skip(paginator.skipDocs)
+        return await this.model.find({}, { password: 0 }).skip(paginator.skipDocs)
             .limit(paginator.limit)
     }
 }
