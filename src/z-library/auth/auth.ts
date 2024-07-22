@@ -9,8 +9,7 @@ import 'dotenv/config'
 export class Authenticator{
    
 
-    public configureStrategy = (
-        secretOrKey: string, authDbConnection: mongoose.Connection) =>{
+    public configureStrategy = (secretOrKey: string, authDbConnection: mongoose.Connection) =>{
         passport.use( new Strategy(
             {
                 secretOrKey: secretOrKey,
