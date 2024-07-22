@@ -2,6 +2,7 @@ import { NextFunction, Response, Request } from "express"
 import { DataAccess } from "../data-access/data-access"
 import 'dotenv/config'
 import { auth } from "../domain/authenticator"
+import { setAuthUserData } from "../../../utils/auth-user-data"
 
 export class AuthController{
 
@@ -31,13 +32,7 @@ export class AuthController{
                     if(!isValidPassword){
                         this.respondWithUnauthorised(res, 'Incorrect password.')
                     } else {
-                        const token = auth.issueToken({
-                            email: user.email,
-                            fullName: user.fullName,
-                            userGroup: user.userGroup,
-                            id: user._id ? user._id.toString() : user.id,
-                        }, secretOrkey )
-        
+                        const token = auth.issueToken(setAuthUserData(user), secretOrkey )
                         this.respondWithToken(token, res)  
                     }
                 } 

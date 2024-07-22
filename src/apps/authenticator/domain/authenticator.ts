@@ -8,7 +8,7 @@ export class Authenticator{
         return compareSync(incomingPassword, savedPassword)
     }
 
-    public issueToken = (user: User, secretOrkey: string): string =>{
+    public issueToken = (user: any, secretOrkey: string): string =>{
         return jwt.sign({
             ...user
         }, 
@@ -19,13 +19,6 @@ export class Authenticator{
             subject: user.id
         })
     }
-}
-
-interface User{
-    id: string
-    email: string,
-    fullName: string,
-    userGroup: string
 }
 
 export const auth = new Authenticator
