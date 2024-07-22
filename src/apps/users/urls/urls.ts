@@ -3,7 +3,7 @@ import { Router } from "express";
 import { validator, userValidators, patchValidators} from "./input-validation";
 import { Authenticatable, Authenticator } from "../../../z-library/auth/auth";
 import { uploadSingleFile } from "../../../z-library/uploads/upload";
-import { checkAdmin } from "../domain/permissions";
+import { checkAdmin } from "../../../utils/permissions";
 
 const router = Router()
 

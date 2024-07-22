@@ -22,13 +22,15 @@ class Authenticator implements Authenticatable{
         }
     } 
     
-    public allowAdminUser = (req: Request, res: Response, next: NextFunction) => {
-        const user: any = req.user
-        if(user.isAdmin){
-            next()
-        }
-        else{
-            res.status(403).json({ message: "Forbidden" })
+    public allowAdminUser =(adminChecker:(user:any) =>boolean) => {
+        return (req: Request, res: Response, next: NextFunction) => {
+            const user: any = req.user
+            if(adminChecker(user)){
+                next()
+            }
+            else{
+                res.status(403).json({ message: "Forbidden" })
+            }
         }
     }
 }
