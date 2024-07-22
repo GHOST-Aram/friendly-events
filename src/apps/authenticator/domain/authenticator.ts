@@ -24,8 +24,8 @@ export class Authenticator{
 interface User{
     id: string
     email: string,
-    name: string,
-    role: string
+    fullName: string,
+    userGroup: string
 }
 
 export const auth = new Authenticator
