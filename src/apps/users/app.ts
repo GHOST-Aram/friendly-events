@@ -6,15 +6,22 @@ import { DB } from "../../z-library/db/db";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
+import 'dotenv/config'
 
 let usersRouter: Router
+const usersDbName = process.env.USERSDB_NAME
+
 try {
-    const db = new DB(connection.switch('homenest-users'))
-    const UserModel = db.createModel('User', userSchema)
-    
-    const usersDAL = new UsersDAL(UserModel)
-    const controller = new UsersController(usersDAL, 'users')
-    usersRouter = routesWrapper(controller, authenticator)
+    if(usersDbName) {
+        const db = new DB(connection.switch(usersDbName))
+        const UserModel = db.createModel('User', userSchema)
+        
+        const usersDAL = new UsersDAL(UserModel)
+        const controller = new UsersController(usersDAL, 'users')
+        usersRouter = routesWrapper(controller, authenticator)
+    } else {
+        throw new Error("Database name not found in environment Variables")
+    }
     
 } catch (error: any) {
     console.log("Error occured while Switching to Users Database: \n", error.message)
