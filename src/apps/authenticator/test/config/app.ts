@@ -1,6 +1,6 @@
 import { AuthController } from "../../controller/controller";
 import { dataAccess } from "../mocks/data-access";
-import { routesWrapper } from "../../routes/urls";
+import { routesWrapper } from "../../urls/urls";
 import express from 'express'
 
 const app = express()
