@@ -27,13 +27,11 @@ try {
             authenticator.configureStrategy(secretOrKey, authDbConnection)
             authenticator.initialize(app)
         } else {
-           throw new Error(
-                'Authentication Secret Key is Undefined. '
-                +'Please provide all of them in enviroment variables')
+           throw new Error('Authentication Secret Key is Undefined In Environment variables.')
         }
     }
      else {
-        throw new Error('Database Connection String not Found')
+        throw new Error('Database Connection String not Found found in Environment Variables')
     }
    
 } catch (error: any) {
