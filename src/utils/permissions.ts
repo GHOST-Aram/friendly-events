@@ -1,3 +1,3 @@
-export const checkAdmin = (user: any): boolean =>{
+export const allowAdmin = (user: any): boolean =>{
     return user.userGroup === 'superuser'
 }

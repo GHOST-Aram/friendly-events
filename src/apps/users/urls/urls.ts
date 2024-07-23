@@ -3,7 +3,7 @@ import { Router } from "express";
 import { validator, userValidators, patchValidators} from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { uploadSingleFile } from "../../../z-library/uploads/upload";
-import { checkAdmin } from "../../../utils/permissions";
+import { allowAdmin } from "../../../utils/permissions";
 
 const router = Router()
 
@@ -19,7 +19,7 @@ export const routesWrapper = (
     
     router.get('/', 
         authenticator.authenticate(),
-        authenticator.allowAdminUser(checkAdmin),
+        authenticator.restrictAccess(allowAdmin),
         controller.getMany
     )
     
@@ -50,7 +50,7 @@ export const routesWrapper = (
     router.delete('/', controller.respondWithMethodNotAllowed)
     router.delete('/:id', 
         authenticator.authenticate(),
-        authenticator.allowAdminUser(checkAdmin),
+        authenticator.restrictAccess(allowAdmin),
         validator.handleValidationErrors,
         controller.respondWithMethodNotAllowed
     )

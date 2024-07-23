@@ -43,12 +43,12 @@ export class Authenticator{
         return passport.authenticate('jwt',{ session: false})
     }
 
-    public allowAdminUser = (checkAdmin: (user:any) => boolean ) =>{
+    public restrictAccess = (allowthisUserGroup: (user:any) => boolean ) =>{
 
         const handler =  (req: Request, res: Response, next: NextFunction) =>{
             const user:any = req.user
 
-            if(checkAdmin(user)){
+            if(allowthisUserGroup(user)){
                 next()
             } else {
                 this.respondWithForbidden(res)
