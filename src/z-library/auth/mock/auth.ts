@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { Authenticatable } from "../../../../z-library/auth/auth";
+import { Authenticator as Auth } from "../auth";
 
-class Authenticator implements Authenticatable{
+class Authenticator extends Auth{
 
     public authenticate = () =>{
     
@@ -10,8 +10,9 @@ class Authenticator implements Authenticatable{
 
             const user = {
                 "fullName": "Does",
-                "userGroup": "superuser",
                 "email": "johndoe@gmail.com",
+                "password": "$2b$10$zeG83Ol2WQPHwHSsn3dj2u0iyrS7pP//GjKJHGbs2nsJ7UoBPpH8G",
+                "userGroup": "superuser",
                  "_id": id ? id: "64c9e4f2df7cc072af2ac8a4",
                 "__v": 0    
             }
@@ -19,18 +20,6 @@ class Authenticator implements Authenticatable{
             next()
         }
     } 
-    
-    public allowAdminUser =(adminChecker:(user:any) =>boolean) => {
-        return (req: Request, res: Response, next: NextFunction) => {
-            const user: any = req.user
-            if(adminChecker(user)){
-                next()
-            }
-            else{
-                res.status(403).json({ message: "Forbidden" })
-            }
-        }
-    }
 }
 
 

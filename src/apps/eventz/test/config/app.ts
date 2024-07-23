@@ -3,7 +3,7 @@ import { routesWrapper } from "../../urls/urls";
 import express from "express"
 import { EventsDAL } from "../mocks/data-access";
 import { Event } from "../../data-access/model";
-import { authenticator } from "../mocks/auth";
+import { authenticator } from "../../../../z-library/auth/mock/auth";
 
 const app = express()
 

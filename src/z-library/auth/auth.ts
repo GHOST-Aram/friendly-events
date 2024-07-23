@@ -65,7 +65,3 @@ export class Authenticator{
 
 
 export const authenticator = new Authenticator()
-export interface Authenticatable{
-    authenticate: Function, 
-    allowAdminUser: Function
-}

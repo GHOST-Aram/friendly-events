@@ -1,12 +1,12 @@
 import { EventsController } from "../controller/controller";
 import { Router } from "express";
 import { validator, postValidators } from "./input-validation";
-import { Authenticatable, Authenticator } from "../../../z-library/auth/auth";
+import { Authenticator } from "../../../z-library/auth/auth";
 
 const router = Router()
 
 export const routesWrapper = (
-    controller: EventsController, authenticator: Authenticator | Authenticatable ) =>{
+    controller: EventsController, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 

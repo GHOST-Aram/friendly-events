@@ -1,14 +1,14 @@
 import { UsersController } from "../controller/controller";
 import { Router } from "express";
 import { validator, userValidators, patchValidators} from "./input-validation";
-import { Authenticatable, Authenticator } from "../../../z-library/auth/auth";
+import { Authenticator } from "../../../z-library/auth/auth";
 import { uploadSingleFile } from "../../../z-library/uploads/upload";
 import { checkAdmin } from "../../../utils/permissions";
 
 const router = Router()
 
 export const routesWrapper = (
-    controller: UsersController, authenticator: Authenticator | Authenticatable ) =>{
+    controller: UsersController, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
