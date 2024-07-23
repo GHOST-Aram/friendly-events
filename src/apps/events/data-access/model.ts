@@ -10,7 +10,12 @@ export interface Event{
         contentType: string
     }
     city: string
-    dateAndTime: string
+    date: string
+    time: {
+        start: string
+        end?: string
+        zone: string
+    }
     duration: string
     ageLimit: {
         min: number,
@@ -42,11 +47,24 @@ const eventSchema = new Schema<Event, EventModel>({
         type: String,
         required: true
     },
-    dateAndTime: {
+    date: {
         type: String,
         required: true
     },
-    duration: {
+    time: {
+        start: {
+            type: String,
+            required: true
+        },
+        end:  {
+            type: String,
+        },
+        zone: {
+            type: String,
+            required: true
+        }
+    },
+    duration:{
         type: String,
         required: true
     },
