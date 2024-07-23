@@ -2,7 +2,7 @@ import { User } from '../../data-access/model'
 
 export const validUserData: User = {
     fullName: 'John Doe',
-    userGroup: 'host',
+    userGroup: 'organizer',
     email: 'johndoe@gmail.com',
     password: 'password',
 }
