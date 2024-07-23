@@ -28,7 +28,7 @@ export interface Event{
 
 export type EventModel = Model<Event>
 
-const eventSchema = new Schema<Event, EventModel>({
+export const eventSchema = new Schema<Event, EventModel>({
     category: {
         type: String,
         required: true
