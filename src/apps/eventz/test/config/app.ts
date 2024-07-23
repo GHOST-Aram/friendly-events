@@ -4,7 +4,7 @@ import express from "express"
 import { EventsDAL } from "../mocks/data-access";
 import { Event } from "../../data-access/model";
 import { Authenticator } from "../../../../z-library/auth/mock/auth";
-import { user } from "../../../mock-user";
+import { user } from "../../../../z-library/auth/mock/mock-user";
 
 const app = express()
 
