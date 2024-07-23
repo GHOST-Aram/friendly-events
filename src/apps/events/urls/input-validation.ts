@@ -1,4 +1,3 @@
-import { ExpressValidator } from "express-validator";
 import { Validator } from "../../../z-library/validation/validator";
 
 class EventsValidator extends Validator{
