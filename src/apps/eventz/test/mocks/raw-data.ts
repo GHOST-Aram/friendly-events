@@ -7,8 +7,8 @@ export const validEventData: Event= {
     city: "Nairobi",
     date: "23 July 2024",
     time: {
-        start: "12:37:48 PM",
-        end: "12:37:48 PM",
+        start: "12:37 PM",
+        end: "15:37 PM",
         zone: "GMT+03:00"
     },
     duration: " 3 days",
