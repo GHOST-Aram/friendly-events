@@ -9,11 +9,10 @@ class Authenticator implements Authenticatable{
             const id = req.params.id
 
             const user = {
-                "first_name": "Does",
-                "last_name": "John",
+                "fullName": "Does",
                 "email": "johndoe@gmail.com",
                 "password": "$2b$10$zeG83Ol2WQPHwHSsn3dj2u0iyrS7pP//GjKJHGbs2nsJ7UoBPpH8G",
-                "isAdmin": true,
+                "userGroup": "superuser",
                  "_id": id ? id: "64c9e4f2df7cc072af2ac8a4",
                 "__v": 0    
             }
