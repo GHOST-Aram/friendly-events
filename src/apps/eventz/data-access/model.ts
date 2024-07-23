@@ -1,9 +1,10 @@
-import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { HydratedDocument, Model, ObjectId, Schema, model } from "mongoose"
 
 export interface Event{
     category: string
     venue: string
     title: string
+    organizer?: ObjectId,
     graphic?: {
         name: string,
         data: Buffer,
@@ -38,6 +39,11 @@ const eventSchema = new Schema<Event, EventModel>({
     },
 
     title: String,
+    organizer: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     graphic: {
         name: String,
         data: Buffer,
