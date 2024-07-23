@@ -1,8 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { EventsDataAccess } from "../data-access/data-access";
-import mongoose from "mongoose";
-import { createObjectId } from "../../../z-library/db/id";
+import { Paginator } from "../../../z-library/HTTP/http-response";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){
@@ -15,12 +14,24 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
         try {
             const newDocument = await this.dataAccess.createNew({
-                ...inputData, organizer: createObjectId(user._id as string)})
+                ...inputData, organizer: user._id })
 
             this.respondWithCreatedResource(newDocument, res)
         } catch (error) {
             next(error)
         }   
+    }
+
+    public getByOrganizerId = async(req: Request, res: Response, next: NextFunction) =>{
+        const paginator: Paginator = this.paginate(req) 
+        const organizerId = req.params.organizerId
+
+        try {
+            const documents = await this.dataAccess.findByOrgnizerId(organizerId, paginator)
+            this.respondWithFoundResource(documents, res)
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

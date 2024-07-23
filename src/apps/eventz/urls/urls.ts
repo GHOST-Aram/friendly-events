@@ -19,6 +19,8 @@ export const routesWrapper = (
     )
     
     router.get('/', controller.getMany )
+
+    router.get('/organizers/:organizerId', controller.getByOrganizerId)
     
     router.get('/:id', controller.getOne )
     

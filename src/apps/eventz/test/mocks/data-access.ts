@@ -50,4 +50,9 @@ export class EventsDAL extends EventsDataAccess{
 
         return mockUsers
     }
+
+    public findByOrgnizerId = async(organizerId: string, paginator: Paginator
+        ): Promise<HydratedEventDoc[]>=>{
+        return this.createMockUsersArray(paginator.limit)
+    }
 }
