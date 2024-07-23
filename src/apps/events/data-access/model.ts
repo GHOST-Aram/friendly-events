@@ -1,8 +1,8 @@
-import { HydratedDocument, Model, Schema, model, ObjectId } from "mongoose"
+import { HydratedDocument, Model, Schema, model } from "mongoose"
 
 export interface Event{
-    category: ObjectId
-    venue: ObjectId
+    category: string
+    venue: string
     title: string
     graphic?: {
         name: string,
@@ -24,13 +24,11 @@ export type EventModel = Model<Event>
 
 const eventSchema = new Schema<Event, EventModel>({
     category: {
-        type: Schema.Types.ObjectId,
-        ref: 'EventCategory',
+        type: String,
         required: true
     },
     venue: {
-        type: Schema.Types.ObjectId,
-        ref: 'Venue',
+        type: String,
         required: true
     },
 
