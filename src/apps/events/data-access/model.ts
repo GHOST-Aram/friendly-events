@@ -4,7 +4,11 @@ export interface Event{
     category: ObjectId
     venue: ObjectId
     title: string
-    graphic?: Buffer
+    graphic?: {
+        name: string,
+        data: Buffer,
+        contentType: string
+    }
     city: string
     dateAndTime: string
     duration: string
@@ -59,6 +63,9 @@ const eventSchema = new Schema<Event, EventModel>({
         type: Number,
         required: true
     }
-
 })
+
+export type HydratedEventDoc = HydratedDocument<Event>
+
+export const Event = model<Event, EventModel>('Event', eventSchema)
 
