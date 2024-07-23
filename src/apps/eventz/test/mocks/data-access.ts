@@ -6,6 +6,8 @@ import {
 } from "../../data-access/model"
 import { jest } from "@jest/globals"
 import { EventsDataAccess } from "../../data-access/data-access"
+import { validEventData } from "./raw-data"
+import { HydratedDocument } from "mongoose"
 
 const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
@@ -14,6 +16,7 @@ export class EventsDAL extends EventsDataAccess{
     constructor(model: EventModel){
         super(model)
     }
+
     public createNew = jest.fn(
 
         async(eventData: Event): Promise<HydratedEventDoc> =>{
@@ -22,4 +25,29 @@ export class EventsDAL extends EventsDataAccess{
             return event
         }
     )
+
+    public findByReferenceId = async(refId: string):Promise<HydratedEventDoc | null> =>{
+        if(refId === ID_OF_EXISTING_DOCUMENT){
+            return new this.model(validEventData)  
+        } 
+        return null
+    }
+
+    public findWithPagination = async (paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
+        return this.createMockUsersArray(paginator.limit)
+    }
+
+    private createMockUsersArray = (limit: number) =>{
+
+        const mockUsers: HydratedEventDoc[] = []
+
+        let userCount = 0
+        while(userCount < limit){
+            mockUsers.push(new this.model(validEventData))
+
+            userCount ++
+        }
+
+        return mockUsers
+    }
 }
