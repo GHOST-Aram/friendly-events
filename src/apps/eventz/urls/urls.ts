@@ -2,6 +2,7 @@ import { EventsController } from "../controller/controller";
 import { Router } from "express";
 import { validator, postValidators } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
+import { permission } from "../../../utils/permissions";
 
 const router = Router()
 
@@ -10,6 +11,8 @@ export const routesWrapper = (
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
+        authenticator.authenticate(),
+        authenticator.restrictAccess(permission.allowEventOrganizer),
         postValidators ,
         validator.handleValidationErrors,
         controller.addNew
