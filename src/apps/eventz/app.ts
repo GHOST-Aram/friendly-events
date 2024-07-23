@@ -24,7 +24,7 @@ try {
     }
     
 } catch (error: any) {
-    console.log("Error occured while Switching to Events Database: \n", error.message)
+    console.warn("Error occured while Switching to Events Database: ", error.message)
 }
 
 export { eventsRouter }

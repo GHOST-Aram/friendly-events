@@ -9,12 +9,12 @@ export class Connection {
         
         this.initialConnection.on('error', (error) => {
             if(error){
-                console.log('Database connection failed')
+                console.warn('Database connection failed')
             }
         })
 
         process.on('unhandledRejection', (reason: any, Promise) =>{
-            console.log('Reason for failure - ', reason.message)
+            console.warn('Reason for failure - ', reason.message)
         })
 
         this.initialConnection.on('connected', () => {

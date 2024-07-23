@@ -24,7 +24,7 @@ try {
     }
     
 } catch (error: any) {
-    console.log("Error occured while Switching to Users Database: \n", error.message)
+    console.warn("Error occured while Switching to Users Database: ", error.message)
 }
 
 export { usersRouter }

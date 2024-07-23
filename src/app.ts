@@ -11,7 +11,7 @@ try {
     app.use('/events', eventsRouter)
     
 } catch (error:any) {
-    console.log("Error occured while configuring routes: \n", error.message)
+    console.warn("Error occured while configuring routes: ", error.message)
 }
 
 

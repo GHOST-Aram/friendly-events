@@ -35,7 +35,7 @@ try {
     }
    
 } catch (error: any) {
-    console.log(error.message)
+    console.warn(error.message)
 }
 
 const PORT = Number(process.env.PORT) || 8000
