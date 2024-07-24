@@ -9,25 +9,6 @@ class UserValidator extends Validator{
             return value === 'attendee' || value === 'organizer' || value === 'superuser'
         }).withMessage('User Group can only be  \'host\' or \'attendee\' or \'superuser\'')
     }
-
-    public validateFile = (req: Request, res: Response, next: NextFunction) =>{
-        const file = req.file
-        if(file){
-            const filetypes = /jpeg|jpg|png|jfif|avif/;
-            const mimetype = filetypes.test(file.mimetype);
-            const extname = filetypes.test(file.originalname.split('.').pop() as string);
-        
-            if (!mimetype || !extname || !file.buffer) {
-              return res.status(400).json(
-                { 
-                    errors: ['Invalid file type. Only JPEG, PNG, JFIF and AVIF are allowed.'],
-                    message: 'Inavalid input'
-                });
-            }
-        } 
-
-        next()
-    }
 }
 
 const validator = new UserValidator()

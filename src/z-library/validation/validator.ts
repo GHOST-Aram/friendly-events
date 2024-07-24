@@ -187,6 +187,25 @@ export class Validator {
         }
     }
 
+    public validateFile = (req: Request, res: Response, next: NextFunction) =>{
+        const file = req.file
+        if(file){
+            const filetypes = /jpeg|jpg|png|jfif|avif/;
+            const mimetype = filetypes.test(file.mimetype);
+            const extname = filetypes.test(file.originalname.split('.').pop() as string);
+        
+            if (!mimetype || !extname || !file.buffer) {
+              return res.status(400).json(
+                { 
+                    errors: ['Invalid file type. Only JPEG, PNG, JFIF and AVIF are allowed.'],
+                    message: 'Inavalid input'
+                });
+            }
+        } 
+
+        next()
+    }
+    
     public handleValidationErrors = (
         req: Request, res: Response, next: NextFunction 
         ) =>{
