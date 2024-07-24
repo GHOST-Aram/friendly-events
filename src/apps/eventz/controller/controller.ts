@@ -26,7 +26,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         }   
     }
 
-    public getByOrganizerId = async(req: Request, res: Response, next: NextFunction) =>{
+    public getByOrganizer = async(req: Request, res: Response, next: NextFunction) =>{
         const paginator: Paginator = this.paginate(req) 
         const organizerId = req.params.organizerId
 

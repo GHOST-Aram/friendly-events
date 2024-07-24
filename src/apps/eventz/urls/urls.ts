@@ -23,7 +23,7 @@ export const routesWrapper = (
     
     router.get('/', controller.getMany )
 
-    router.get('/organizers/:organizerId', controller.getByOrganizerId)
+    router.get('/organizers/:organizerId', controller.getByOrganizer)
     
     router.get('/:id', controller.getOne )
     
