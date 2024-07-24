@@ -44,7 +44,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         patchValidators, 
         validator.handleValidationErrors,
-        controller.respondWithMethodNotAllowed
+        controller.modifyOne
     )
 
     router.delete('/', controller.respondWithMethodNotAllowed)
