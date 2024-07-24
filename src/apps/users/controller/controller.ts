@@ -116,7 +116,7 @@ export class UsersController extends GenericController<UsersDAL>{
                     updateDoc)
     
                 if(updatedDoc){
-                    this.respondWithModifiedResource(updatedDoc, res)
+                    this.respondWithUpdatedResource(updatedDoc, res)
                 } else{
                     this.respondWithNotFound(res)
                 }
