@@ -11,6 +11,8 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
+        uploadSingleFile('profilePicture'),
+        validator.validateFile,
         userValidators ,
         validator.handleValidationErrors,
         controller.addNew
@@ -30,6 +32,8 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
+        uploadSingleFile('profilePicture'),
+        validator.validateFile,
         authenticator.authenticate(),
         userValidators, 
         validator.handleValidationErrors,
