@@ -98,6 +98,35 @@ export class UsersController extends GenericController<UsersDAL>{
         }
     }
 
+    public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
+        const referenceId = req.params.id
+        const reqBody = req.body
+        const imageFile =  req.file as Express.Multer.File
+
+        const currentUser:any = req.user
+        
+        if(currentUser._id.toString() !== referenceId){
+            this.respondWithForbidden(res)
+        } else {
+            
+            try {
+                const updateDoc = this.formatUserData(reqBody, imageFile)
+                
+                const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
+                    updateDoc)
+    
+                if(updatedDoc){
+                    this.respondWithModifiedResource(updatedDoc, res)
+                } else{
+                    this.respondWithNotFound(res)
+                }
+    
+            } catch (error) {
+                next(error)
+            }
+        }
+    }
+
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
         const referenceId = req.params.id
         const currentUser:any = req.user
