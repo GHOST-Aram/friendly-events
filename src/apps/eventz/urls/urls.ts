@@ -3,6 +3,7 @@ import { Router } from "express";
 import { validator, postValidators } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
+import { uploadSingleFile } from "../../../z-library/uploads/upload";
 
 const router = Router()
 
@@ -13,6 +14,8 @@ export const routesWrapper = (
     router.post('/', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventOrganizer),
+        uploadSingleFile('graphic'),
+        validator.validateFile,
         postValidators ,
         validator.handleValidationErrors,
         controller.addNew
