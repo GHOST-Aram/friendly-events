@@ -17,21 +17,22 @@ export class EventsDAL extends EventsDataAccess{
         super(model)
     }
 
-    public createNew = jest.fn(
-
-        async(eventData: Event): Promise<HydratedEventDoc> =>{
-
+    public createNew = jest.fn(async(eventData: Event): Promise<HydratedEventDoc> =>{
             const event = new this.model(eventData)  
             return event
         }
     )
 
     public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedEventDoc | null> =>{
-        if(refId === ID_OF_EXISTING_DOCUMENT){
+        return this.documentOrNull(refId)
+    })
+
+    private documentOrNull = (id: string) =>{
+        if(id === ID_OF_EXISTING_DOCUMENT){
             return new this.model(validData)  
         } 
         return null
-    })
+    }
 
     public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
         return this.createMockUsersArray(paginator.limit)
@@ -57,9 +58,10 @@ export class EventsDAL extends EventsDataAccess{
     })
 
     public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<Event> | null> =>{
-        if(id === ID_OF_EXISTING_DOCUMENT){
-            return new this.model(updateDoc)  
-        } 
-        return null
+        return this.documentOrNull(id)
     })
+
+    public findByIdAndDelete = async(id: string): Promise<HydratedDocument<Event> | null> =>{
+        return this.documentOrNull(id)
+    }
 }

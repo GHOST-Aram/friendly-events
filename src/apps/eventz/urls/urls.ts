@@ -50,7 +50,11 @@ export const routesWrapper = (
     )
 
     router.delete('/', controller.respondWithMethodNotAllowed)
-    router.delete('/:id', controller.respondWithMethodNotAllowed)
+    router.delete('/:id',
+        authenticator.authenticate(),
+        authenticator.restrictAccess(permission.allowEventOrganizer),
+        controller.deleteOne
+    )
 
     return router
 }
