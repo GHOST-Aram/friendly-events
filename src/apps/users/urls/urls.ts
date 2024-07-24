@@ -52,7 +52,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowAdmin),
         validator.handleValidationErrors,
-        controller.respondWithMethodNotAllowed
+        controller.deleteOne
     )
 
     return router
