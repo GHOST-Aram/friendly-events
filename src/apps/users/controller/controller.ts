@@ -21,7 +21,7 @@ export class UsersController extends GenericController<UsersDAL>{
             if(user)
                 this.respondWithConflict(res)
             else {
-                const userData = await domainData.formatData(data, imageFile)
+                const userData = await domainData.formatInput(data, imageFile)
 
                 const user = await this.dataAccess.createNew(userData)
 
@@ -71,7 +71,7 @@ export class UsersController extends GenericController<UsersDAL>{
         } else {
             
             try {
-                const updateDoc = domainData.formatData(reqBody, imageFile)
+                const updateDoc = domainData.formatInput(reqBody, imageFile)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
@@ -100,7 +100,7 @@ export class UsersController extends GenericController<UsersDAL>{
         } else {
             
             try {
-                const updateDoc = domainData.formatData(reqBody, imageFile)
+                const updateDoc = domainData.formatInput(reqBody, imageFile)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)

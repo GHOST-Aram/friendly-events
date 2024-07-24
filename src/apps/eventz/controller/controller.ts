@@ -15,7 +15,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const body = req.body
 
         const inputData = {...body, organizer: user._id }
-        const eventData = domainData.formatData(inputData, file)
+        const eventData = domainData.formatInput(inputData, file)
 
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
