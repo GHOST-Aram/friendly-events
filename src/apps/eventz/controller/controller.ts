@@ -2,8 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { EventsDataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
-import { Event } from "../data-access/model";
-import { createFileBuffer } from "../../../z-library/uploads/file-buffer";
+import { eventData as domainData } from "../domain/data";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){
@@ -16,7 +15,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const body = req.body
 
         const inputData = {...body, organizer: user._id }
-        const eventData = this.formatEventData(inputData, file)
+        const eventData = domainData.formatData(inputData, file)
 
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
@@ -25,11 +24,6 @@ export class EventsController extends GenericController<EventsDataAccess>{
         } catch (error) {
             next(error)
         }   
-    }
-
-    private formatEventData = (inputData: any, file: Express.Multer.File): Event => {
-        const eventData: Event = inputData
-        return file? { ...eventData, graphic: createFileBuffer(file) } : eventData
     }
 
     public getByOrganizerId = async(req: Request, res: Response, next: NextFunction) =>{

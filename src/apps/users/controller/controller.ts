@@ -1,10 +1,8 @@
 import { Response, Request, NextFunction } from "express";
 import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases/generic-controller";
-import { hash } from "bcrypt";
-import { User } from "../data-access/model";
 import { Paginator } from "../../../z-library/HTTP/http-response";
-import { createFileBuffer } from "../../../z-library/uploads/file-buffer";
+import { domainData } from "../domain/data";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -23,7 +21,7 @@ export class UsersController extends GenericController<UsersDAL>{
             if(user)
                 this.respondWithConflict(res)
             else {
-                const userData = await this.formatUserData(data, imageFile)
+                const userData = await domainData.formatData(data, imageFile)
 
                 const user = await this.dataAccess.createNew(userData)
 
@@ -32,14 +30,6 @@ export class UsersController extends GenericController<UsersDAL>{
         } catch (error) {
             next(error)
         }
-    }
-
-    private formatUserData = async(updateDoc: any, file: Express.Multer.File): Promise<User> =>{
-        const { fullName, email, password, userGroup } = updateDoc
-
-        const userData = { fullName, email, userGroup, password: await hash(password, 10) }
-
-        return file ? { ...userData, profilePicture: createFileBuffer(file) } : userData  
     }
 
     public getOne = async(req: Request, res: Response, next: NextFunction): Promise<void> =>{
@@ -81,7 +71,7 @@ export class UsersController extends GenericController<UsersDAL>{
         } else {
             
             try {
-                const updateDoc = this.formatUserData(reqBody, imageFile)
+                const updateDoc = domainData.formatData(reqBody, imageFile)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
@@ -110,7 +100,7 @@ export class UsersController extends GenericController<UsersDAL>{
         } else {
             
             try {
-                const updateDoc = this.formatUserData(reqBody, imageFile)
+                const updateDoc = domainData.formatData(reqBody, imageFile)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
