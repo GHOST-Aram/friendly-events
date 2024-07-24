@@ -15,7 +15,8 @@ class EventsValidator extends Validator{
     }
 
     public validateTimeZone = (path: string, { required }: { required: boolean }) =>{
-        return this.validateString(path, { required }).matches(/^GMT[\+|\-][0-9]{2}\:[0-9]{2}$/)
+        return this.validateString(path, { required })
+        .matches(/^GMT[\+|\-][0-9]{2}\:[0-9]{2}$/)
             .withMessage(
                 'Time Zone must be in the form \'GMT+hrs:mins\' or \'GMT-hrs:mins\' '+
                 'eg GMT+03:00')
@@ -23,8 +24,8 @@ class EventsValidator extends Validator{
 
     public validateDuration = (path: string, { required }: { required: boolean }) =>{
         return this.validateString(path, { required })
-            .matches(/[0-9]{2}\s[days|hours|minutes]/i).withMessage(
-                'Duration must be in the for \'X days or X hours or X minutes\'')
+            .matches(/^[0-9]{1,2}\sdays|hours|minutes$/i)
+            .withMessage('Duration must be in the for \'X days or X hours or X minutes\'')
     }
 }
 
@@ -35,11 +36,11 @@ export const postValidators = [
     validator.validateString('venue', { required: true }),
     validator.validateString('title', { required: true }),
     validator.validateString('city', { required: true }),
-    // validator.validateDate('date', { required: true }),
-    // validator.validateTime('time.start', {required: true }),
-    // validator.validateTime('time.end', {required: true }),
-    // validator.validateTimeZone('time.zone', {required: true }),
-    // validator.validateDuration('duration', { required: true }),
+    validator.validateDate('date', { required: true }),
+    validator.validateTime('time.start', {required: true }),
+    validator.validateTime('time.end', {required: true }),
+    validator.validateTimeZone('time.zone', {required: true }),
+    validator.validateDuration('duration', { required: true }),
     validator.validateNumber('availableTickets', { required: true }),
     validator.validateNumber('ticketPrice', { required: true }),
     validator.validateNumber('ageLimit.min', { required: true }),
