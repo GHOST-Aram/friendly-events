@@ -5,7 +5,7 @@ import {
     EventModel
 } from "../../data-access/model"
 import { EventsDataAccess } from "../../data-access/data-access"
-import { validEventData } from "./raw-data"
+import { validData } from "./raw-data"
 import { HydratedDocument } from "mongoose"
 import { jest } from "@jest/globals"
 
@@ -28,7 +28,7 @@ export class EventsDAL extends EventsDataAccess{
 
     public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedEventDoc | null> =>{
         if(refId === ID_OF_EXISTING_DOCUMENT){
-            return new this.model(validEventData)  
+            return new this.model(validData)  
         } 
         return null
     })
@@ -43,7 +43,7 @@ export class EventsDAL extends EventsDataAccess{
 
         let userCount = 0
         while(userCount < limit){
-            mockUsers.push(new this.model(validEventData))
+            mockUsers.push(new this.model(validData))
 
             userCount ++
         }

@@ -16,7 +16,7 @@ describe('POST events', () =>{
 
     test('Responds with validation errors (status 400): Invalid input.', 
         async() =>{
-            const response = await request(app).post('/events').send(data.invalidEventData)
+            const response = await request(app).post('/events').send(data.invalidData)
 
             assert.respondsWithBadRequest(response)
             assert.respondsWithValidationErrors(response)
@@ -26,7 +26,7 @@ describe('POST events', () =>{
 
     test('Responds with created resource (status 201): Operation Success.', 
         async() =>{
-            const response = await request(app).post('/events').send(data.validEventData)
+            const response = await request(app).post('/events').send(data.validData)
             assert.respondsWithCreatedResource(response)
         }
     )  

@@ -1,6 +1,6 @@
 import { Event } from '../../data-access/model'
 
-export const validEventData: Event= {
+export const validData: Event= {
     category: "Music Concert",
     venue: "Quiver Lounge",
     title:"Ramogi Night",
@@ -20,7 +20,7 @@ export const validEventData: Event= {
     ticketPrice: 2500
 }
 
-export const invalidEventData = {
+export const invalidData = {
     category: "",
     title:"",
     city: "",
