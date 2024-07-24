@@ -4,10 +4,10 @@ import {
     Event, 
     EventModel
 } from "../../data-access/model"
-import { jest } from "@jest/globals"
 import { EventsDataAccess } from "../../data-access/data-access"
 import { validEventData } from "./raw-data"
 import { HydratedDocument } from "mongoose"
+import { jest } from "@jest/globals"
 
 const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
@@ -26,16 +26,16 @@ export class EventsDAL extends EventsDataAccess{
         }
     )
 
-    public findByReferenceId = async(refId: string):Promise<HydratedEventDoc | null> =>{
+    public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedEventDoc | null> =>{
         if(refId === ID_OF_EXISTING_DOCUMENT){
             return new this.model(validEventData)  
         } 
         return null
-    }
+    })
 
-    public findWithPagination = async (paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
+    public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
         return this.createMockUsersArray(paginator.limit)
-    }
+    })
 
     private createMockUsersArray = (limit: number) =>{
 
@@ -51,8 +51,8 @@ export class EventsDAL extends EventsDataAccess{
         return mockUsers
     }
 
-    public findByOrgnizerId = async(organizerId: string, paginator: Paginator
+    public findByOrganizerId = jest.fn(async(organizerId: string, paginator: Paginator
         ): Promise<HydratedEventDoc[]>=>{
         return this.createMockUsersArray(paginator.limit)
-    }
+    })
 }
