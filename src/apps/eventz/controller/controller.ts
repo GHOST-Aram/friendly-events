@@ -46,7 +46,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
         const inputData: Event = { ...reqBody, organizer: user._id}
         const updateDoc = domainData.formatInput(inputData, file)
-        
+
         try {
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                 updateDoc)
@@ -54,8 +54,31 @@ export class EventsController extends GenericController<EventsDataAccess>{
             if(updatedDoc){
                 this.respondWithUpdatedResource(updatedDoc, res)
             } else{
-                const newDoc = await this.dataAccess.createNew(updateDoc)
                 this.addNew(req, res, next)
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
+        const file =  req.file as Express.Multer.File
+        const referenceId = req.params.id
+        const user:any =  req.user
+        const reqBody = req.body
+
+        const inputData: Event = { ...reqBody, organizer: user._id}
+        const updateDoc = domainData.formatInput(inputData, file)
+
+        try {
+            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
+                updateDoc)
+
+            if(updatedDoc){
+                this.respondWithUpdatedResource(updatedDoc, res)
+            } else{
+                this.respondWithNotFound(res)
             }
 
         } catch (error) {

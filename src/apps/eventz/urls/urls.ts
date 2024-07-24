@@ -39,7 +39,15 @@ export const routesWrapper = (
     )
     
     router.patch('/', controller.respondWithMethodNotAllowed)
-    router.patch('/:id', controller.respondWithMethodNotAllowed)
+    router.patch('/:id', 
+        authenticator.authenticate(),
+        authenticator.restrictAccess(permission.allowEventOrganizer),
+        uploadSingleFile('graphic'),
+        validator.validateFile,
+        patchValidators,
+        validator.handleValidationErrors,
+        controller.modifyOne
+    )
 
     router.delete('/', controller.respondWithMethodNotAllowed)
     router.delete('/:id', controller.respondWithMethodNotAllowed)
