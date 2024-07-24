@@ -2,7 +2,11 @@ import { compare, hash } from "bcrypt"
 import { HydratedDocument, Model, Schema, model } from "mongoose"
 
 export interface User{
-    profilePicture?: Buffer
+    profilePicture?: {
+        name: string,
+        data: Buffer,
+        contentType: string
+    }
     pictureUrl?: string
     fullName: string
     userGroup: string
