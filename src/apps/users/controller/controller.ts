@@ -2,8 +2,9 @@ import { Response, Request, NextFunction } from "express";
 import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { hash } from "bcrypt";
-import { HydratedUserDoc } from "../data-access/model";
+import { User } from "../data-access/model";
 import { Paginator } from "../../../z-library/HTTP/http-response";
+import { createFileBuffer } from "../../../z-library/uploads/file-buffer";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -13,20 +14,32 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const userData = req.body
+        const data = req.body
+        const imageFile = req.file as Express.Multer.File
 
         try {
-            const user = await this.dataAccess.findByEmail(userData.email)
+            const user = await this.dataAccess.findByEmail(data.email)
 
             if(user)
                 this.respondWithConflict(res)
             else {
+                const userData = await this.formatUserData(data, imageFile)
+
                 const user = await this.dataAccess.createNew(userData)
+
                 this.respondWithCreatedResource(user, res)
             }
         } catch (error) {
             next(error)
         }
+    }
+
+    private formatUserData = async(updateDoc: any, file: Express.Multer.File): Promise<User> =>{
+        const { fullName, email, password, userGroup } = updateDoc
+
+        const userData = { fullName, email, userGroup, password: await hash(password, 10) }
+
+        return file ? { ...userData, profilePicture: createFileBuffer(file) } : userData  
     }
 
     public getOne = async(req: Request, res: Response, next: NextFunction): Promise<void> =>{
@@ -59,6 +72,7 @@ export class UsersController extends GenericController<UsersDAL>{
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
         const reqBody = req.body
+        const imageFile =  req.file as Express.Multer.File
 
         const currentUser:any = req.user
         
@@ -67,7 +81,7 @@ export class UsersController extends GenericController<UsersDAL>{
         } else {
             
             try {
-                const updateDoc = this.formatUpdateDoc(reqBody)
+                const updateDoc = this.formatUserData(reqBody, imageFile)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
@@ -81,18 +95,6 @@ export class UsersController extends GenericController<UsersDAL>{
             } catch (error) {
                 next(error)
             }
-        }
-    }
-
-    private formatUpdateDoc = async(updateDoc: any) =>{
-        const { fullName, email, password, role, isAdmin } = updateDoc
-        
-        return {
-            fullName,
-            email,
-            role,
-            password: await hash(password, 10),
-            isAdmin,
         }
     }
 
