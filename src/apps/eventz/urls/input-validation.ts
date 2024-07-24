@@ -55,7 +55,7 @@ export const patchValidators = [
     validator.validateTime('time.start', {required: false }),
     validator.validateTime('time.end', {required: false }),
     validator.validateTimeZone('time.zone', { required: false }),
-    validator.validateDuration('date',{ required: false }),
+    validator.validateDuration('duration',{ required: false }),
     validator.validateNumber('availableTickets', { required: false }),
     validator.validateNumber('ticketPrice', { required: false }),
     validator.validateNumber('ageLimit.min', { required: false }),

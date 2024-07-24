@@ -55,4 +55,11 @@ export class EventsDAL extends EventsDataAccess{
         ): Promise<HydratedEventDoc[]>=>{
         return this.createMockUsersArray(paginator.limit)
     })
+
+    public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<Event> | null> =>{
+        if(id === ID_OF_EXISTING_DOCUMENT){
+            return new this.model(updateDoc)  
+        } 
+        return null
+    })
 }
