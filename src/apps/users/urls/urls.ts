@@ -7,8 +7,7 @@ import { permission } from "../../../utils/permissions";
 
 const router = Router()
 
-export const routesWrapper = (
-    controller: UsersController, authenticator: Authenticator ) =>{
+export const routesWrapper = (controller: UsersController, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
@@ -39,9 +38,9 @@ export const routesWrapper = (
     
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
+        authenticator.authenticate(),
         uploadSingleFile('profilePicture'),
         validator.validateFile,
-        authenticator.authenticate(),
         patchValidators, 
         validator.handleValidationErrors,
         controller.modifyOne
