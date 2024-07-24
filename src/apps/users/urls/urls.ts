@@ -34,7 +34,7 @@ export const routesWrapper = (
         authenticator.authenticate(),
         userValidators, 
         validator.handleValidationErrors,
-        controller.respondWithMethodNotAllowed
+        controller.updateOne
     )
     
     router.patch('/', controller.respondWithMethodNotAllowed)
