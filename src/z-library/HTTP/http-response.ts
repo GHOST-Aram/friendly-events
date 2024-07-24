@@ -53,16 +53,16 @@ export class HttpResponse{
 
     public respondWithModifiedResource = (item: HydratedDocument<Object>, res: Response) =>{
         res.location(`/${this.microserviceName}/${item.id}`)
-        res.status(200).json({ message: 'Modified', item } )
+        res.status(200).json(item)
     } 
 
     public respondWithUpdatedResource = (resource: HydratedDocument<Object>, res: Response) =>{
         res.location(`/${this.microserviceName}/${resource.id}`)
-        res.status(200).json({ message: 'Updated', item: resource})
+        res.status(200).json(resource)
     }
 
     public respondWithDeletedResource = (id: string, res: Response) =>{
-        res.status(200).json({ message: 'Deleted',id })
+        res.status(200).json(id)
     }
 
     public respondWithForbidden = (res: Response, reason?:string) =>{

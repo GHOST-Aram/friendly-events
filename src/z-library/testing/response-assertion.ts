@@ -71,16 +71,12 @@ export class ResponseAssertion{
     }
 
     public respondsWithModifedResource = (response: Response) =>{
-        expect(response.body.message).toMatch(/modified/i)
-        expect(response.body).toHaveProperty('item')
-        expect(response.body.item).toHaveProperty('_id')
+        expect(response.body).toHaveProperty('_id')
         expect(response.header.location).toMatch(/^\/\w+(?:-\w+)*\/[0-9a-fA-F]{24}$/)
     }
     
     public respondsWithUpdatedResource = (response: Response) => {
-        expect(response.body.message).toMatch(/updated/i)
-        expect(response.body).toHaveProperty('item')
-        expect(response.body.item).toHaveProperty('_id')
+        expect(response.body).toHaveProperty('_id')
         expect(response.header.location).toMatch(/^\/\w+(?:-\w+)*\/[0-9a-fA-F]{24}$/)
     }
 
@@ -90,8 +86,7 @@ export class ResponseAssertion{
     }
 
     public respondsWithDeletedResource = (response: Response) =>{
-        expect(response.body.id).toMatch(/^[a-fA-F0-9]{24}$/)
-        expect(response.body.message).toMatch(/deleted/i)
+        expect(response.body).toMatch(/^[a-fA-F0-9]{24}$/)
     }
 
     public respondsWithToken = (response: Response) => {
