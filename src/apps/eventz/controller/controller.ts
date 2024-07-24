@@ -27,7 +27,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const organizerId = req.params.organizerId
 
         try {
-            const documents = await this.dataAccess.findByOrgnizerId(organizerId, paginator)
+            const documents = await this.dataAccess.findByOrganizerId(organizerId, paginator)
             this.respondWithFoundResource(documents, res)
         } catch (error) {
             next(error)
