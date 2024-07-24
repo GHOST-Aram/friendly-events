@@ -1,6 +1,6 @@
 import { EventsController } from "../controller/controller";
 import { Router } from "express";
-import { validator, postValidators, patchValidators } from "./input-validation";
+import { validator, validationChains } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
 import { fileUploader } from "../../../z-library/uploads/upload";
@@ -16,7 +16,7 @@ export const routesWrapper = (
         authenticator.restrictAccess(permission.allowEventOrganizer),
         fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
-        postValidators ,
+        validationChains.validatePostData,
         validator.handleValidationErrors,
         controller.addNew
     )
@@ -33,7 +33,7 @@ export const routesWrapper = (
         authenticator.restrictAccess(permission.allowEventOrganizer),
         fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
-        patchValidators,
+        validationChains.validatePostData,
         validator.handleValidationErrors,
         controller.updateOne
     )
@@ -44,7 +44,7 @@ export const routesWrapper = (
         authenticator.restrictAccess(permission.allowEventOrganizer),
         fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
-        patchValidators,
+        validationChains.validatePatchData,
         validator.handleValidationErrors,
         controller.modifyOne
     )

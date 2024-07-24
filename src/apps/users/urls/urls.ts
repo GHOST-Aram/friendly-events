@@ -1,6 +1,6 @@
 import { UsersController } from "../controller/controller";
 import { Router } from "express";
-import { validator, userValidators, patchValidators} from "./input-validation";
+import { validator, validationChains} from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { fileUploader } from "../../../z-library/uploads/upload";
 import { permission } from "../../../utils/permissions";
@@ -13,7 +13,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.post('/', 
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
-        userValidators ,
+        validationChains.validatePostData ,
         validator.handleValidationErrors,
         controller.addNew
     )
@@ -35,7 +35,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
         authenticator.authenticate(),
-        userValidators, 
+        validationChains.validatePostData, 
         validator.handleValidationErrors,
         controller.updateOne
     )
@@ -45,7 +45,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
         authenticator.authenticate(),
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
-        patchValidators, 
+        validationChains.validatePatchData, 
         validator.handleValidationErrors,
         controller.modifyOne
     )

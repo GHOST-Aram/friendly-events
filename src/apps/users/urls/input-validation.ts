@@ -12,7 +12,7 @@ class UserValidator extends Validator{
 
 const validator = new UserValidator()
 
-export const userValidators = [
+const validatePostData = [
     validator.validateUserGroup('userGroup',{ required: true }),
     validator.validateName('fullName', { required: true}),
     validator.validateString('password', { required: true}),
@@ -20,7 +20,7 @@ export const userValidators = [
     validator.validateUrl('pictureUrl', {required: false })
 ]
 
-export const patchValidators = [
+const validatePatchData = [
     validator.validateUserGroup('userGroup',{ required:false }),
     validator.validateName('fullName', { required: false}),
     validator.validateString('email', { required: false}),
@@ -29,4 +29,6 @@ export const patchValidators = [
 
 ]
 
+export const validationChains = { validatePostData, validatePatchData }
+ 
 export { validator }

@@ -29,9 +29,9 @@ class EventsValidator extends Validator{
     }
 }
 
-export const validator = new EventsValidator()
+const validator = new EventsValidator()
 
-export const postValidators = [
+const validatePostData = [
     validator.validateString('category', { required: true }),
     validator.validateString('venue', { required: true }),
     validator.validateString('title', { required: true }),
@@ -46,7 +46,7 @@ export const postValidators = [
     validator.validateNumber('ageLimit.min', { required: true }),
     validator.validateNumber('ageLimit.max', { required: true }),
 ]
-export const patchValidators = [
+const validatePatchData = [
     validator.validateString('category', { required: false }),
     validator.validateString('venue', { required: false }),
     validator.validateString('title', { required: false }),
@@ -62,3 +62,5 @@ export const patchValidators = [
     validator.validateNumber('ageLimit.max', { required: false }),
 ]
 
+export const validationChains = { validatePostData, validatePatchData }
+export { validator }
