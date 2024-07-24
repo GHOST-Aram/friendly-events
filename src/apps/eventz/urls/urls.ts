@@ -3,7 +3,7 @@ import { Router } from "express";
 import { validator, postValidators, patchValidators } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
-import { uploadSingleFile } from "../../../z-library/uploads/upload";
+import { fileUploader } from "../../../z-library/uploads/upload";
 
 const router = Router()
 
@@ -14,7 +14,7 @@ export const routesWrapper = (
     router.post('/', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventOrganizer),
-        uploadSingleFile('graphic'),
+        fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
         postValidators ,
         validator.handleValidationErrors,
@@ -31,7 +31,7 @@ export const routesWrapper = (
     router.put('/:id', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventOrganizer),
-        uploadSingleFile('graphic'),
+        fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
         patchValidators,
         validator.handleValidationErrors,
@@ -42,7 +42,7 @@ export const routesWrapper = (
     router.patch('/:id', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventOrganizer),
-        uploadSingleFile('graphic'),
+        fileUploader.uploadSingleFile('graphic'),
         validator.validateFile,
         patchValidators,
         validator.handleValidationErrors,

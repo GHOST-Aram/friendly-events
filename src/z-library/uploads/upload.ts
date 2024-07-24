@@ -1,13 +1,23 @@
-import multer from 'multer'
+import multer, { Multer, StorageEngine } from 'multer'
 
-const storage = multer.memoryStorage();
-  
-const upload = multer({ storage });
+class FileUploader {
 
-export const uploadSingleFile = (name: string) =>{
-    return upload.single(name)
+    private storage: StorageEngine
+    public uploader: Multer
+
+    constructor(){
+        this.storage = multer.memoryStorage()
+        this.uploader = multer({ storage: this.storage })
+    }
+
+    public  uploadSingleFile = (name: string) =>{
+        return this.uploader.single(name)
+    }
+
+    public uploadMultipleFiles = (listName: string) =>{
+        return this.uploader.array(listName)
+    }
 }
 
-export const uploadMultipleFiles = (listName: string) =>{
-    return upload.array(listName)
-}
+
+export const fileUploader = new FileUploader()
