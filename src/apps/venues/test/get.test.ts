@@ -35,7 +35,7 @@ describe('GET venues Route', () =>{
     test('Responds with paginated array (Status 200): Search by specific organizer id', 
         async() =>{
             const response = await request(app).get(
-                '/venues/organizers/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')
+                '/venues/hosts/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')
 
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
