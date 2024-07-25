@@ -35,26 +35,26 @@ export class EventsDAL extends EventsDataAccess{
     }
 
     public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
-        return this.createMockUsersArray(paginator.limit)
+        return this.createMockDocsArray(paginator.limit)
     })
 
-    private createMockUsersArray = (limit: number) =>{
+    private createMockDocsArray = (limit: number) =>{
 
-        const mockUsers: HydratedEventDoc[] = []
+        const docs: HydratedEventDoc[] = []
 
         let userCount = 0
         while(userCount < limit){
-            mockUsers.push(new this.model(validData))
+            docs.push(new this.model(validData))
 
             userCount ++
         }
 
-        return mockUsers
+        return docs
     }
 
     public findByOrganizerId = jest.fn(async(organizerId: string, paginator: Paginator
         ): Promise<HydratedEventDoc[]>=>{
-        return this.createMockUsersArray(paginator.limit)
+        return this.createMockDocsArray(paginator.limit)
     })
 
     public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<Event> | null> =>{
