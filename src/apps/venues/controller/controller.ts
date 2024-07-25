@@ -9,5 +9,16 @@ export class Controller extends GenericController<DataAccess>{
         super(dataAccess, microserviceName)
     }
 
+    public getByHost = async(req: Request, res: Response, next: NextFunction) =>{
+        const paginator: Paginator = this.paginate(req) 
+        const hostId = req.params.hostId
+
+        try {
+            const documents = await this.dataAccess.findByHostId(hostId, paginator)
+            this.respondWithFoundResource(documents, res)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 

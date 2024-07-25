@@ -32,7 +32,7 @@ describe('GET venues Route', () =>{
         } 
     )
 
-    test('Responds with paginated array (Status 200): Search by specific organizer id', 
+    test('Responds with paginated array (Status 200): Search by specific host id', 
         async() =>{
             const response = await request(app).get(
                 '/venues/hosts/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')

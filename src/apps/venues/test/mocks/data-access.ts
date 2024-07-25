@@ -35,26 +35,26 @@ export class VenuesDAL extends DataAccess{
     }
 
     public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<Venue>[]> =>{
-        return this.createMockUsersArray(paginator.limit)
+        return this.createMockDocksArray(paginator.limit)
     })
 
-    private createMockUsersArray = (limit: number) =>{
+    private createMockDocksArray = (limit: number) =>{
 
-        const mockUsers: HydratedVenueDoc[] = []
+        const mockDocs: HydratedVenueDoc[] = []
 
         let userCount = 0
         while(userCount < limit){
-            mockUsers.push(new this.model(validData))
+            mockDocs.push(new this.model(validData))
 
             userCount ++
         }
 
-        return mockUsers
+        return mockDocs
     }
 
-    public findByOrganizerId = jest.fn(async(organizerId: string, paginator: Paginator
+    public findByHostId = jest.fn(async(hostId: string, paginator: Paginator
         ): Promise<HydratedVenueDoc[]>=>{
-        return this.createMockUsersArray(paginator.limit)
+        return this.createMockDocksArray(paginator.limit)
     })
 
     public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<Venue> | null> =>{
