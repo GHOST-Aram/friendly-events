@@ -12,7 +12,7 @@ export interface Venue{
             floor: number
         }
     }
-    pictures: {
+    pictures?: {
         name: string
         data: Buffer
         contentType: string
