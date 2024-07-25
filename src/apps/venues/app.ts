@@ -8,17 +8,17 @@ import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
 import 'dotenv/config'
 
-let eventsRouter: Router
-const eventsDbName = process.env.EVENTSDB_NAME
+let venuesRouter: Router
+const venuesDbName = process.env.VENUESDB_NAME
 
 try {
-    if(eventsDbName) {
-        const db = new DB(connection.switch(eventsDbName))
-        const EventModel = db.createModel('Venue', venueSchema)
+    if(venuesDbName) {
+        const db = new DB(connection.switch(venuesDbName))
+        const VenueModel = db.createModel('Venue', venueSchema)
         
-        const eventsDAL = new DataAccess(EventModel)
-        const controller = new Controller(eventsDAL, 'venues')
-        eventsRouter = routesWrapper(controller, authenticator)
+        const venuesDAL = new DataAccess(VenueModel)
+        const controller = new Controller(venuesDAL, 'venues')
+        venuesRouter = routesWrapper(controller, authenticator)
     } else {
         throw new Error("Database name not found in environment Variables")
     }
@@ -27,4 +27,4 @@ try {
     console.warn("Error occured while Switching to Venues Database: ", error.message)
 }
 
-export { eventsRouter }
+export { venuesRouter }
