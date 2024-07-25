@@ -36,5 +36,29 @@ export class Controller extends GenericController<DataAccess>{
             next(error)
         }
     }
+
+    public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
+        const referenceId = req.params.id
+        const reqBody = req.body
+        const files = req.files as Express.Multer.File[]
+        const host:any = req.user
+
+        const inputData = { ...reqBody, host: host._id }
+        const updateDoc = domainData.formatInput(inputData, files)
+
+        try {
+            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
+                updateDoc)
+
+            if(updatedDoc){
+                this.respondWithUpdatedResource(updatedDoc, res)
+            } else{
+                this.addNew(req, res, next)
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
