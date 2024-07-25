@@ -40,7 +40,7 @@ export const userSchema = new Schema<User, UserModel, UserMethods, {}, UserVirtu
     pictureUrl: { type: String },
     userGroup:{
         type: String,
-        enum: ['organizer', 'attendee', 'superuser'],
+        enum: ['host', 'organizer', 'attendee', 'superuser'],
         default: 'attendee'
     },
     email: {

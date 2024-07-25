@@ -5,8 +5,9 @@ class UserValidator extends Validator{
     public validateUserGroup  = ( path: string, { required }: { required: boolean }): ValidationChain =>{
         return this.validateString(path, { required })
             .custom((value: string) =>{
-            return value === 'attendee' || value === 'organizer' || value === 'superuser'
-        }).withMessage('User Group can only be  \'host\' or \'attendee\' or \'superuser\'')
+            return /^(host|attendee|organizer|superuser)$/.test(value)
+        }).withMessage(
+            'User Group can only be  \'host\', \'attendee\', \'organizer\' \'superuser\'')
     }
 }
 
