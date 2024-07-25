@@ -14,8 +14,8 @@ export const routesWrapper = (
     router.post('/', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventHost),
-        fileUploader.uploadSingleFile('picture'),
-        validator.validateFile,
+        fileUploader.uploadMultipleFiles('pictures'),
+        validator.validateFiles,
         validationChains.validatePostData,
         validator.handleValidationErrors,
         controller.addNew
@@ -29,8 +29,8 @@ export const routesWrapper = (
     router.put('/:id', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventHost),
-        fileUploader.uploadSingleFile('picture'),
-        validator.validateFile,
+        fileUploader.uploadMultipleFiles('pictures'),
+        validator.validateFiles,
         validationChains.validatePostData,
         validator.handleValidationErrors,
         controller.updateOne
@@ -40,8 +40,8 @@ export const routesWrapper = (
     router.patch('/:id', 
         authenticator.authenticate(),
         authenticator.restrictAccess(permission.allowEventHost),
-        fileUploader.uploadSingleFile('picture'),
-        validator.validateFile,
+        fileUploader.uploadMultipleFiles('pictures'),
+        validator.validateFiles,
         validationChains.validatePatchData,
         validator.handleValidationErrors,
         controller.modifyOne

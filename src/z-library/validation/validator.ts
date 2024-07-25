@@ -190,18 +190,53 @@ export class Validator {
     public validateFile = (req: Request, res: Response, next: NextFunction) =>{
         const file = req.file
         if(file){
-            const filetypes = /jpeg|jpg|png|jfif|avif/;
-            const mimetype = filetypes.test(file.mimetype);
-            const extname = filetypes.test(file.originalname.split('.').pop() as string);
+            const result = this.testFileExtensions(file)
         
-            if (!mimetype || !extname || !file.buffer) {
-              return res.status(400).json(
-                { 
-                    errors: ['Invalid file type. Only JPEG, PNG, JFIF and AVIF are allowed.'],
-                    message: 'Inavalid input'
-                });
+            if(result.length){
+                return res.status(400).json(result);
             }
         } 
+
+        next()
+    }
+
+
+    private testFileExtensions = (file: Express.Multer.File) =>{
+
+        const result :FileError[] = []
+
+        const filetypes = /jpeg|jpg|png|jfif|avif/;
+
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(file.originalname.split('.').pop() as string);
+    
+        if (!mimetype || !extname || !file.buffer) {
+            result.push({
+                message: 'Invalid file type. Only JPEG, PNG, JFIF and AVIF are allowed',
+                filename: file.fieldname,
+            })
+        }
+
+        return result
+    }
+
+    public validateFiles = (req: Request, res: Response, next: NextFunction) =>{
+        const files = req.files as Express.Multer.File[]
+        let results: FileError[] = []
+
+        if(files && files?.length){
+            files.forEach(file =>{
+                const result = this.testFileExtensions(file)
+
+                if(result.length){
+                    results = [...results, ...result ]
+                }
+            })
+        }
+
+        if(results.length){
+            return res.status(400).json(results);
+        }
 
         next()
     }
@@ -222,5 +257,6 @@ export class Validator {
     }
 }
 
+interface FileError { message: string, filename: string }
 export const validator = new Validator()
 
