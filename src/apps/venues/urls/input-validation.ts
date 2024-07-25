@@ -28,7 +28,22 @@ const validatePostData: ValidationChain[] = [
     validator.validateNumber('coordinates.latitude', { required: true }),
     validator.validateNumber('coordinates.longitude', { required: true }),
 ]
-const validatePatchData: ValidationChain[] = []
+const validatePatchData: ValidationChain[] = [
+    validator.validateName('type', { required: false }),
+    validator.validateName('name', { required: false }),
+    validator.validateNumber('capacity', { required: false }),
+    validator.validateName('address.cityOrTown', { required: false }),
+    validator.validateName('address.street', { required: false }),
+    validator.validateName('address.block.name', { required: false }),
+    validator.validateNumber('address.block.floor', { required: false }),
+    validator.validateDescription('description'),
+    validator.validateBooleanField('accessibilityFeatures.stairCase', { required: false }),
+    validator.validateBooleanField('accessibilityFeatures.elevator', { required: false }),
+    validator.validateBooleanField('accessibilityFeatures.escallator', { required: false }),
+    validator.validateBooleanField('accessibilityFeatures.ramp', { required: false }),
+    validator.validateNumber('coordinates.latitude', { required: false }),
+    validator.validateNumber('coordinates.longitude', { required: false }),
+]
 
 export const validationChains = { validatePostData, validatePatchData }
 export { validator }
