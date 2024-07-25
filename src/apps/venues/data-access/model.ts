@@ -63,7 +63,12 @@ export const venueSchema = new Schema<Venue,VenueModel>({
         },
         block: {
             name: String,
-            floor: Number
+            floor: {
+                type:Number,
+                required: function(){
+                    return Boolean(this.address.block.name)
+                }
+            }
         }
     },
     
@@ -101,8 +106,8 @@ export const venueSchema = new Schema<Venue,VenueModel>({
     },
 
     coordinates: { 
-        latitude: Number, 
-        longitude: Number 
+        latitude: { type: Number, required: true }, 
+        longitude: { type: Number, required: true } 
     }
 })
 
