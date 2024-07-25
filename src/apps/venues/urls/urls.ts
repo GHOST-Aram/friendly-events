@@ -25,7 +25,8 @@ export const routesWrapper = (
     
     router.get('/:id', controller.getOne )
     
-    router.get('/hosts/:hostId', controller.getByHost)
+    router.get('/hosts/:hostId', controller.getByHost )
+
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
         authenticator.authenticate(),
