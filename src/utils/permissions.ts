@@ -6,6 +6,10 @@ class Permission{
     public allowEventOrganizer = (user: any) =>{
         return user.userGroup === 'organizer'
     }
+
+    public allowEventHost = (user: any) =>{// Event hosts are owners of venues
+        return user.userGroup === 'host'
+    }
 }
 
 export const permission = new Permission()

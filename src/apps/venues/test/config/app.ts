@@ -14,6 +14,7 @@ app.use(express.json())
 const dataAccess = new VenuesDAL(Venue)
 const controller = new Controller(dataAccess, 'venues')
 
+user.userGroup = 'host'
 const authenticator = new Authenticator(user)
 
 
