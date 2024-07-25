@@ -17,6 +17,6 @@ const controller = new Controller(dataAccess, 'venues')
 const authenticator = new Authenticator(user)
 
 
-app.use('/events', routesWrapper(controller, authenticator))
+app.use('/venues', routesWrapper(controller, authenticator))
 
 export { app }
