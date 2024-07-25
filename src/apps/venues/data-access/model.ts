@@ -1,16 +1,29 @@
 import { HydratedDocument, Model, Schema, model } from "mongoose"
 
 export interface Venue{
+    type: string
     name: string
-    city: string
-    street: string
-    picture: {
+    capacity: number
+    address: {
+        cityOrTown: string
+        street: string
+        block: {
+            name: string,
+            floor: number
+        }
+    }
+    pictures: {
         name: string
         data: Buffer
         contentType: string
-    }
+    }[]
     description: string
-    accessibility: string
+    accessibilityFeatures: {
+        stairCase: boolean,
+        elevator: boolean,
+        escallator: boolean,
+        ramp: boolean
+    }
     coordinates: {
         latitude: number
         longitude: number
@@ -21,34 +34,72 @@ export type VenueModel = Model<Venue>
 
 export const venueSchema = new Schema<Venue,VenueModel>({
 
+    type: {
+        type: String,
+        maxlength: 100,
+        required: true
+    },
+
     name: { 
         type: String, 
         maxlength: 100,
         required: true 
     },
-    city: { 
-        type: String,
-        maxlength: 100,
+
+    capacity: { 
+        type: Number, 
         required: true 
     },
-    street: { 
-        type: String,
-        maxlength: 100,
+
+    address: {
+        cityOrTown: { 
+            type: String,
+            maxlength: 100,
+            required: true 
+        },
+        street: { 
+            type: String,
+            maxlength: 100,
+        },
+        block: {
+            name: String,
+            floor: Number
+        }
     },
-    picture: { 
-        name: String, 
-        data: Buffer, 
-        contentType: String 
-    },
+    
+    pictures: [
+        { 
+            name: String, 
+            data: Buffer, 
+            contentType: String 
+        }
+    ],
+    
     description: { 
         type: String,
         minlength: 100,
         maxlength: 1000, 
     },
-    accessibility: { 
-        type: String,
-        maxlength: 100,
+
+    accessibilityFeatures: {
+        stairCase: {
+            type: Boolean,
+            default: false
+        },
+        elevator: {
+            type: Boolean,
+            default: false
+        },
+        escallator: {
+            type: Boolean,
+            default: false
+        },
+        ramp: {
+            type: Boolean,
+            default: false
+        }
     },
+
     coordinates: { 
         latitude: Number, 
         longitude: Number 
