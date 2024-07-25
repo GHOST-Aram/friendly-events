@@ -1,9 +1,10 @@
-import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { HydratedDocument, Model, ObjectId, Schema, model } from "mongoose"
 
 export interface Venue{
     type: string
     name: string
     capacity: number
+    host?: ObjectId
     address: {
         cityOrTown: string
         street: string
@@ -49,6 +50,12 @@ export const venueSchema = new Schema<Venue,VenueModel>({
     capacity: { 
         type: Number, 
         required: true 
+    },
+
+    host: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
 
     address: {

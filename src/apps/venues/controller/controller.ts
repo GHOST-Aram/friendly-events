@@ -10,9 +10,11 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        const inputData = req.body
+        const reqBody = req.body
         const files = req.files as Express.Multer.File[]
+        const host:any = req.user
 
+        const inputData = { ...reqBody, host: host._id }
         const venueData = domainData.formatInput(inputData, files)
 
         try {
