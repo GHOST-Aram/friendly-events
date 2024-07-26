@@ -187,6 +187,12 @@ export class Validator {
         }
     }
 
+    public validateDescription = (field: string, { required }: { required: boolean }) =>{
+        return validator.validateString(field, { required }).isLength({ min: 100, max: 1000})
+            .withMessage(
+                `Category description should be a string of length 100 - 1000 characters long.`)
+    }
+
     public validateFile = (req: Request, res: Response, next: NextFunction) =>{
         const file = req.file
         if(file){

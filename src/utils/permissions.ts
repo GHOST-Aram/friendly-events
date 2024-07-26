@@ -7,13 +7,16 @@ class Permission{
         return user.userGroup === 'organizer'
     }
 
-    public allowEventHost = (user: any) =>{// Event hosts are owners of venues
+    public allowEventHost = (user: any) =>{
         return user.userGroup === 'host'
     }
 
     public allowOrganizerOrAdmin = (user: any) =>{
-        const userGroup = user.userGroup
-        return userGroup === 'organizer' || userGroup ===  'superuser'
+        return /^(organizer|superuser)$/.test(user.userGroup)
+    }
+
+    public allowHostOrAdmin = (user: any) =>{
+        return /^(host|superuser)$/.test(user.userGroup)
     }
 }
 

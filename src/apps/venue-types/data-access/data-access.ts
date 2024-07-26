@@ -1,4 +1,4 @@
 import { GenericDataAccess } from "../../../z-library/bases/generic-data-access"
-import { } from "./model";
+import { VenueType, VenueTypeModel } from "./model";
 
-export class DataAccess extends GenericDataAccess<,>{}
+export class DataAccess extends GenericDataAccess<VenueTypeModel, VenueType>{}

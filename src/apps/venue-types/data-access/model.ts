@@ -1,6 +1,6 @@
 import { HydratedDocument, Model, Schema, model, ObjectId } from "mongoose"
 
-interface VenueType {
+export interface VenueType {
     name: string
     description: string
     createdBy?: ObjectId
@@ -15,7 +15,9 @@ export const venueTSchema = new Schema<VenueType, VenueTypeModel>({
     },
     description: { 
         type: String, 
-        required: true 
+        minlength: 100,
+        maxlength: 1000,
+        required: true,
     },
     createdBy: { 
         type: Schema.Types.ObjectId,
