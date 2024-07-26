@@ -25,22 +25,16 @@ export class Controller extends GenericController<DataAccess>{
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const { reqBody, referenceId, user } = getDataFromRequest(req)
-        
         const currentUserId = user._id.toString()
-        
+
         try {  
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(targetDoc !== null){
-                const creatorId = targetDoc?.createdBy.toString()
+            if(this.documentExists(targetDoc)){
+                const creatorId = targetDoc?.createdBy.toString() as string
 
-                //Check if user is the creator of the doc before updating
-                if(currentUserId === creatorId){
-
-                    const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                        reqBody)
-
-                    this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
+                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
+                    this.processUpdate({updateDoc: reqBody, id: referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -48,31 +42,37 @@ export class Controller extends GenericController<DataAccess>{
                 this.addNew(req, res, next)
             }
         } catch (error) {
-            console.log(error)
             next(error)
         }
         
     }
 
+    private documentExists = (doc: HydratedVenueType | null ):boolean =>{
+        return Boolean(doc)
+    }
+
+    private isCreatedByCurrentUser = (creatorId: string, currentUserId: string ) =>{
+        return currentUserId === creatorId
+    }
+
+    private processUpdate = async({updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
+        const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
+        this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
+    }
+
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const { reqBody, referenceId, user } = getDataFromRequest(req)
-        
         const currentUserId = user._id.toString()
             
         try {  
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(targetDoc !== null){
-                const creatorId = targetDoc?.createdBy.toString()
+            if(this.documentExists(targetDoc)){
+                const creatorId = targetDoc?.createdBy.toString() as string
 
-                //Check if user is the creator of the doc before updating
-                if(currentUserId === creatorId){
-
-                    const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                        reqBody)
-
-                    this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
+                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
+                    this.processUpdate({updateDoc: reqBody, id: referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
