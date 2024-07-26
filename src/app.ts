@@ -1,4 +1,4 @@
-import { app } from "./config/config";
+import { app } from "./_config/config";
 import { usersRouter } from "./apps/users/app";
 import { authRouter } from "./apps/authenticator/app";
 import { httpErrors } from "./z-library/HTTP/http-errors";

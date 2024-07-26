@@ -1,5 +1,5 @@
 import  { HydratedDocument } from "mongoose"
-import { connection } from "../../../config/config"
+import { connection } from "../../../_config/config"
 
 
 

@@ -1,7 +1,7 @@
 import { routesWrapper } from "./urls/urls";
 import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
-import { connection } from "../../config/config";
+import { connection } from "../../_config/config";
 import { DB } from "../../z-library/db/db";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
