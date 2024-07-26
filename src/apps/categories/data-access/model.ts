@@ -3,7 +3,7 @@ import { HydratedDocument, Model, Schema, model } from "mongoose"
 export interface EventCategory{
     name: string
     description: string
-    graphic: {
+    graphic?: {
         name: string,
         data: Buffer
         contentType: string
@@ -27,9 +27,9 @@ export const categorySchema = new Schema<EventCategory,CategoryModel>({
     },
 
     graphic: {
-        name: { type: String, required: true },
-        data: { type: Buffer, required: true },
-        contentType: { type: String, required: true },
+        name: { type: String },
+        data: { type: Buffer },
+        contentType: { type: String },
     }
 })
 
