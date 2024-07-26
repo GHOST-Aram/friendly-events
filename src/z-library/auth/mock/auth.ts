@@ -3,7 +3,7 @@ import { Authenticator as Auth } from "../auth";
 
 export class Authenticator extends Auth{
 
-    private user:any
+    public user:any
     constructor(user: any){
         super()
         this.user = user
@@ -14,7 +14,7 @@ export class Authenticator extends Auth{
         return (req: Request, res: Response, next: NextFunction) =>{
             const id = req.params.id
             
-            this.user._id = id ? id: "64c9e4f2df7cc072af2ac8a4"
+            this.user._id = "64c9e4f2df7cc072af2ac8a4"
             req.user = this.user
             next()
         }
