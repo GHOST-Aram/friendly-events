@@ -15,8 +15,10 @@ class AuthValidator extends Validator{
 }
 
 export const validator = new AuthValidator()
+const acceptedPaths = ['email', 'password']
 
 export const validateLoginInput = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateEmail('email'),
     validator.validatePassword('password')
 ]
