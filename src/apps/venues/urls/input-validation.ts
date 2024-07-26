@@ -9,10 +9,14 @@ class VenuesValidator extends Validator{
             .notEmpty().withMessage("Venue description is required.")
     }
 }
-
+const acceptedPaths = [
+    'type', 'name', 'capacity','address', 'description',
+    'accessibilityFeatures','coordinates'
+]
 const validator = new VenuesValidator()
 
 const validatePostData: ValidationChain[] = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateName('type', { required: true }),
     validator.validateName('name', { required: true }),
     validator.validateNumber('capacity', { required: true }),
@@ -29,6 +33,7 @@ const validatePostData: ValidationChain[] = [
     validator.validateNumber('coordinates.longitude', { required: true }),
 ]
 const validatePatchData: ValidationChain[] = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateName('type', { required: false }),
     validator.validateName('name', { required: false }),
     validator.validateNumber('capacity', { required: false }),

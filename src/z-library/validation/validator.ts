@@ -240,6 +240,26 @@ export class Validator {
 
         next()
     }
+
+    public rejectUnwantedPaths = (acceptedPaths: string[]) =>{
+        
+        return body().custom((value, { req }) =>{
+            const keys = Object.keys(req.body)
+            let hasStrayPaths = false
+
+            keys.forEach(key => {
+                if(!acceptedPaths.includes(key)){
+                    hasStrayPaths = true
+                }
+            })
+
+            return !hasStrayPaths
+
+        }).withMessage(
+            `Input has stray paths.
+            Only the following paths can be included in user input: ${acceptedPaths.join(', ') }`
+        )
+    }
     
     public handleValidationErrors = (
         req: Request, res: Response, next: NextFunction 

@@ -1,6 +1,6 @@
 import { Venue } from '../../data-access/model'
 
-export const validData: Venue= {
+export const validData = {
     type: "5 star Hotel",
     name: "Paradise Eden",
     capacity: 20000,
