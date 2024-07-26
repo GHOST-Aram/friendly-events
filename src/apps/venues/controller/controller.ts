@@ -3,6 +3,7 @@ import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { domainData } from "../domain/data";
+import { getDataFromRequest } from "../../../z-library/request/request-data";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -10,11 +11,10 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        const reqBody = req.body
-        const files = req.files as Express.Multer.File[]
-        const host:any = req.user
+        
+        const {files, reqBody, user } = getDataFromRequest(req)
 
-        const inputData = { ...reqBody, host: host._id }
+        const inputData = { ...reqBody, host: user._id }
         const venueData = domainData.formatInput(inputData, files)
 
         try {
@@ -38,12 +38,10 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const reqBody = req.body
-        const files = req.files as Express.Multer.File[]
-        const host:any = req.user
 
-        const inputData = { ...reqBody, host: host._id }
+        const { user, files, reqBody, referenceId } = getDataFromRequest(req)
+
+        const inputData = { ...reqBody, host: user._id }
         const updateDoc = domainData.formatInput(inputData, files)
 
         try {
@@ -62,11 +60,10 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const inputData = req.body
-        const files = req.files as Express.Multer.File[]
 
-        const updateDoc = domainData.formatInput(inputData, files)
+        const { files, reqBody, referenceId } = getDataFromRequest(req)
+
+        const updateDoc = domainData.formatInput(reqBody, files)
 
         try {
             const modifiedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
