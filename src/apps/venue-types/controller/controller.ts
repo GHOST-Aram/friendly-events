@@ -47,6 +47,11 @@ export class Controller extends GenericController<DataAccess>{
         
     }
 
+    private findDocumentCreatorId = async(id: string): Promise<string | null> =>{
+        const targetDoc = await this.dataAccess.findByReferenceId(id)
+        return targetDoc !== null ? targetDoc.createdBy.toString() : null 
+    }
+
     private documentExists = (doc: HydratedVenueType | null ):boolean =>{
         return Boolean(doc)
     }
@@ -55,7 +60,7 @@ export class Controller extends GenericController<DataAccess>{
         return currentUserId === creatorId
     }
 
-    private processUpdate = async({updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
+    public processUpdate = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
         this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
     }
@@ -84,5 +89,37 @@ export class Controller extends GenericController<DataAccess>{
         }
         
     }
+
+    public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
+        const {referenceId, user} = getDataFromRequest(req)
+
+        try {
+            const creatorId = await this.findDocumentCreatorId(referenceId)
+            const currentUserId = user._id.toString()
+
+            if(typeof creatorId === 'string'){
+                if(this.isCreatedByCurrentUser(creatorId, currentUserId)){
+
+                    this.processDeletion(referenceId, res)
+                } else {
+                    this.respondWithForbidden(res)
+                }
+                
+            } else {
+                this.respondWithNotFound(res)
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public processDeletion = async(referenceId: string, res: Response) =>{
+        const deletedDoc = await this.dataAccess.findByIdAndDelete(
+                referenceId) as HydratedVenueType
+
+        this.respondWithDeletedResource(deletedDoc.id, res)
+    }
+
 }
 
