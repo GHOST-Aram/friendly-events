@@ -3,6 +3,7 @@ import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
 import { domainData } from "../domain/data";
 import { EventCategory } from "../data-access/model";
+import { getDataFromRequest } from "../../../z-library/request/request-data";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -10,9 +11,8 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        const reqBody = req.body
-        const user:any = req.user
-        const file = req.file as Express.Multer.File
+        
+        const { reqBody, user, file } = getDataFromRequest(req)
 
         const inputData: EventCategory = { ...reqBody, createdBy: user._id }
         const categoryData = file ? domainData.includeFile(inputData, file) : inputData
@@ -26,10 +26,8 @@ export class Controller extends GenericController<DataAccess>{
     }
  
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const reqBody = req.body
-        const user:any = req.user
-        const file = req.file as Express.Multer.File
+        
+        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: EventCategory = { ...reqBody, createdBy: user._id }
         const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
@@ -50,10 +48,8 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const reqBody = req.body
-        const user:any = req.user
-        const file = req.file as Express.Multer.File
+        
+        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: EventCategory = { ...reqBody, createdBy: user._id }
         const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
