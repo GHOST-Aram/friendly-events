@@ -1,2 +1,28 @@
-import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { HydratedDocument, Model, Schema, model, ObjectId } from "mongoose"
 
+interface VenueType {
+    name: string
+    description: string
+    createdBy?: ObjectId
+}
+
+export type VenueTypeModel = Model<VenueType>
+
+export const venueTSchema = new Schema<VenueType, VenueTypeModel>({
+    name: { 
+        type: String, 
+        required: true 
+    },
+    description: { 
+        type: String, 
+        required: true 
+    },
+    createdBy: { 
+        type: Schema.Types.ObjectId,
+        required: true
+    }
+})
+
+export type HydratedVenueType = HydratedDocument<VenueType>
+
+export const VenueType = model('VenueType', venueTSchema)
