@@ -12,8 +12,10 @@ class UserValidator extends Validator{
 }
 
 const validator = new UserValidator()
+const acceptedPaths = ['userGroup', 'fullName', 'password', 'email', 'pictureUrl']
 
 const validatePostData = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateUserGroup('userGroup',{ required: true }),
     validator.validateName('fullName', { required: true}),
     validator.validateString('password', { required: true}),
@@ -22,6 +24,7 @@ const validatePostData = [
 ]
 
 const validatePatchData = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateUserGroup('userGroup',{ required:false }),
     validator.validateName('fullName', { required: false}),
     validator.validateString('email', { required: false}),
