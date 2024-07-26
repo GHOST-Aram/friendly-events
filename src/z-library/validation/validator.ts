@@ -247,6 +247,12 @@ export class Validator {
         next()
     }
 
+    public rejectEmptyDataObject = () =>{
+        return body().custom((value, { req }) => {
+            return Boolean(Object.keys(req.body).length)
+        }).withMessage('Empty request body is not allowed')
+    }
+    
     public rejectUnwantedPaths = (acceptedPaths: string[]) =>{
         
         return body().custom((value, { req }) =>{
