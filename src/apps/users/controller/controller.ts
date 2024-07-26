@@ -3,6 +3,7 @@ import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { domainData } from "../domain/data";
+import { getDataFromRequest } from "../../../z-library/request/request-data";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -12,16 +13,16 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const data = req.body
-        const imageFile = req.file as Express.Multer.File
+        const {file, reqBody } = getDataFromRequest(req)
+
+        const userData = file ? domainData.includeFile(reqBody, file) : reqBody
 
         try {
-            const user = await this.dataAccess.findByEmail(data.email)
+            const user = await this.dataAccess.findByEmail(userData.email)
 
             if(user)
                 this.respondWithConflict(res)
             else {
-                const userData = await domainData.formatInput(data, imageFile)
 
                 const user = await this.dataAccess.createNew(userData)
 

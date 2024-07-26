@@ -3,12 +3,13 @@ import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { User } from "../data-access/model"
 
 class UserData{
-    public formatInput = async(updateDoc: any, file: Express.Multer.File): Promise<User> =>{
-        const { fullName, email, password, userGroup } = updateDoc
 
-        const userData = { fullName, email, userGroup, password: await hash(password, 10) }
+    public includeFile = (updateDoc: any, file: Express.Multer.File): User => {
+        return { ...updateDoc, profilePicture: createFileBuffer(file) }
+    }
 
-        return file ? { ...userData, profilePicture: createFileBuffer(file) } : userData  
+    public encyptPassword = async( updateDoc: any ): Promise<User> =>{
+        return { ...updateDoc, password: await hash(updateDoc.password, 10) }  
     }
 }
 
