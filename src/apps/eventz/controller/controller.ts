@@ -3,6 +3,7 @@ import { GenericController } from "../../../z-library/bases/generic-controller";
 import { EventsDataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { eventData as domainData } from "../domain/data";
+import { getDataFromRequest } from "../../../z-library/request/request-data";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){
@@ -10,9 +11,8 @@ export class EventsController extends GenericController<EventsDataAccess>{
     }
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        const user:any = req.user
-        const file = req.file as Express.Multer.File
-        const reqBody = req.body
+
+        const { reqBody, user, file } = getDataFromRequest(req)
 
         const inputData = {...reqBody, organizer: user._id }
         const eventData = domainData.formatInput(inputData, file)
@@ -39,10 +39,8 @@ export class EventsController extends GenericController<EventsDataAccess>{
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const file =  req.file as Express.Multer.File
-        const referenceId = req.params.id
-        const user:any =  req.user
-        const reqBody = req.body
+
+        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, organizer: user._id}
         const updateDoc = domainData.formatInput(inputData, file)
@@ -63,10 +61,8 @@ export class EventsController extends GenericController<EventsDataAccess>{
     }
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const file =  req.file as Express.Multer.File
-        const referenceId = req.params.id
-        const user:any =  req.user
-        const reqBody = req.body
+        
+        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, organizer: user._id}
         const updateDoc = domainData.formatInput(inputData, file)
