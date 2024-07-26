@@ -3,7 +3,7 @@ import { UsersDAL } from "../mocks/data-access";
 import { UsersController } from "../../controller/controller";
 import express from "express"
 import { User } from "../../data-access/model";
-import { Authenticator } from "../../../../z-library/auth/mock/auth";
+import { Authenticator } from "../mocks/auth";
 import { user } from "../../../../z-library/auth/mock/mock-user";
 
 const app = express()
