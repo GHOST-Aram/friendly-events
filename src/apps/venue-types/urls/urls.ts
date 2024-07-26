@@ -22,6 +22,8 @@ export const routesWrapper = (
     router.get('/', controller.getMany )
     
     router.get('/:id', controller.getOne )
+
+    router.get('/creators/:creatorId', controller.getByCreator )
     
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
