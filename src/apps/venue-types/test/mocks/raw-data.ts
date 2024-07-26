@@ -1,6 +1,4 @@
-import { VenueType } from '../../data-access/model'
-
-export const validData: VenueType= {
+export const validData = {
     name: "Golf Course",
     description: `
         Lorem ipsum dolor sit amet consectetur adipisicing elit. 

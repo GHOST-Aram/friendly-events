@@ -3,7 +3,7 @@ import { HydratedDocument, Model, Schema, model, ObjectId } from "mongoose"
 export interface VenueType {
     name: string
     description: string
-    createdBy?: ObjectId
+    createdBy: ObjectId
 }
 
 export type VenueTypeModel = Model<VenueType>
