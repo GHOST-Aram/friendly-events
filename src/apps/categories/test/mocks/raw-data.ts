@@ -1,6 +1,17 @@
-import { Venue } from '../../data-access/model'
+import { EventCategory } from '../../data-access/model'
 
-export const validData: Venue= {    
+export const validData: EventCategory= {  
+    name: "Music Concert"  ,
+    description: `
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Nam libero incidunt deleniti iusto facere, vero ducimus 
+        ex totam eius dolores.vero ducimus ex totam eius dolores.
+    `
 }
 
-export const invalidData = {}
+export const invalidData = {
+    name: ""  ,
+    description: `
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+    `
+}
