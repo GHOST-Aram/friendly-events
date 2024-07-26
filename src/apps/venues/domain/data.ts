@@ -2,15 +2,10 @@ import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { Venue } from "../data-access/model"
 
 class VenueData{
-    public formatInput = (inputData: any, files: Express.Multer.File[]): Venue => {
-        const venueData: Venue = inputData
+    public includeFiles = (inputData: any, files: Express.Multer.File[]): Venue => {
 
-        if(Array.isArray(files) && files.length){
-            const pictures = files.map(file => createFileBuffer(file))
-            return {...venueData, pictures } 
-        }
-
-        return venueData
+        const pictures = files.map(file => createFileBuffer(file))
+        return {...inputData, pictures } 
     }
 }
 

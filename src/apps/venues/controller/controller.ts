@@ -11,11 +11,11 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        
+
         const {files, reqBody, user } = getDataFromRequest(req)
 
         const inputData = { ...reqBody, host: user._id }
-        const venueData = domainData.formatInput(inputData, files)
+        const venueData = files ? domainData.includeFiles(inputData, files) : inputData
 
         try {
             const newDocument = await this.dataAccess.createNew(venueData)
@@ -42,7 +42,7 @@ export class Controller extends GenericController<DataAccess>{
         const { user, files, reqBody, referenceId } = getDataFromRequest(req)
 
         const inputData = { ...reqBody, host: user._id }
-        const updateDoc = domainData.formatInput(inputData, files)
+        const updateDoc = files ? domainData.includeFiles(inputData, files) : inputData
 
         try {
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
@@ -63,7 +63,7 @@ export class Controller extends GenericController<DataAccess>{
 
         const { files, reqBody, referenceId } = getDataFromRequest(req)
 
-        const updateDoc = domainData.formatInput(reqBody, files)
+        const updateDoc = files ? domainData.includeFiles(reqBody, files) : reqBody
 
         try {
             const modifiedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
