@@ -61,18 +61,17 @@ export class UsersController extends GenericController<UsersDAL>{
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const reqBody = req.body
-        const imageFile =  req.file as Express.Multer.File
-
-        const currentUser:any = req.user
         
-        if(currentUser._id.toString() !== referenceId){
+        const { reqBody, file, referenceId, user } = getDataFromRequest(req)
+        
+        let updateDoc = file ? domainData.includeFile(reqBody, file) : reqBody
+        
+        if(user._id.toString() !== referenceId){
             this.respondWithForbidden(res)
         } else {
             
             try {
-                const updateDoc = domainData.formatInput(reqBody, imageFile)
+                updateDoc = await domainData.encyptPassword(updateDoc)
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
@@ -90,18 +89,17 @@ export class UsersController extends GenericController<UsersDAL>{
     }
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const reqBody = req.body
-        const imageFile =  req.file as Express.Multer.File
 
-        const currentUser:any = req.user
+        const { reqBody, file, referenceId, user } = getDataFromRequest(req)
         
-        if(currentUser._id.toString() !== referenceId){
+        let updateDoc = file ? domainData.includeFile(reqBody, file) : reqBody
+        
+        if(user._id.toString() !== referenceId){
             this.respondWithForbidden(res)
         } else {
             
             try {
-                const updateDoc = domainData.formatInput(reqBody, imageFile)
+                updateDoc = reqBody.password ? await domainData.encyptPassword(updateDoc) : updateDoc
                 
                 const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
                     updateDoc)
@@ -119,10 +117,10 @@ export class UsersController extends GenericController<UsersDAL>{
     }
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
-        const referenceId = req.params.id
-        const currentUser:any = req.user
 
-        if(currentUser._id.toString() !== referenceId){
+        const { user, referenceId } = getDataFromRequest(req)
+
+        if(user._id.toString() !== referenceId){
             this.respondWithForbidden(res, 'User cannot delete information of other users.')
         } else {
             try {
