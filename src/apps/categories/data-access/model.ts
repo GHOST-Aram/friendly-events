@@ -1,8 +1,9 @@
-import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { HydratedDocument, Model, ObjectId, Schema, model } from "mongoose"
 
 export interface EventCategory{
     name: string
     description: string
+    createdBy?: ObjectId
     graphic?: {
         name: string,
         data: Buffer
@@ -25,7 +26,11 @@ export const categorySchema = new Schema<EventCategory,CategoryModel>({
         minlength: 100,
         maxlength: 1000,
     },
-
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     graphic: {
         name: { type: String },
         data: { type: Buffer },
