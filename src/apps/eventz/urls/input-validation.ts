@@ -30,8 +30,13 @@ class EventsValidator extends Validator{
 }
 
 const validator = new EventsValidator()
+const acceptedPaths = [
+    'category', 'venue', 'title', 'city', 'date', 'time', 
+    'duration', 'availableTickets', 'ticketPrice', 'ageLimit'
+]
 
 const validatePostData = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateString('category', { required: true }),
     validator.validateString('venue', { required: true }),
     validator.validateString('title', { required: true }),
@@ -47,6 +52,7 @@ const validatePostData = [
     validator.validateNumber('ageLimit.max', { required: true }),
 ]
 const validatePatchData = [
+    validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateString('category', { required: false }),
     validator.validateString('venue', { required: false }),
     validator.validateString('title', { required: false }),
