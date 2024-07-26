@@ -62,7 +62,6 @@ export class GenericController <T extends Accessible>
             if(updatedDoc){
                 this.respondWithUpdatedResource(updatedDoc, res)
             } else{
-                const newDoc = await this.dataAccess.createNew(updateDoc)
                 this.addNew(req, res, next)
             }
 
