@@ -14,6 +14,7 @@ app.use(express.json())
 const dataAccess = new CategoriesDAL(EventCategory)
 const controller = new Controller(dataAccess, 'categories')
 
+user.userGroup = 'superuser'
 const authenticator = new Authenticator(user)
 
 

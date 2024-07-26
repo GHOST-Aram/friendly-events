@@ -13,7 +13,7 @@ export const routesWrapper = (
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
         authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowEventOrganizer),
+        authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
         fileUploader.uploadSingleFile('picture'),
         validator.validateFile,
         validationChains.validatePostData,
