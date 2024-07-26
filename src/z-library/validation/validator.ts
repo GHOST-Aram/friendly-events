@@ -205,7 +205,7 @@ export class Validator {
 
         const result :FileError[] = []
 
-        const filetypes = /jpeg|jpg|png|jfif|avif/;
+        const filetypes = /jpeg|jpg|png|jfif|avif|svg/;
 
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(file.originalname.split('.').pop() as string);
