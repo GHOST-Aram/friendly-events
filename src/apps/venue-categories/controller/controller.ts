@@ -3,7 +3,7 @@ import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
-import { HydratedVenueType } from "../data-access/model";
+import { HydratedVenueCategory } from "../data-access/model";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -48,7 +48,7 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     
-    private documentExists = (doc: HydratedVenueType | null ):boolean =>{
+    private documentExists = (doc: HydratedVenueCategory | null ):boolean =>{
         return Boolean(doc)
     }
     
@@ -58,7 +58,7 @@ export class Controller extends GenericController<DataAccess>{
     
     public processUpdate = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
-        this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
+        this.respondWithUpdatedResource(updatedDoc as HydratedVenueCategory, res)
     }
     
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
@@ -117,7 +117,7 @@ export class Controller extends GenericController<DataAccess>{
     
     public processDeletion = async(referenceId: string, res: Response) =>{
         const deletedDoc = await this.dataAccess.findByIdAndDelete(
-                referenceId) as HydratedVenueType
+                referenceId) as HydratedVenueCategory
 
         this.respondWithDeletedResource(deletedDoc.id, res)
     }

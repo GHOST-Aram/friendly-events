@@ -1,5 +1,5 @@
 import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
-import { VenueType } from "../data-access/model"
+import { VenueCategory } from "../data-access/model"
 
 class DomainData{}
 

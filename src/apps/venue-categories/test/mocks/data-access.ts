@@ -1,8 +1,8 @@
 import { Paginator } from "../../../../z-library/HTTP/http-response"
 import { 
-    HydratedVenueType, 
-    VenueType, 
-    VenueTypeModel
+    HydratedVenueCategory, 
+    VenueCategory, 
+    VenueCategoryModel
 } from "../../data-access/model"
 import { DataAccess } from "../../data-access/data-access"
 import { validData } from "./raw-data"
@@ -11,24 +11,24 @@ import { jest } from "@jest/globals"
 
 const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
-export class VenueTypeDAL extends DataAccess{
+export class VenueCategoryDAL extends DataAccess{
     
-    constructor(model: VenueTypeModel){
+    constructor(model: VenueCategoryModel){
         super(model)
     }
 
-    public createNew = jest.fn(async(data: VenueType): Promise<HydratedVenueType> =>{
-            const venueType = new this.model(data)  
-            return venueType
+    public createNew = jest.fn(async(data: VenueCategory): Promise<HydratedVenueCategory> =>{
+            const venueCategory = new this.model(data)  
+            return venueCategory
         }
     )
 
     public findByCreatorId = jest.fn(async(creator: string, paginator: Paginator
-    ): Promise<HydratedVenueType[]>=>{
+    ): Promise<HydratedVenueCategory[]>=>{
     return this.createDocsArray(paginator.limit)
 })
 
-    public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedVenueType | null> =>{
+    public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedVenueCategory | null> =>{
         return this.documentOrNull(refId)
     })
 
@@ -41,13 +41,13 @@ export class VenueTypeDAL extends DataAccess{
         return null
     }
 
-    public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<VenueType>[]> =>{
+    public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<VenueCategory>[]> =>{
         return this.createDocsArray(paginator.limit)
     })
 
     private createDocsArray = (limit: number) =>{
 
-        const mockDocs: HydratedVenueType[] = []
+        const mockDocs: HydratedVenueCategory[] = []
 
         let userCount = 0
         while(userCount < limit){
@@ -60,15 +60,15 @@ export class VenueTypeDAL extends DataAccess{
     }
 
     public findByOrganizerId = jest.fn(async(organizerId: string, paginator: Paginator
-        ): Promise<HydratedVenueType[]>=>{
+        ): Promise<HydratedVenueCategory[]>=>{
         return this.createDocsArray(paginator.limit)
     })
 
-    public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<VenueType> | null> =>{
+    public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<VenueCategory> | null> =>{
         return this.documentOrNull(id)
     })
 
-    public findByIdAndDelete = async(id: string): Promise<HydratedDocument<VenueType> | null> =>{
+    public findByIdAndDelete = async(id: string): Promise<HydratedDocument<VenueCategory> | null> =>{
         return this.documentOrNull(id)
     }
 }

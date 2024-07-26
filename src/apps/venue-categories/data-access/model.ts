@@ -1,14 +1,14 @@
 import { HydratedDocument, Model, Schema, model, ObjectId } from "mongoose"
 
-export interface VenueType {
+export interface VenueCategory {
     name: string
     description: string
     createdBy: ObjectId
 }
 
-export type VenueTypeModel = Model<VenueType>
+export type VenueCategoryModel = Model<VenueCategory>
 
-export const venueTSchema = new Schema<VenueType, VenueTypeModel>({
+export const venueCatSchema = new Schema<VenueCategory, VenueCategoryModel>({
     name: { 
         type: String, 
         required: true 
@@ -25,6 +25,6 @@ export const venueTSchema = new Schema<VenueType, VenueTypeModel>({
     }
 })
 
-export type HydratedVenueType = HydratedDocument<VenueType>
+export type HydratedVenueCategory = HydratedDocument<VenueCategory>
 
-export const VenueType = model('VenueType', venueTSchema)
+export const VenueCategory = model('VenueCategory', venueCatSchema)
