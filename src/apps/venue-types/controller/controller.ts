@@ -47,32 +47,28 @@ export class Controller extends GenericController<DataAccess>{
         
     }
 
-    private findDocumentCreatorId = async(id: string): Promise<string | null> =>{
-        const targetDoc = await this.dataAccess.findByReferenceId(id)
-        return targetDoc !== null ? targetDoc.createdBy.toString() : null 
-    }
-
+    
     private documentExists = (doc: HydratedVenueType | null ):boolean =>{
         return Boolean(doc)
     }
-
+    
     private isCreatedByCurrentUser = (creatorId: string, currentUserId: string ) =>{
         return currentUserId === creatorId
     }
-
+    
     public processUpdate = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
         this.respondWithUpdatedResource(updatedDoc as HydratedVenueType, res)
     }
-
+    
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const { reqBody, referenceId, user } = getDataFromRequest(req)
         const currentUserId = user._id.toString()
-            
+        
         try {  
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
-
+            
             if(this.documentExists(targetDoc)){
                 const creatorId = targetDoc?.createdBy.toString() as string
 
@@ -92,14 +88,14 @@ export class Controller extends GenericController<DataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
         const {referenceId, user} = getDataFromRequest(req)
-
+        
         try {
             const creatorId = await this.findDocumentCreatorId(referenceId)
             const currentUserId = user._id.toString()
-
+            
             if(typeof creatorId === 'string'){
                 if(this.isCreatedByCurrentUser(creatorId, currentUserId)){
-
+                    
                     this.processDeletion(referenceId, res)
                 } else {
                     this.respondWithForbidden(res)
@@ -108,12 +104,17 @@ export class Controller extends GenericController<DataAccess>{
             } else {
                 this.respondWithNotFound(res)
             }
-
+            
         } catch (error) {
             next(error)
         }
     }
-
+    
+    private findDocumentCreatorId = async(id: string): Promise<string | null> =>{
+        const targetDoc = await this.dataAccess.findByReferenceId(id)
+        return targetDoc !== null ? targetDoc.createdBy.toString() : null 
+    }
+    
     public processDeletion = async(referenceId: string, res: Response) =>{
         const deletedDoc = await this.dataAccess.findByIdAndDelete(
                 referenceId) as HydratedVenueType
