@@ -32,10 +32,10 @@ describe('GET events Route', () =>{
         } 
     )
 
-    test('Responds with paginated array (Status 200): Search by specific organizer id', 
+    test('Responds with paginated array (Status 200): Search by specific creator id', 
         async() =>{
             const response = await request(app).get(
-                '/events/organizers/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')
+                '/events/creators/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')
 
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
