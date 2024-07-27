@@ -4,7 +4,7 @@ export interface Venue{
     type: string
     name: string
     capacity: number
-    host?: ObjectId
+    createdBy: ObjectId
     address: {
         cityOrTown: string
         street: string
@@ -52,7 +52,7 @@ export const venueSchema = new Schema<Venue,VenueModel>({
         required: true 
     },
 
-    host: {
+    createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true

@@ -14,7 +14,7 @@ export class Controller extends GenericController<DataAccess>{
 
         const {files, reqBody, user } = getDataFromRequest(req)
 
-        const inputData = { ...reqBody, host: user._id }
+        const inputData = { ...reqBody, createdBy: user._id }
         const venueData = files ? domainData.includeFiles(inputData, files) : inputData
 
         try {
@@ -41,7 +41,7 @@ export class Controller extends GenericController<DataAccess>{
 
         const { user, files, reqBody, referenceId } = getDataFromRequest(req)
 
-        const inputData = { ...reqBody, host: user._id }
+        const inputData = { ...reqBody, createdBy: user._id }
         const updateDoc = files ? domainData.includeFiles(inputData, files) : inputData
 
         try {
