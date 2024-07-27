@@ -23,6 +23,10 @@ export class VenuesDAL extends DataAccess{
         }
     )
 
+    public findByCreatorId = async(creatorId: string, paginator: Paginator):Promise<HydratedDocument<Venue>[]> =>{
+        return this.createMockDocksArray(paginator.limit)
+    };
+
     public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedVenueDoc | null> =>{
         return this.documentOrNull(refId)
     })
