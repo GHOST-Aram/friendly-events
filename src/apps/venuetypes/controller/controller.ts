@@ -10,18 +10,6 @@ export class Controller extends GenericController<DataAccess>{
         super(dataAccess, microserviceName)
     }
 
-    public getByCreator = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req) 
-        const organizerId = req.params.organizerId
-
-        try {
-            const documents = await this.dataAccess.findByCreatorId(organizerId, paginator)
-            this.respondWithFoundResource(documents, res)
-        } catch (error) {
-            next(error)
-        }
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const { reqBody, referenceId, user } = getDataFromRequest(req)
