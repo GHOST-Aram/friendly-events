@@ -14,7 +14,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
         const { reqBody, user, file } = getDataFromRequest(req)
 
-        const inputData = {...reqBody, organizer: user._id }
+        const inputData = {...reqBody, createdBy: user._id }
         const eventData = domainData.formatInput(inputData, file)
 
         try {
@@ -42,7 +42,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
-        const inputData: Event = { ...reqBody, organizer: user._id}
+        const inputData: Event = { ...reqBody, createdBy: user._id}
         const updateDoc = domainData.formatInput(inputData, file)
 
         try {
@@ -64,7 +64,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
-        const inputData: Event = { ...reqBody, organizer: user._id}
+        const inputData: Event = { ...reqBody, createdBy: user._id}
         const updateDoc = domainData.formatInput(inputData, file)
 
         try {

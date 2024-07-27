@@ -4,7 +4,7 @@ export interface Event{
     category: string
     venue: string
     title: string
-    organizer?: ObjectId,
+    createdBy: ObjectId,
     graphic?: {
         name: string,
         data: Buffer,
@@ -39,7 +39,7 @@ export const eventSchema = new Schema<Event, EventModel>({
     },
 
     title: String,
-    organizer: {
+    createdBy: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'User'
