@@ -13,10 +13,8 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { reqBody, user, file } = getDataFromRequest(req)
-
-        const inputData = {...reqBody, organizer: user._id }
-        const eventData = file ? domainData.includeFile(inputData, file) : inputData
+        const reqData = getDataFromRequest(req)
+        const eventData = domainData.createInputDocument(reqData)
 
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
@@ -29,22 +27,19 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
-
-        const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = file ? file ? domainData.includeFile(inputData, file) : inputData : inputData
-        const currentUserId = user._id
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -60,22 +55,19 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
-
-        const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = file ? file ? domainData.includeFile(inputData, file) : inputData : inputData
-        const currentUserId = user._id
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -90,10 +82,8 @@ export class EventsController extends GenericController<EventsDataAccess>{
     }
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
-
-        const { user, referenceId } = getDataFromRequest(req)
-
-        const currentUserId = user._id
+        
+        const { currentUserId, referenceId } = getDataFromRequest(req)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
