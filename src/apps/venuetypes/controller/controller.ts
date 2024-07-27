@@ -75,31 +75,27 @@ export class Controller extends GenericController<DataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
         const {referenceId, user} = getDataFromRequest(req)
+        const currentUserId = user._id.toString()
         
         try {
-            const creatorId = await this.findDocumentCreatorId(referenceId)
-            const currentUserId = user._id.toString()
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
             
-            if(typeof creatorId === 'string'){
-                if(this.isCreatedByCurrentUser(creatorId, currentUserId)){
-                    
+            if(this.documentExists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+                
+                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
+
                     this.processDeletion(referenceId, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
-                
             } else {
                 this.respondWithNotFound(res)
             }
-            
         } catch (error) {
             next(error)
         }
-    }
-    
-    private findDocumentCreatorId = async(id: string): Promise<string | null> =>{
-        const targetDoc = await this.dataAccess.findByReferenceId(id)
-        return targetDoc !== null ? targetDoc.createdBy.toString() : null 
     }
     
     public processDeletion = async(referenceId: string, res: Response) =>{
