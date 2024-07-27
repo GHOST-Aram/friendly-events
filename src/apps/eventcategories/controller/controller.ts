@@ -2,7 +2,6 @@ import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
 import { domainData } from "../domain/data";
-import { EventCategory } from "../data-access/model";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
 import { document } from "../../../z-library/document/document";
 
@@ -13,10 +12,8 @@ export class Controller extends GenericController<DataAccess>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, user, file } = getDataFromRequest(req)
-
-        const inputData: EventCategory = { ...reqBody, createdBy: user._id }
-        const categoryData = file ? domainData.includeFile(inputData, file) : inputData
+        const data = getDataFromRequest(req)
+        const categoryData = domainData.createInputDocument(data)
 
         try {
             const newDocument = await this.dataAccess.createNew(categoryData)
@@ -28,22 +25,19 @@ export class Controller extends GenericController<DataAccess>{
  
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
-
-        const inputData: EventCategory = { ...reqBody, createdBy: user._id }
-        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
-        const currentUserId = user._id
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -58,22 +52,19 @@ export class Controller extends GenericController<DataAccess>{
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, user, file, referenceId } = getDataFromRequest(req)
-
-        const inputData: EventCategory = { ...reqBody, createdBy: user._id }
-        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
-        const currentUserId = user._id
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -89,9 +80,7 @@ export class Controller extends GenericController<DataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { user, referenceId } = getDataFromRequest(req)
-
-        const currentUserId = user._id
+        const { referenceId, currentUserId } = getDataFromRequest(req)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
