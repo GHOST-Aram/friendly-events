@@ -13,7 +13,7 @@ export const routesWrapper = (
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 
         authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowEventHost),
+        authenticator.restrictAccess(permission.allowVenueHost),
         fileUploader.uploadMultipleFiles('pictures'),
         validator.validateFiles,
         validationChains.validatePostData,
@@ -30,7 +30,7 @@ export const routesWrapper = (
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
         authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowEventHost),
+        authenticator.restrictAccess(permission.allowVenueHost),
         fileUploader.uploadMultipleFiles('pictures'),
         validator.validateFiles,
         validationChains.validatePostData,
@@ -41,7 +41,7 @@ export const routesWrapper = (
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
         authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowEventHost),
+        authenticator.restrictAccess(permission.allowVenueHost),
         fileUploader.uploadMultipleFiles('pictures'),
         validator.validateFiles,
         validationChains.validatePatchData,
@@ -52,7 +52,7 @@ export const routesWrapper = (
     router.delete('/', controller.respondWithMethodNotAllowed)
     router.delete('/:id',
         authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowEventHost),
+        authenticator.restrictAccess(permission.allowVenueHost),
         controller.deleteOne
     )
 

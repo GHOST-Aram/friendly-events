@@ -7,7 +7,7 @@ class Permission{
         return user.userGroup === 'organizer'
     }
 
-    public allowEventHost = (user: any) =>{
+    public allowVenueHost = (user: any) =>{
         return user.userGroup === 'host'
     }
 
