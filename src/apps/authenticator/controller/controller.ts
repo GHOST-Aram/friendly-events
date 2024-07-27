@@ -4,6 +4,8 @@ import 'dotenv/config'
 import { auth } from "../domain/authenticator"
 import { makeAuthUserData } from "../../../utils/auth-user-data"
 
+const secretOrkey = process.env.TOKEN_SECRET
+
 export class AuthController{
 
     private dataAccess: DataAccess
@@ -13,36 +15,36 @@ export class AuthController{
     }
 
     public signIn = async(req: Request, res: Response, next: NextFunction) =>{
-        //Verify user details and issue authentication token
+        
         const { email, password } = req.body
-
-        const secretOrkey = process.env.TOKEN_SECRET
 
         try {
             if(secretOrkey){
 
                 const user = await this.dataAccess.findUserByEmail(email)
-                
-                if(!user){
-                    this.respondWithUnauthorised(res, 'Email not registered with the system.')
+                this.verifyUserAndIssueToken(user, password, res)
 
-                } else {
-                    const isValidPassword = auth.verifyPassword(user?.password, password)
-    
-                    if(!isValidPassword){
-                        this.respondWithUnauthorised(res, 'Incorrect password.')
-                    } else {
-                        const token = auth.issueToken(makeAuthUserData(user), secretOrkey )
-                        this.respondWithToken(token, res)  
-                    }
-                } 
-                
             } else {
                 throw new Error('Token secret not Found.')
             }
                 
         } catch (error) {
             next(error)
+        } 
+    }
+
+    private verifyUserAndIssueToken = (user:any, incomingPassword: string, res: Response) =>{
+        if(user){
+            const isValidPassword = auth.verifyPassword(user?.password, incomingPassword)
+            
+            if(!isValidPassword){
+                this.respondWithUnauthorised(res, 'Incorrect password.')
+            } else {
+                const token = auth.issueToken(makeAuthUserData(user), secretOrkey as string )
+                this.respondWithToken(token, res)  
+            }
+        } else {
+            this.respondWithUnauthorised(res, 'Email not registered with the system.')
         } 
     }
 
@@ -58,3 +60,4 @@ export class AuthController{
         res.status(405).json('Method not allowed' )
     }
 }
+
