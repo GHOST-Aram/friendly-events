@@ -13,9 +13,8 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const {file, reqBody } = getDataFromRequest(req)
-
-        const userData = file ? domainData.includeFile(reqBody, file) : reqBody
+        const data = getDataFromRequest(req)
+        const userData = domainData.createInputDocument(data)
 
         try {
             const user = await this.dataAccess.findByEmail(userData.email)
@@ -34,7 +33,8 @@ export class UsersController extends GenericController<UsersDAL>{
     }
 
     public getOne = async(req: Request, res: Response, next: NextFunction): Promise<void> =>{
-        const referenceId = req.params.id
+
+        const { referenceId } = getDataFromRequest(req)
 
         try {
             const foundDocument = await this.dataAccess.findByReferenceId(referenceId)
@@ -62,18 +62,17 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, file, referenceId, user } = getDataFromRequest(req)
+        const data = getDataFromRequest(req)
+        let updateDoc = domainData.createInputDocument(data)
         
-        let updateDoc = file ? domainData.includeFile(reqBody, file) : reqBody
-        
-        if(user._id.toString() !== referenceId){
+        if(data.currentUserId !== data.referenceId){
             this.respondWithForbidden(res)
         } else {
             
             try {
                 updateDoc = await domainData.encyptPassword(updateDoc)
                 
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
+                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
                     updateDoc)
     
                 if(updatedDoc){
@@ -90,19 +89,17 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { reqBody, file, referenceId, user } = getDataFromRequest(req)
+        const data = getDataFromRequest(req)
+        let updateDoc = domainData.createInputDocument(data)
         
-        let updateDoc = file ? domainData.includeFile(reqBody, file) : reqBody
-        
-        if(user._id.toString() !== referenceId){
+        if(data.currentUserId !== data.referenceId){
             this.respondWithForbidden(res)
         } else {
             
             try {
-                updateDoc = reqBody.password ? await domainData.encyptPassword(updateDoc) : updateDoc
+                updateDoc = updateDoc.password ? await domainData.encyptPassword(updateDoc) : updateDoc
                 
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                    updateDoc)
+                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
     
                 if(updatedDoc){
                     this.respondWithUpdatedResource(updatedDoc, res)
@@ -118,9 +115,9 @@ export class UsersController extends GenericController<UsersDAL>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
 
-        const { user, referenceId } = getDataFromRequest(req)
+        const { currentUserId, referenceId } = getDataFromRequest(req)
 
-        if(user._id.toString() !== referenceId){
+        if(currentUserId !== referenceId){
             this.respondWithForbidden(res, 'User cannot delete information of other users.')
         } else {
             try {

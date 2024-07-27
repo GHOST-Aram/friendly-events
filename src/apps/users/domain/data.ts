@@ -1,11 +1,16 @@
 import { hash } from "bcrypt"
 import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { User } from "../data-access/model"
+import { DomainData } from "../../../z-library/bases/domain-data"
+import { RequestData } from "../../../z-library/request/request-data"
 
-class UserData{
+class UserData implements DomainData{
+    
+    public createInputDocument = (reqData: RequestData): User  =>{
+        const { file, reqBody } = reqData
+        const userData = file ? {...reqBody, profilePicture: createFileBuffer(file) } : reqBody
 
-    public includeFile = (updateDoc: any, file: Express.Multer.File): User => {
-        return { ...updateDoc, profilePicture: createFileBuffer(file) }
+        return userData   
     }
 
     public encyptPassword = async( updateDoc: any ): Promise<User> =>{
