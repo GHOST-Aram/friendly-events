@@ -15,7 +15,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const { reqBody, user, file } = getDataFromRequest(req)
 
         const inputData = {...reqBody, createdBy: user._id }
-        const eventData = domainData.formatInput(inputData, file)
+        const eventData = file ? domainData.includeFile(inputData, file) : inputData
 
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
@@ -43,7 +43,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = domainData.formatInput(inputData, file)
+        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
 
         try {
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
@@ -65,7 +65,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = domainData.formatInput(inputData, file)
+        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
 
         try {
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
