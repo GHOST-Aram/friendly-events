@@ -4,6 +4,7 @@ import { DataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
 import { HydratedVenueCategory } from "../data-access/model";
+import { document } from "../../../z-library/document/document";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -18,11 +19,11 @@ export class Controller extends GenericController<DataAccess>{
         try {  
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(this.documentExists(targetDoc)){
+            if(document.exists(targetDoc)){
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
-                    this.processUpdate({updateDoc: reqBody, id: referenceId}, res)
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                    this.updateAndRespond({updateDoc: reqBody, id: referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -34,19 +35,6 @@ export class Controller extends GenericController<DataAccess>{
         }
         
     }
-
-    private documentExists = (doc: HydratedVenueCategory | null ):boolean =>{
-        return Boolean(doc)
-    }
-    
-    private isCreatedByCurrentUser = (creatorId: string, currentUserId: string ) =>{
-        return currentUserId === creatorId
-    }
-    
-    public processUpdate = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
-        const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
-        this.respondWithUpdatedResource(updatedDoc as HydratedVenueCategory, res)
-    }
     
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
         
@@ -56,11 +44,11 @@ export class Controller extends GenericController<DataAccess>{
         try {  
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
             
-            if(this.documentExists(targetDoc)){
+            if(document.exists(targetDoc)){
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
-                    this.processUpdate({updateDoc: reqBody, id: referenceId}, res)
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                    this.updateAndRespond({updateDoc: reqBody, id: referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -80,13 +68,13 @@ export class Controller extends GenericController<DataAccess>{
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
             
-            if(this.documentExists(targetDoc)){
+            if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
-                
-                if(this.isCreatedByCurrentUser(currentUserId, creatorId)){
 
-                    this.processDeletion(referenceId, res)
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.deleteAndRespond(referenceId, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -96,13 +84,6 @@ export class Controller extends GenericController<DataAccess>{
         } catch (error) {
             next(error)
         }
-    }
-    
-    public processDeletion = async(referenceId: string, res: Response) =>{
-        const deletedDoc = await this.dataAccess.findByIdAndDelete(
-                referenceId) as HydratedVenueCategory
-
-        this.respondWithDeletedResource(deletedDoc.id, res)
     }
 }
 

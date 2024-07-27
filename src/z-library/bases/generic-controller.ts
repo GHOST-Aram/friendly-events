@@ -62,7 +62,7 @@ export class GenericController <T extends Accessible>
             next(error)
         }
     }
-    
+
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
         const updateDoc = req.body
@@ -116,5 +116,16 @@ export class GenericController <T extends Accessible>
         } catch (error) {
             next(error)
         }
+    }
+
+    public updateAndRespond = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
+        const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
+        this.respondWithUpdatedResource(updatedDoc, res)
+    }
+
+    public deleteAndRespond = async(referenceId: string, res: Response) =>{
+        const deletedDoc = await this.dataAccess.findByIdAndDelete(
+                referenceId)
+        this.respondWithDeletedResource(deletedDoc.id, res)
     }
 }
