@@ -1,7 +1,11 @@
-import express, { Application } from "express"
+import express, { Application, Router } from "express"
 import cors from 'cors'
 import helmet from "helmet"
 import morgan from 'morgan'
+import { Schema } from "mongoose"
+import { Connection } from "../db/connection"
+import { DB } from "../db/db"
+import { Authenticator } from "../auth/auth"
 
 export class Server{
 
@@ -38,4 +42,27 @@ export class Server{
         
     }
 
+    public setUpRouter = (fields: AppConfigFields): Router =>{
+        const db = new DB(fields.connection.switch(fields.dBName))
+        const dataModel = db.createModel(fields.modelName, fields.dataSchema)
+            
+        const dataAccess = new fields.DataAccessConstructor(dataModel)
+        const controller = new fields.ControllerConstructor(dataAccess, fields.applicationName)
+
+    return fields.routesWrapper(controller, fields.authenticator)
+}
+
+}
+
+
+export interface AppConfigFields{
+    connection: Connection 
+    dBName: string, 
+    dataSchema: Schema<any>,
+    DataAccessConstructor: any,
+    ControllerConstructor: any, 
+    routesWrapper: (controller: any, authenticator: Authenticator)=> Router,
+    authenticator: Authenticator,
+    modelName: string,
+    applicationName: string
 }

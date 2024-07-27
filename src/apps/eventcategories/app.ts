@@ -1,11 +1,11 @@
 import { routesWrapper } from "./urls/urls";
 import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
-import { connection } from "../../_config/config";
-import { DB } from "../../z-library/db/db";
+import { connection, server } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
+import { AppConfigFields } from "../../z-library/server/server";
 import 'dotenv/config'
 
 let categoriesRouter: Router
@@ -13,12 +13,21 @@ const categoriesDbName = process.env.CATEGORIESDB_NAME
 
 try {
     if(categoriesDbName) {
-        const db = new DB(connection.switch(categoriesDbName))
-        const CategoryModel = db.createModel('Category', categorySchema)
-        
-        const categoriesDAL = new DataAccess(CategoryModel)
-        const controller = new Controller(categoriesDAL, 'categories')
-        categoriesRouter = routesWrapper(controller, authenticator)
+
+        const appConf: AppConfigFields  = {
+            connection,
+            dBName: categoriesDbName,
+            modelName: 'Category',
+            applicationName: 'event-categories',
+            dataSchema: categorySchema,
+            authenticator,
+            DataAccessConstructor: DataAccess,
+            ControllerConstructor: Controller,
+            routesWrapper,
+        }
+
+        categoriesRouter = server.setUpRouter(appConf)
+
     } else {
         throw new Error("Database name not found in environment Variables")
     }

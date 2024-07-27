@@ -41,5 +41,5 @@ try {
 const PORT = Number(process.env.PORT) || 8000
 server.listenToRequests(PORT,'')
 
-export { app, connection }
+export { app, connection, server }
 
