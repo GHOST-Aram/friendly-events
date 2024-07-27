@@ -1,8 +1,9 @@
 import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { EventCategory } from "../data-access/model"
 import { RequestData } from "../../../z-library/request/request-data"
+import { DomainData } from "../../../z-library/bases/domain-data"
 
-class CategoryData{
+class CategoryData implements DomainData{
     public createInputDocument = (reqData: RequestData): EventCategory =>{
         const { reqBody, file, currentUserId } = reqData
         const inputData: EventCategory = { ...reqBody, createdBy: currentUserId }
@@ -11,7 +12,7 @@ class CategoryData{
         return categoryData
     }
 
-    public includeFile = (inputData: any, file: Express.Multer.File): EventCategory => {
+    private includeFile = (inputData: any, file: Express.Multer.File): EventCategory => {
         return { ...inputData, graphic: createFileBuffer(file) }
     }
 
