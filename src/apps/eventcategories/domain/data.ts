@@ -7,15 +7,10 @@ class CategoryData implements DomainData{
     public createInputDocument = (reqData: RequestData): EventCategory =>{
         const { reqBody, file, currentUserId } = reqData
         const inputData: EventCategory = { ...reqBody, createdBy: currentUserId }
-        const categoryData = file ? this.includeFile(inputData, file) : inputData
+        const categoryData = file ? { ...inputData, graphic: createFileBuffer(file) } : inputData
 
         return categoryData
     }
-
-    private includeFile = (inputData: any, file: Express.Multer.File): EventCategory => {
-        return { ...inputData, graphic: createFileBuffer(file) }
-    }
-
 }
 
 export const domainData = new CategoryData()
