@@ -4,6 +4,7 @@ import { EventsDataAccess } from "../data-access/data-access";
 import { Paginator } from "../../../z-library/HTTP/http-response";
 import { eventData as domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
+import { document } from "../../../z-library/document/document";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){
@@ -14,7 +15,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
         const { reqBody, user, file } = getDataFromRequest(req)
 
-        const inputData = {...reqBody, createdBy: user._id }
+        const inputData = {...reqBody, organizer: user._id }
         const eventData = file ? domainData.includeFile(inputData, file) : inputData
 
         try {
@@ -43,15 +44,24 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
+        const updateDoc = file ? file ? domainData.includeFile(inputData, file) : inputData : inputData
+        const currentUserId = user._id
 
         try {
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
-            } else{
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
                 this.addNew(req, res, next)
             }
 
@@ -61,19 +71,28 @@ export class EventsController extends GenericController<EventsDataAccess>{
     }
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        
+
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)
 
         const inputData: Event = { ...reqBody, createdBy: user._id}
-        const updateDoc = file ? domainData.includeFile(inputData, file) : inputData
+        const updateDoc = file ? file ? domainData.includeFile(inputData, file) : inputData : inputData
+        const currentUserId = user._id
 
         try {
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
-            } else{
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
                 this.respondWithNotFound(res)
             }
 
@@ -81,5 +100,35 @@ export class EventsController extends GenericController<EventsDataAccess>{
             next(error)
         }
     }
+
+    public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
+
+        const { user, referenceId } = getDataFromRequest(req)
+
+        const currentUserId = user._id
+
+        try {
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.deleteAndRespond(referenceId, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
+                this.respondWithNotFound(res)
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
+      
 }
 
