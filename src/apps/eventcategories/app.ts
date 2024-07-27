@@ -5,7 +5,7 @@ import { connection, server } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
-import { AppConfigFields } from "../../z-library/server/server";
+import { AppConfig } from "../../z-library/server/server";
 import 'dotenv/config'
 
 let categoriesRouter: Router
@@ -14,7 +14,7 @@ const categoriesDbName = process.env.CATEGORIESDB_NAME
 try {
     if(categoriesDbName) {
 
-        const appConf: AppConfigFields  = {
+        const appConf: AppConfig  = {
             connection,
             dBName: categoriesDbName,
             modelName: 'Category',

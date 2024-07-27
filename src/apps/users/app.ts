@@ -5,7 +5,7 @@ import { connection, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
-import { AppConfigFields } from "../../z-library/server/server";
+import { AppConfig } from "../../z-library/server/server";
 import 'dotenv/config'
 
 let usersRouter: Router
@@ -13,7 +13,7 @@ const usersDbName = process.env.USERSDB_NAME
 
 try {
     if(usersDbName) {
-        const appConf: AppConfigFields  = {
+        const appConf: AppConfig  = {
             connection,
             dBName: usersDbName,
             modelName: 'VenueCategory',

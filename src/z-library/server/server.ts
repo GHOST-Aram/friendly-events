@@ -42,20 +42,20 @@ export class Server{
         
     }
 
-    public setUpRouter = (fields: AppConfigFields): Router =>{
-        const db = new DB(fields.connection.switch(fields.dBName))
-        const dataModel = db.createModel(fields.modelName, fields.dataSchema)
+    public setUpRouter = (config: AppConfig): Router =>{
+        const db = new DB(config.connection.switch(config.dBName))
+        const dataModel = db.createModel(config.modelName, config.dataSchema)
             
-        const dataAccess = new fields.DataAccessConstructor(dataModel)
-        const controller = new fields.ControllerConstructor(dataAccess, fields.applicationName)
+        const dataAccess = new config.DataAccessConstructor(dataModel)
+        const controller = new config.ControllerConstructor(dataAccess, config.applicationName)
 
-    return fields.routesWrapper(controller, fields.authenticator)
+    return config.routesWrapper(controller, config.authenticator)
 }
 
 }
 
 
-export interface AppConfigFields{
+export interface AppConfig{
     connection: Connection 
     dBName: string, 
     dataSchema: Schema<any>,
