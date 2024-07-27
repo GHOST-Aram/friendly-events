@@ -26,11 +26,16 @@ The events app allows event organizers create and manage listings of events. The
 
 Visit the [Events documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/events/events.md) to learn how you can intergrate this application with your client app.
 
-#### 4. Venues [*View Code*](./src/apps/venues/)
+
+#### 4. Event Categories [*View code*](./src/apps/eventcategories/)
+Events can be grouped into various categories including music, sports etc. The event categories app allows event organizers and admins to create the distinct groups under which events can fall.
+See more in the [Event Categories docs](https://github.com/GHOST-Aram/friendly-docs/blob/main/eventcategories/eventcategories.md)
+
+#### 5. Venues [*View Code*](./src/apps/venues/)
 Venues app manages the list of available event venues. Venue hosts -- owners or manager -- can create, update or delete venue listings through this app. All users including anonymous users can veiw lists of venues on this plaform.
 
 Visit the [venues endpoints documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venues/venues.md) for a guide on how to integrate venues app with your client app.
 
-#### 5. Venue Types [*View Code*](./src/apps/venuetypes/)
+#### 6. Venue Types [*View Code*](./src/apps/venuetypes/)
 The venue types app in the system is used for creating, reading and managing various groups under which venues can be classified. Find out more about venue types in [venue types documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venue-types/venue-types.md)
 
