@@ -1,7 +1,7 @@
 import express, { Application } from "express"
 import { authenticator } from "../z-library/auth/auth"
 import { Server } from "../z-library/server/server"
-import { Connection } from "../z-library/db/connection"
+import { ConnectionPool } from "../z-library/db/connection"
 import 'dotenv/config'
 
 const app: Application = express()
@@ -14,14 +14,14 @@ server.logRequestsandResponses()
 
 const dbUri = process.env.USERSDB_URI
 const secretOrKey = process.env.TOKEN_SECRET
-let connection: Connection
+let connectionPool: ConnectionPool
 
 try {
     
     if(dbUri){
-        connection = new Connection(dbUri)
+        connectionPool = new ConnectionPool(dbUri)
         
-        const authDbConnection = connection.getInitial()
+        const authDbConnection = connectionPool.getInitialConnection()
         
         if(secretOrKey){
             authenticator.configureStrategy(secretOrKey, authDbConnection)
@@ -41,5 +41,5 @@ try {
 const PORT = Number(process.env.PORT) || 8000
 server.listenToRequests(PORT,'')
 
-export { app, connection, server }
+export { app, connectionPool, server }
 

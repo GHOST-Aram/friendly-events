@@ -3,7 +3,7 @@ import cors from 'cors'
 import helmet from "helmet"
 import morgan from 'morgan'
 import { Schema } from "mongoose"
-import { Connection } from "../db/connection"
+import { ConnectionPool } from "../db/connection"
 import { DB } from "../db/db"
 import { Authenticator } from "../auth/auth"
 
@@ -43,7 +43,10 @@ export class Server{
     }
 
     public setUpRouter = (config: AppConfig): Router =>{
-        const db = new DB(config.connection.switch(config.dBName))
+
+        //Switch to another database in the connection pool
+        const db = new DB(config.connectionPool.switchConnection(config.dBName))
+
         const dataModel = db.createModel(config.modelName, config.dataSchema)
             
         const dataAccess = new config.DataAccessConstructor(dataModel)
@@ -56,7 +59,7 @@ export class Server{
 
 
 export interface AppConfig{
-    connection: Connection 
+    connectionPool: ConnectionPool 
     dBName: string, 
     dataSchema: Schema<any>,
     DataAccessConstructor: any,

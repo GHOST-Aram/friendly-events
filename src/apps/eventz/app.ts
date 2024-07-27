@@ -1,7 +1,7 @@
 import { routesWrapper } from "./urls/urls";
 import { EventsDataAccess } from "./data-access/data-access";
 import { EventsController } from "./controller/controller";
-import { connection, server } from "../../_config/config";
+import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
@@ -14,7 +14,7 @@ const eventsDbName = process.env.EVENTSDB_NAME
 try {
     if(eventsDbName) {
         const appConf: AppConfig  = {
-            connection,
+            connectionPool,
             dBName: eventsDbName,
             modelName: 'VenueCategory',
             applicationName: 'venue-types',

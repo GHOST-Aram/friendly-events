@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-export class Connection {
+export class ConnectionPool {
 
     private initialConnection: mongoose.Connection
 
@@ -22,11 +22,11 @@ export class Connection {
         })
     }
 
-    public getInitial = (): mongoose.Connection =>{
+    public getInitialConnection = (): mongoose.Connection =>{
         return this.initialConnection
     }
 
-    public switch = (newdBName: string): mongoose.Connection =>{
+    public switchConnection = (newdBName: string): mongoose.Connection =>{
         return this.initialConnection.useDb(newdBName)
     }
 }

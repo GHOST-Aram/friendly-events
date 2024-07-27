@@ -1,7 +1,7 @@
 import { routesWrapper } from "./urls/urls";
 import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
-import { connection, server } from "../../_config/config";
+import { connectionPool, server } from "../../_config/config";
 import { venueCatSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
@@ -14,7 +14,7 @@ const venueCategoryDbName = process.env.VENUECATEGORYDB_NAME
 try {
     if(venueCategoryDbName) {
         const appConf: AppConfig  = {
-            connection,
+            connectionPool,
             dBName: venueCategoryDbName,
             modelName: 'VenueCategory',
             applicationName: 'venue-types',

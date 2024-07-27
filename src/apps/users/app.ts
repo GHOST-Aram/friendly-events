@@ -1,7 +1,7 @@
 import { routesWrapper } from "./urls/urls";
 import { UsersDAL } from "./data-access/data-access";
 import { UsersController } from "./controller/controller";
-import { connection, server } from "../../_config/config";
+import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
@@ -14,7 +14,7 @@ const usersDbName = process.env.USERSDB_NAME
 try {
     if(usersDbName) {
         const appConf: AppConfig  = {
-            connection,
+            connectionPool,
             dBName: usersDbName,
             modelName: 'VenueCategory',
             applicationName: 'venue-types',
