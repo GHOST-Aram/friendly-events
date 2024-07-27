@@ -27,18 +27,6 @@ export class EventsController extends GenericController<EventsDataAccess>{
         }   
     }
 
-    public getByOrganizer = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req) 
-        const organizerId = req.params.organizerId
-
-        try {
-            const documents = await this.dataAccess.findByOrganizerId(organizerId, paginator)
-            this.respondWithFoundResource(documents, res)
-        } catch (error) {
-            next(error)
-        }
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const { reqBody, user, file, referenceId } = getDataFromRequest(req)

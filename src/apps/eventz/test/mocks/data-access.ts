@@ -27,6 +27,10 @@ export class EventsDAL extends EventsDataAccess{
         return this.documentOrNull(refId)
     })
 
+    public findByCreatorId = async(creatorId: string, paginator: Paginator): Promise<HydratedDocument<Event>[]> =>{
+        return this.createMockDocsArray(paginator.limit)
+    };
+
     private documentOrNull = (id: string) =>{
         if(id === ID_OF_EXISTING_DOCUMENT){
             return new this.model({...validData, createdBy: '64c9e4f2df7cc072af2ac8a4'})  
