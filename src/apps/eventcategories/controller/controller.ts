@@ -52,7 +52,6 @@ export class Controller extends GenericController<DataAccess>{
                 this.addNew(req, res, next)
             }
         } catch (error) {
-            console.log(error)
             next(error)
         }
     }
