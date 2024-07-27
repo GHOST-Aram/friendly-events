@@ -29,7 +29,7 @@ export class CategoriesDAL extends DataAccess{
 
     private documentOrNull = (id: string) =>{
         if(id === ID_OF_EXISTING_DOCUMENT){
-            return new this.model(validData)  
+            return new this.model({...validData, createdBy: '64c9e4f2df7cc072af2ac8a4'})  
         } 
         return null
     }

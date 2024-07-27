@@ -1,6 +1,6 @@
 import { EventCategory } from '../../data-access/model'
 
-export const validData: EventCategory= {  
+export const validData = {  
     name: "Music Concert"  ,
     description: `
         Lorem ipsum dolor sit amet consectetur adipisicing elit. 

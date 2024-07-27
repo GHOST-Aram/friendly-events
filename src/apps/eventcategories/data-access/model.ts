@@ -3,7 +3,7 @@ import { HydratedDocument, Model, ObjectId, Schema, model } from "mongoose"
 export interface EventCategory{
     name: string
     description: string
-    createdBy?: ObjectId
+    createdBy: ObjectId
     graphic?: {
         name: string,
         data: Buffer
