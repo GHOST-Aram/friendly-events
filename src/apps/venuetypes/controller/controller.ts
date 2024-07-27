@@ -47,7 +47,6 @@ export class Controller extends GenericController<DataAccess>{
         
     }
 
-    
     private documentExists = (doc: HydratedVenueCategory | null ):boolean =>{
         return Boolean(doc)
     }
@@ -121,6 +120,5 @@ export class Controller extends GenericController<DataAccess>{
 
         this.respondWithDeletedResource(deletedDoc.id, res)
     }
-
 }
 
