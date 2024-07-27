@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
-import { Paginator } from "../../../z-library/HTTP/http-response";
 import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
+import { document } from "../../../z-library/document/document";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -29,16 +29,25 @@ export class Controller extends GenericController<DataAccess>{
 
         const { user, files, reqBody, referenceId } = getDataFromRequest(req)
 
+        const currentUserId = user._id
         const inputData = { ...reqBody, createdBy: user._id }
         const updateDoc = files ? domainData.includeFiles(inputData, files) : inputData
 
         try {
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
-            } else{
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
                 this.addNew(req, res, next)
             }
 
@@ -49,18 +58,56 @@ export class Controller extends GenericController<DataAccess>{
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { files, reqBody, referenceId } = getDataFromRequest(req)
+        const { files, reqBody, referenceId, user } = getDataFromRequest(req)
 
         const updateDoc = files ? domainData.includeFiles(reqBody, files) : reqBody
+        const currentUserId = user._id
 
         try {
-            const modifiedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(modifiedDoc){
-                this.respondWithModifiedResource(modifiedDoc, res)
-            } else{
-              this.respondWithNotFound(res)
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
+                this.respondWithNotFound(res)
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
+
+        const { referenceId, user } = getDataFromRequest(req)
+
+        const currentUserId = user._id
+
+        try {
+            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+
+            if(document.exists(targetDoc)){
+
+                const creatorId = targetDoc?.createdBy.toString() as string
+
+                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+
+                    this.deleteAndRespond( referenceId, res)
+
+                } else {
+                    this.respondWithForbidden(res)
+                }
+            } else {
+                this.respondWithNotFound(res)
             }
 
         } catch (error) {
