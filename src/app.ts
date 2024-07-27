@@ -4,7 +4,7 @@ import { authRouter } from "./apps/authenticator/app";
 import { httpErrors } from "./z-library/HTTP/http-errors";
 import { eventsRouter } from "./apps/eventz/app";
 import { venuesRouter } from "./apps/venues/app";
-import { categoriesRouter } from "./apps/event-categories/app";
+import { categoriesRouter } from "./apps/eventcategories/app";
 import { venueTypesRouter } from "./apps/venuetypes/app";
 
 
