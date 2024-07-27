@@ -25,3 +25,8 @@ The events app allows event organizers create and manage listings of events. The
 - Event organizers can delete events from listings
 
 Visit the [Events documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/events/events.md) to learn how you can intergrate this application with your client app.
+
+#### 4. Venues
+Venues app manages event venues. Venue hosts -- owners or manager -- can create, update or delete venue listings through this app. All users including anonymous users can veiw lists of venues on this plaform.
+
+Visit the [venues endpoints documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venues/venues.md) for a guide on how to integrate venues app with your client app.
