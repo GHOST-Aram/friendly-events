@@ -52,7 +52,7 @@ export class CategoriesDAL extends DataAccess{
         return mockDocs
     }
 
-    public findByOrganizerId = jest.fn(async(organizerId: string, paginator: Paginator
+    public findByCreatorId = jest.fn(async(creatorId: string, paginator: Paginator
         ): Promise<HydratedCategoryDoc[]>=>{
         return this.createMockDocsArray(paginator.limit)
     })

@@ -51,6 +51,18 @@ export class GenericController <T extends Accessible>
         }
     }
 
+    public getByCreator = async(req: Request, res: Response, next: NextFunction) =>{
+        const paginator: Paginator = this.paginate(req) 
+        const creatorId = req.params.creatorId
+
+        try {
+            const documents = await this.dataAccess.findByCreatorId(creatorId, paginator)
+            this.respondWithFoundResource(documents, res)
+        } catch (error) {
+            next(error)
+        }
+    }
+    
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
         const updateDoc = req.body
