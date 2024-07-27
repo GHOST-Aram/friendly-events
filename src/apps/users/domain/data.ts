@@ -3,6 +3,8 @@ import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { User } from "../data-access/model"
 import { DomainData } from "../../../z-library/bases/domain-data"
 import { RequestData } from "../../../z-library/request/request-data"
+import { getDataFromRequest } from "../../../z-library/request/request-data"
+import { Response, Request, NextFunction } from "express"
 
 class UserData implements DomainData{
     
@@ -16,6 +18,18 @@ class UserData implements DomainData{
     public encyptPassword = async( updateDoc: any ): Promise<User> =>{
         return { ...updateDoc, password: await hash(updateDoc.password, 10) }  
     }
+
+    public allowUserDocumentOwner = (req: Request, res: Response, next: NextFunction) =>{
+
+        const {currentUserId, referenceId } = getDataFromRequest(req)
+
+        if(currentUserId !== referenceId){
+            res.status(403).json(`Forbidden. Users cannot alter other users \' documents}`)
+        } else{
+            next()
+        }
+    }
+
 }
 
 export const domainData = new UserData()

@@ -4,6 +4,7 @@ import { validator, validationChains} from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { fileUploader } from "../../../z-library/uploads/upload";
 import { permission } from "../../../utils/permissions";
+import { domainData } from "../domain/data";
 
 const router = Router()
 
@@ -32,9 +33,10 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
+        authenticator.authenticate(),
+        domainData.allowUserDocumentOwner,
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
-        authenticator.authenticate(),
         validationChains.validatePostData, 
         validator.handleValidationErrors,
         controller.updateOne
@@ -43,6 +45,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
         authenticator.authenticate(),
+        domainData.allowUserDocumentOwner,
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
         validationChains.validatePatchData, 
@@ -53,6 +56,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.delete('/', controller.respondWithMethodNotAllowed)
     router.delete('/:id', 
         authenticator.authenticate(),
+        domainData.allowUserDocumentOwner,
         authenticator.restrictAccess(permission.allowAdmin),
         validator.handleValidationErrors,
         controller.deleteOne

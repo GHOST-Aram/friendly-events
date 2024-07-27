@@ -64,26 +64,21 @@ export class UsersController extends GenericController<UsersDAL>{
         
         const data = getDataFromRequest(req)
         let updateDoc = domainData.createInputDocument(data)
-        
-        if(data.currentUserId !== data.referenceId){
-            this.respondWithForbidden(res)
-        } else {
             
-            try {
-                updateDoc = await domainData.encyptPassword(updateDoc)
-                
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
-                    updateDoc)
-    
-                if(updatedDoc){
-                    this.respondWithUpdatedResource(updatedDoc, res)
-                } else{
-                    this.addNew(req, res, next)
-                }
-    
-            } catch (error) {
-                next(error)
+        try {
+            updateDoc = await domainData.encyptPassword(updateDoc)
+            
+            const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
+                updateDoc)
+
+            if(updatedDoc){
+                this.respondWithUpdatedResource(updatedDoc, res)
+            } else{
+                this.addNew(req, res, next)
             }
+
+        } catch (error) {
+            next(error)
         }
     }
 
@@ -91,47 +86,38 @@ export class UsersController extends GenericController<UsersDAL>{
 
         const data = getDataFromRequest(req)
         let updateDoc = domainData.createInputDocument(data)
-        
-        if(data.currentUserId !== data.referenceId){
-            this.respondWithForbidden(res)
-        } else {
+
+        try {
+            updateDoc = updateDoc.password ? await domainData.encyptPassword(updateDoc) : updateDoc
             
-            try {
-                updateDoc = updateDoc.password ? await domainData.encyptPassword(updateDoc) : updateDoc
-                
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
-    
-                if(updatedDoc){
-                    this.respondWithUpdatedResource(updatedDoc, res)
-                } else{
-                    this.respondWithNotFound(res)
-                }
-    
-            } catch (error) {
-                next(error)
+            const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
+
+            if(updatedDoc){
+                this.respondWithUpdatedResource(updatedDoc, res)
+            } else{
+                this.respondWithNotFound(res)
             }
+
+        } catch (error) {
+            next(error)
         }
     }
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
 
-        const { currentUserId, referenceId } = getDataFromRequest(req)
+        const { referenceId } = getDataFromRequest(req)
 
-        if(currentUserId !== referenceId){
-            this.respondWithForbidden(res, 'User cannot delete information of other users.')
-        } else {
-            try {
-                const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
-    
-                if(deletedDoc){
-                    this.respondWithDeletedResource(deletedDoc.id, res)
-                } else{
-                  this.respondWithNotFound(res)
-                }
-    
-            } catch (error) {
-                next(error)
+        try {
+            const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
+
+            if(deletedDoc){
+                this.respondWithDeletedResource(deletedDoc.id, res)
+            } else{
+                this.respondWithNotFound(res)
             }
+
+        } catch (error) {
+            next(error)
         }
     }
 }
