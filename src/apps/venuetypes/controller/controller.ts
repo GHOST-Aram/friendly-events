@@ -10,6 +10,19 @@ export class Controller extends GenericController<DataAccess>{
         super(dataAccess, microserviceName)
     }
 
+    public addNew = async(req: Request, res: Response, next: NextFunction) =>{
+        
+        const data = getDataFromRequest(req)
+        const inputData = domainData.createInputDocument(data)
+
+        try {
+            const newDocument = await this.dataAccess.createNew(inputData)
+            this.respondWithCreatedResource(newDocument, res)
+        } catch (error) {
+            next(error)
+        }   
+    }
+
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
