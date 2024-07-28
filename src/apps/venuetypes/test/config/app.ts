@@ -5,13 +5,14 @@ import { VenueCategoryDAL } from "../mocks/data-access";
 import { VenueCategory } from "../../data-access/model";
 import { Authenticator } from "../../../../z-library/auth/mock/auth";
 import { user } from "../../../../z-library/auth/mock/mock-user";
+import { validData } from "../mocks/raw-data";
 
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-const dataAccess = new VenueCategoryDAL(VenueCategory)
+const dataAccess = new VenueCategoryDAL(VenueCategory, validData)
 const controller = new Controller(dataAccess, 'venue-types')
 
 user.userGroup = 'host'

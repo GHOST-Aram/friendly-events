@@ -5,29 +5,16 @@ import mongoose, { HydratedDocument, Schema } from "mongoose"
 
 export class DataAccess{
 
-    public findUserByEmail = jest.fn(
+    public findUserByEmail = jest.fn( async(email: string): Promise<HydratedDocument<any> | null> =>{
         
-        async(email: string): Promise<HydratedDocument<any> | null> =>{
-
-            const registeredEmail = 'correctEmail@gmail.com'
+        if(email === registeredEmail){
+            const hashedPassword = await hash(password, 10)
+            const mockUser =  new User({...userData, password: hashedPassword})
             
-            if(email === registeredEmail){
-                const password = 'CorrectPassword2030'
+            return mockUser
 
-                const hashedPassword = await hash(password, 10)
-
-                const mockUser =  new User({
-                    first_name: 'John',
-                    last_name: 'Doe',
-                    email: 'CorrectPassword2030',
-                    password: hashedPassword,
-
-                })
-                return mockUser
-
-            } else return null
-        }
-    )
+        } else return null
+    })
 }
 
 const User = mongoose.model('User', new Schema({
@@ -40,5 +27,13 @@ const User = mongoose.model('User', new Schema({
         default: false
     }
 }))
+
+const password = 'CorrectPassword2030'
+const registeredEmail = 'correctEmail@gmail.com'
+
+const userData = { first_name: 'John', last_name: 'Doe', 
+        email: registeredEmail,
+        password: '',
+}
 
 export const dataAccess = new DataAccess()

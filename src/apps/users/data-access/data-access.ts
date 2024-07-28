@@ -11,7 +11,7 @@ export class UsersDAL extends GenericDataAccess<UserModel, User>{
         return await this.model.findOne({ email })
     }
 
-    public findByReferenceId = async(refId: string):Promise<HydratedUserDoc | null> =>{
+    public findByReferenceId = async(refId: string) =>{
         return await this.model.findById(refId, { password: 0 })
     }
 

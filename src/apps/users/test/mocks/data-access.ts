@@ -5,120 +5,49 @@ import {
     UserModel
 } from "../../data-access/model"
 import { jest } from "@jest/globals"
-import { UsersDAL as UsersDataAccess } from "../../data-access/data-access"
+import { MockDataAccess } from "../../../../z-library/testing/mocks/data-access"
 
 const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
-export class UsersDAL extends UsersDataAccess{
+export class UsersDAL extends MockDataAccess<UserModel, User>{
     
-    constructor(model: UserModel){
-        super(model)
+    constructor(model: UserModel, validData: Object){
+        super(model, validData)
     }
-    public createNew = jest.fn(
 
-        async(userData: User): Promise<HydratedUserDoc> =>{
+    public findByReferenceId = jest.fn(async(userID: string): Promise<HydratedUserDoc | null> =>{
 
-            const mockUser = new this.model(userData)  
-            return mockUser
-        }
-    )
+        if(userID === ID_OF_EXISTING_DOCUMENT){
+            const mockFoundUser = new this.model(this.validData)
 
-    public findByReferenceId = jest.fn(
+            return mockFoundUser
 
-        async(userID: string): Promise<HydratedUserDoc | null> =>{
+        } else return null
+    })
 
-            if(userID === ID_OF_EXISTING_DOCUMENT){
-                const mockFoundUser = new this.model({
-                    fullName: 'John Doe',
-                    password: 'redxdterewfwefwe',
-                    email: 'johndoe@gmail.com',
-                    userGroup: 'superuser'
-                })
+    public findByEmail = jest.fn(async(email: string): Promise<HydratedUserDoc | null> =>{
 
-                return mockFoundUser
+        const existingDocumentEmail = 'existingEmail@gmail.com'
 
-            } else return null
-        }
-    )
-
-    public findByEmail = jest.fn(
-
-        async(email: string): Promise<HydratedUserDoc | null> =>{
-
-            const existingDocumentEmail = 'existingEmail@gmail.com'
-
-            if(email === existingDocumentEmail){
-
-                const mockDocumentWithExistingEmail =  new this.model({
-                    fullName: 'John Doe',
-                    password: 'redxdterewfwefwe',
-                    email: 'existingEmail@gmail.com'
-                })
-
-                return mockDocumentWithExistingEmail
-
-            } else return null
-        }
-    )
+        if(email === existingDocumentEmail){
+            return new this.model(this.validData)
+        } else return null
+    })
     
-    public findWithPagination = jest.fn(
-        
-        async( pagination: Paginator): Promise<HydratedUserDoc[]> =>{
-
-            const mockUsers =  this.createMockUsersArray(pagination.limit)
-            return mockUsers
-        }
-    )
+    public findWithPagination = jest.fn(async( pagination: Paginator): Promise<HydratedUserDoc[]> =>{
+        return this.createMockUsersArray(pagination.limit)
+    })
 
     private createMockUsersArray = (limit: number) =>{
 
+        let userCount = 0
         const mockUsers: HydratedUserDoc[] = []
 
-        let userCount = 0
         while(userCount < limit){
-            mockUsers.push(new this.model({
-                password: 'redxdterewfwefwe',
-                fullName: 'Doe Doe',
-                email: 'johnDoes@gmail.com'
-            }))
-
+            mockUsers.push(new this.model(this.validData))
             userCount ++
         }
 
         return mockUsers
     }
-   
-    public findByIdAndDelete = jest.fn(
-
-        async(userId: string): Promise<HydratedUserDoc | null> =>{
-
-            if(userId === ID_OF_EXISTING_DOCUMENT){
-                const mockDeletedUserDoc =  new this.model({
-                    password: 'redxdterewfwefwe',
-                    fullName: 'Doe Doe',
-                    email: 'johndoe@gmail.com'
-                })
-
-                return mockDeletedUserDoc
-
-            } else return null
-        }
-    )
-
-    public findByIdAndUpdate = jest.fn(
-
-        async(userId: string): Promise<HydratedUserDoc | null> =>{
-
-            if(userId === ID_OF_EXISTING_DOCUMENT){
-                const mockUpdatedUserDoc =  new this.model({
-                    password: 'redxdterewfwefwe',
-                    fullName: 'Doe Doe',
-                    email: 'johndoe@gmail.com'
-                })
-
-                return mockUpdatedUserDoc
-
-            } else return null
-        }
-    )  
 }
