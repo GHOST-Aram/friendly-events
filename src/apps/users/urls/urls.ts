@@ -54,12 +54,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     )
 
     router.delete('/', controller.respondWithMethodNotAllowed)
-    router.delete('/:id', 
-        authenticator.authenticate(),
-        domainData.allowDocumentOwner,
-        authenticator.restrictAccess(permission.allowAdmin),
-        controller.deleteOne
-    )
+    router.delete('/:id', controller.respondWithMethodNotAllowed)
 
     return router
 }
