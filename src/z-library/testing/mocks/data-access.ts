@@ -26,7 +26,7 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
         return this.documentOrNull(refId)
     })
 
-    private documentOrNull = (id: string) =>{
+    public documentOrNull = (id: string) =>{
         if(id === this.ID_OF_EXISTING_DOCUMENT){
             return new this.model({...this.validData, createdBy: '64c9e4f2df7cc072af2ac8a4'})  
         } 

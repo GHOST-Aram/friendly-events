@@ -12,12 +12,7 @@ export class UsersDAL extends MockDataAccess<UserModel, User>{
 
     public findByReferenceId = jest.fn(async(userID: string): Promise<HydratedUserDoc | null> =>{
 
-        if(userID === this.ID_OF_EXISTING_DOCUMENT){
-            const mockFoundUser = new this.model(this.validData)
-
-            return mockFoundUser
-
-        } else return null
+        return this.documentOrNull(userID)
     })
 
     public findByEmail = jest.fn(async(email: string): Promise<HydratedUserDoc | null> =>{
