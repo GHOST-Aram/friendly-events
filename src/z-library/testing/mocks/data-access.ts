@@ -1,0 +1,66 @@
+import { Paginator } from "../../HTTP/http-response"
+import { HydratedDocument } from "mongoose"
+import { jest } from "@jest/globals"
+import { Accessible } from '../../bases/accessible'
+import { Model } from "mongoose"
+
+const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
+
+export class MockDataAccess<T extends Model<any>, RawData> implements Accessible{
+    
+    public model:T
+    public validData: Object 
+
+    constructor(model: T, validData: Object){
+        this.model = model
+        this.validData = validData
+    }
+
+    public createNew = jest.fn(async(data: RawData): Promise<HydratedDocument<RawData>> =>{
+            const document = new this.model(data)  
+            return document
+        }
+    )
+
+    public findByReferenceId = jest.fn(async(refId: string):Promise<HydratedDocument<RawData> | null> =>{
+        return this.documentOrNull(refId)
+    })
+
+    private documentOrNull = (id: string) =>{
+        if(id === ID_OF_EXISTING_DOCUMENT){
+            return new this.model({...this.validData, createdBy: '64c9e4f2df7cc072af2ac8a4'})  
+        } 
+        return null
+    }
+
+    public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<RawData>[]> =>{
+        return this.createDocsArray(paginator.limit)
+    })
+
+    public createDocsArray = (limit: number) =>{
+
+        const mockDocs: HydratedDocument<RawData>[] = []
+
+        let userCount = 0
+        while(userCount < limit){
+            mockDocs.push(new this.model(this.validData))
+
+            userCount ++
+        }
+
+        return mockDocs
+    }
+
+    public findByCreatorId = jest.fn(async(creatorId: string, paginator: Paginator
+        ): Promise<HydratedDocument<RawData>[]>=>{
+        return this.createDocsArray(paginator.limit)
+    })
+
+    public findByIdAndUpdate = jest.fn(async(id: string, updateDoc: any):Promise<HydratedDocument<RawData> | null> =>{
+        return this.documentOrNull(id)
+    })
+
+    public findByIdAndDelete = async(id: string): Promise<HydratedDocument<RawData> | null> =>{
+        return this.documentOrNull(id)
+    }
+}
