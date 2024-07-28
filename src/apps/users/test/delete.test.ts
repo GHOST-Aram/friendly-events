@@ -3,7 +3,7 @@ import { app } from "./config/app";
 import { describe, test } from "@jest/globals";
 import request from "supertest"
 
-describe('DELETE users route', () =>{
+describe.only('DELETE users not Allowed', () =>{
     test('Rejects delete-all request: (status 405): Method not allowed.', 
         async() =>{
             const response = await request(app).delete('/users')
@@ -11,22 +11,13 @@ describe('DELETE users route', () =>{
         }
     )
 
-    test('Responds with Not Found (status 404): User does not exist.', 
+    test('Rejects delete by ID request: (status 405): Method not allowed.', 
         async() =>{
             const response = await request(app).delete(
                 '/users/64c9e4f2df7cc072af2ac8a4')
 
-        assert.respondsWithNotFound(response)
+            assert.respondsWithMethodNotAllowed(response)
         }
     )
 
-    test('Responds with deleted resource Id (status 200): Delete Operation success.', 
-        async() =>{
-            const response = await request(app).delete(
-                '/users/64c9e4f2df7cc072af2ac9e4')
-
-            assert.respondsWithSuccess(response)
-            assert.respondsWithDeletedResource(response)
-        }
-    )
 })
