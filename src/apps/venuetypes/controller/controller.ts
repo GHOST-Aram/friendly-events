@@ -1,9 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
-import { Paginator } from "../../../z-library/HTTP/http-response";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
-import { HydratedVenueCategory } from "../data-access/model";
 import { document } from "../../../z-library/document/document";
 
 export class Controller extends GenericController<DataAccess>{

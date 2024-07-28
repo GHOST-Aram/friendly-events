@@ -1,5 +1,3 @@
-import { Event } from '../../data-access/model'
-
 export const validData = {
     category: "Music Concert",
     venue: "Quiver Lounge",

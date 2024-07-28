@@ -1,5 +1,3 @@
-import { EventCategory } from '../../data-access/model'
-
 export const validData = {  
     name: "Music Concert"  ,
     description: `
