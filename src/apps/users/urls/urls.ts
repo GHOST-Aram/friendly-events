@@ -58,7 +58,6 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
         authenticator.authenticate(),
         domainData.allowDocumentOwner,
         authenticator.restrictAccess(permission.allowAdmin),
-        validator.handleValidationErrors,
         controller.deleteOne
     )
 
