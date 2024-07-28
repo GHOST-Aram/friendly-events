@@ -19,7 +19,7 @@ class UserData implements DomainData{
         return { ...updateDoc, password: await hash(updateDoc.password, 10) }  
     }
 
-    public allowUserDocumentOwner = (req: Request, res: Response, next: NextFunction) =>{
+    public allowDocumentOwner = (req: Request, res: Response, next: NextFunction) =>{
 
         const {currentUserId, referenceId } = getDataFromRequest(req)
 

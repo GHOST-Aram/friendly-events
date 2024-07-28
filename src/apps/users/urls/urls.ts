@@ -34,7 +34,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.put('/', controller.respondWithMethodNotAllowed)
     router.put('/:id', 
         authenticator.authenticate(),
-        domainData.allowUserDocumentOwner,
+        domainData.allowDocumentOwner,
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
         validationChains.validatePostData, 
@@ -45,7 +45,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.patch('/', controller.respondWithMethodNotAllowed)
     router.patch('/:id', 
         authenticator.authenticate(),
-        domainData.allowUserDocumentOwner,
+        domainData.allowDocumentOwner,
         fileUploader.uploadSingleFile('profilePicture'),
         validator.validateFile,
         validationChains.validatePatchData, 
@@ -56,7 +56,7 @@ export const routesWrapper = (controller: UsersController, authenticator: Authen
     router.delete('/', controller.respondWithMethodNotAllowed)
     router.delete('/:id', 
         authenticator.authenticate(),
-        domainData.allowUserDocumentOwner,
+        domainData.allowDocumentOwner,
         authenticator.restrictAccess(permission.allowAdmin),
         validator.handleValidationErrors,
         controller.deleteOne
