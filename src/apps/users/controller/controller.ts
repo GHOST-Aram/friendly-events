@@ -32,34 +32,6 @@ export class UsersController extends GenericController<UsersDAL>{
         }
     }
 
-    public getOne = async(req: Request, res: Response, next: NextFunction): Promise<void> =>{
-
-        const { referenceId } = getDataFromRequest(req)
-
-        try {
-            const foundDocument = await this.dataAccess.findByReferenceId(referenceId)
-
-            if(foundDocument){
-                this.respondWithFoundResource(foundDocument, res)
-            } else{
-                this.respondWithNotFound(res)
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    public getMany = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req) 
-
-        try {
-            const documents = await this.dataAccess.findWithPagination(paginator)
-            this.respondWithFoundResource(documents, res) 
-        } catch (error) {
-            next(error)
-        }
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
