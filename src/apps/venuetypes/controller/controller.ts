@@ -3,6 +3,7 @@ import { GenericController } from "../../../z-library/bases/generic-controller";
 import { DataAccess } from "../data-access/data-access";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
 import { document } from "../../../z-library/document/document";
+import { domainData } from "../domain/data";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -11,17 +12,17 @@ export class Controller extends GenericController<DataAccess>{
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, referenceId, user } = getDataFromRequest(req)
-        const currentUserId = user._id.toString()
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {  
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
-                    this.updateAndRespond({updateDoc: reqBody, id: referenceId}, res)
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
+                    this.updateAndRespond({updateDoc, id: data.referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -36,17 +37,17 @@ export class Controller extends GenericController<DataAccess>{
     
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { reqBody, referenceId, user } = getDataFromRequest(req)
-        const currentUserId = user._id.toString()
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
         
         try {  
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
             
             if(document.exists(targetDoc)){
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
-                    this.updateAndRespond({updateDoc: reqBody, id: referenceId}, res)
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
+                    this.updateAndRespond({updateDoc, id: data.referenceId}, res)
                 } else {
                     this.respondWithForbidden(res)
                 }
@@ -60,8 +61,7 @@ export class Controller extends GenericController<DataAccess>{
     }
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
-        const {referenceId, user} = getDataFromRequest(req)
-        const currentUserId = user._id.toString()
+        const { referenceId, currentUserId } = getDataFromRequest(req)
         
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
