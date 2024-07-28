@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express"
 import { DataAccess } from "../data-access/data-access"
 import 'dotenv/config'
 import { auth } from "../domain/authenticator"
-import { makeAuthUserData } from "../../../utils/auth-user-data"
+import { createUserDataForAuth } from "../../../utils/auth-user-data"
 
 const secretOrkey = process.env.TOKEN_SECRET
 
@@ -40,7 +40,9 @@ export class AuthController{
             if(!isValidPassword){
                 this.respondWithUnauthorised(res, 'Incorrect password.')
             } else {
-                const token = auth.issueToken(makeAuthUserData(user), secretOrkey as string )
+                const userData = createUserDataForAuth(user)
+                const token = auth.issueToken(userData, secretOrkey as string )
+                
                 this.respondWithToken(token, res)  
             }
         } else {
