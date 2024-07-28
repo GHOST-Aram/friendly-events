@@ -4,10 +4,10 @@ import { jest } from "@jest/globals"
 import { Accessible } from '../../bases/accessible'
 import { Model } from "mongoose"
 
-const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
 export class MockDataAccess<T extends Model<any>, RawData> implements Accessible{
     
+    public ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
     public model:T
     public validData: Object 
 
@@ -27,7 +27,7 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
     })
 
     private documentOrNull = (id: string) =>{
-        if(id === ID_OF_EXISTING_DOCUMENT){
+        if(id === this.ID_OF_EXISTING_DOCUMENT){
             return new this.model({...this.validData, createdBy: '64c9e4f2df7cc072af2ac8a4'})  
         } 
         return null

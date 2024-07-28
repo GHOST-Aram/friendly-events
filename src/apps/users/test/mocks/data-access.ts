@@ -3,7 +3,6 @@ import { HydratedUserDoc, User, UserModel } from "../../data-access/model"
 import { jest } from "@jest/globals"
 import { MockDataAccess } from "../../../../z-library/testing/mocks/data-access"
 
-const ID_OF_EXISTING_DOCUMENT = '64c9e4f2df7cc072af2ac9e4'
 
 export class UsersDAL extends MockDataAccess<UserModel, User>{
     
@@ -13,7 +12,7 @@ export class UsersDAL extends MockDataAccess<UserModel, User>{
 
     public findByReferenceId = jest.fn(async(userID: string): Promise<HydratedUserDoc | null> =>{
 
-        if(userID === ID_OF_EXISTING_DOCUMENT){
+        if(userID === this.ID_OF_EXISTING_DOCUMENT){
             const mockFoundUser = new this.model(this.validData)
 
             return mockFoundUser
