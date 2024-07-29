@@ -3,7 +3,7 @@ import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { Venue } from "../data-access/model"
 
 class VenueData implements DomainData{
-    public createInputDocument = (reqData: RequestData) => {
+    public aggregateInputDocument = (reqData: RequestData) => {
         const { reqBody, currentUserId, files } = reqData
         const inputData = { ...reqBody, createdBy: currentUserId }
 

@@ -7,7 +7,7 @@ import { Response, Request, NextFunction } from "express"
 
 class UserData implements DomainData{
     
-    public createInputDocument = (reqData: RequestData): User  =>{
+    public aggregateInputDocument = (reqData: RequestData): User  =>{
         const { file, reqBody } = reqData
         const userData = file ? {...reqBody, profilePicture: createFileBuffer(file) } : reqBody
 

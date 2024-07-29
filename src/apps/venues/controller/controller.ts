@@ -13,7 +13,7 @@ export class Controller extends GenericController<DataAccess>{
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const venueData = domainData.createInputDocument(data)
+        const venueData = domainData.aggregateInputDocument(data)
 
         try {
             const newDocument = await this.dataAccess.createNew(venueData)
@@ -26,7 +26,7 @@ export class Controller extends GenericController<DataAccess>{
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const updateDoc = domainData.createInputDocument(data)
+        const updateDoc = domainData.aggregateInputDocument(data)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
@@ -54,7 +54,7 @@ export class Controller extends GenericController<DataAccess>{
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const updateDoc = domainData.createInputDocument(data)
+        const updateDoc = domainData.aggregateInputDocument(data)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)

@@ -13,7 +13,7 @@ export class UsersController extends GenericController<UsersDAL>{
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const userData = domainData.createInputDocument(data)
+        const userData = domainData.aggregateInputDocument(data)
 
         try {
             const user = await this.dataAccess.findByEmail(userData.email)
@@ -34,7 +34,7 @@ export class UsersController extends GenericController<UsersDAL>{
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
-        let updateDoc = domainData.createInputDocument(data)
+        let updateDoc = domainData.aggregateInputDocument(data)
             
         try {
             updateDoc = await domainData.encyptPassword(updateDoc)
@@ -56,7 +56,7 @@ export class UsersController extends GenericController<UsersDAL>{
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        let updateDoc = domainData.createInputDocument(data)
+        let updateDoc = domainData.aggregateInputDocument(data)
 
         try {
             updateDoc = updateDoc.password ? await domainData.encyptPassword(updateDoc) : updateDoc

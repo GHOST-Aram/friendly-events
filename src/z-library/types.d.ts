@@ -42,7 +42,7 @@ export interface Controllable{
 }
 
 export interface DomainData{
-    createInputDocument :(reqData: RequestData) => Object
+    aggregateInputDocument :(reqData: RequestData) => Object
 }
 
 export interface Paginator{

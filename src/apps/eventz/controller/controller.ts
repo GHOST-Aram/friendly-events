@@ -13,7 +13,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
         const reqData = getDataFromRequest(req)
-        const eventData = domainData.createInputDocument(reqData)
+        const eventData = domainData.aggregateInputDocument(reqData)
 
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
@@ -27,7 +27,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const updateDoc = domainData.createInputDocument(data)
+        const updateDoc = domainData.aggregateInputDocument(data)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
@@ -55,7 +55,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
-        const updateDoc = domainData.createInputDocument(data)
+        const updateDoc = domainData.aggregateInputDocument(data)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
