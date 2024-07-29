@@ -29,7 +29,7 @@ interface AppConfig{
 type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
 interface AppRouter{
     router: Router
-    controller: GenericController
+    controller: Controllable
     authenticator: Authenticator
     authenticateAndControlRoutes: ()=> Router
 }
@@ -50,6 +50,8 @@ interface Controllable{
     modifyOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
     deleteOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
 }
+
+interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
 
 interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
