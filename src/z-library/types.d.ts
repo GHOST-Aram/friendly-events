@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { GenericController } from "./bases/generic-controller"
+import { Authenticator } from "./auth/auth"
 
 interface Accessible{
     createNew:(data: any) => Promise<HydratedDocument<any>>
