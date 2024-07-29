@@ -1,6 +1,6 @@
 import { compareSync } from "bcrypt"
 import jwt from 'jsonwebtoken'
-
+import { AuthData, userDataAggregator } from "../../../z-library/types"
 
 export class Authenticator{
 
@@ -19,6 +19,12 @@ export class Authenticator{
             subject: user.id
         })
     }
+
+    public aggregateUserData = (user: any, callBack: userDataAggregator): AuthData =>{
+        return callBack(user)
+    }
 }
+
+
 
 export const auth = new Authenticator

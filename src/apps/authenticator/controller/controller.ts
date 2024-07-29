@@ -1,9 +1,9 @@
 import { NextFunction, Response, Request } from "express"
 import { DataAccess } from "../data-access/data-access"
-import 'dotenv/config'
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"
 import { getDataFromRequest } from "../../../z-library/request/request-data"
+import 'dotenv/config'
 
 const secretOrkey = process.env.TOKEN_SECRET
 
@@ -43,7 +43,7 @@ export class AuthController{
             const isValidPassword = auth.verifyPassword(user?.password, incomingPassword)
             
             if(isValidPassword){
-                const userData = createUserDataForAuth(user)
+                const userData = auth.aggregateUserData(user, createUserDataForAuth)
                 const token = auth.issueToken(userData, secretOrkey as string )
                 
                 this.respondWithToken(token, res)  
