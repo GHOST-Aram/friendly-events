@@ -37,13 +37,13 @@ export class AuthController{
         if(user){
             const isValidPassword = auth.verifyPassword(user?.password, incomingPassword)
             
-            if(!isValidPassword){
-                this.respondWithUnauthorised(res, 'Incorrect password.')
-            } else {
+            if(isValidPassword){
                 const userData = createUserDataForAuth(user)
                 const token = auth.issueToken(userData, secretOrkey as string )
                 
                 this.respondWithToken(token, res)  
+            } else {
+                this.respondWithUnauthorised(res, 'Incorrect password.')
             }
         } else {
             this.respondWithUnauthorised(res, 'Email not registered with the system.')
