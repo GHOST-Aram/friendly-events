@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express"
+import { GenericController } from "./bases/generic-controller"
 
 interface Accessible{
     createNew:(data: any) => Promise<HydratedDocument<any>>
@@ -18,11 +19,13 @@ interface AppConfig{
     dataSchema: Schema<any>,
     DataAccessConstructor: any,
     ControllerConstructor: any, 
-    routesWrapper: (controller: any, authenticator: Authenticator)=> Router,
+    authenticateAndControlRoutes: routesAuthandController,
     authenticator: Authenticator,
     modelName: string,
     applicationName: string
 }
+
+type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
 
 interface AuthData{
     fullName: string,

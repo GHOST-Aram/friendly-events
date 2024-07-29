@@ -1,4 +1,4 @@
-import { routesWrapper } from "./urls/urls";
+import { authenticateAndControlRoutes } from "./urls/urls";
 import { UsersDAL } from "./data-access/data-access";
 import { UsersController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
@@ -22,7 +22,7 @@ try {
             authenticator,
             DataAccessConstructor: UsersDAL,
             ControllerConstructor: UsersController,
-            routesWrapper,
+            authenticateAndControlRoutes,
         }
 
         usersRouter = server.setUpRouter(appConf)

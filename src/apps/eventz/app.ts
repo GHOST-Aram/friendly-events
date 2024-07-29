@@ -1,4 +1,4 @@
-import { routesWrapper } from "./urls/urls";
+import { authenticateAndControlRoutes } from "./urls/urls";
 import { EventsDataAccess } from "./data-access/data-access";
 import { EventsController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
@@ -22,7 +22,7 @@ try {
             authenticator,
             DataAccessConstructor: EventsDataAccess,
             ControllerConstructor: EventsController,
-            routesWrapper,
+            authenticateAndControlRoutes,
         }
 
         eventsRouter = server.setUpRouter(appConf)

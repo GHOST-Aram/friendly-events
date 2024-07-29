@@ -3,11 +3,10 @@ import { Router } from "express";
 import { validator, validationChains } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
-import { fileUploader } from "../../../z-library/uploads/upload";
 
 const router = Router()
 
-export const routesWrapper = (
+export const authenticateAndControlRoutes = (
     controller: Controller, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)

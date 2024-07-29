@@ -8,7 +8,7 @@ import { domainData } from "../domain/data";
 
 const router = Router()
 
-export const routesWrapper = (controller: UsersController, authenticator: Authenticator ) =>{
+export const authenticateAndControlRoutes = (controller: UsersController, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)
     router.post('/', 

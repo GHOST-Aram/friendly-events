@@ -7,7 +7,7 @@ import { fileUploader } from "../../../z-library/uploads/upload";
 
 const router = Router()
 
-export const routesWrapper = (
+export const authenticateAndControlRoutes = (
     controller: EventsController, authenticator: Authenticator ) =>{
     
     router.post('/:id', controller.respondWithMethodNotAllowed)

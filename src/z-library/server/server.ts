@@ -51,7 +51,7 @@ export class Server{
         const dataAccess = new config.DataAccessConstructor(dataModel)
         const controller = new config.ControllerConstructor(dataAccess, config.applicationName)
 
-        return config.routesWrapper(controller, config.authenticator)
+        return config.authenticateAndControlRoutes(controller, config.authenticator)
     }
 
     public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
