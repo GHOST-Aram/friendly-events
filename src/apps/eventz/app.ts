@@ -5,7 +5,7 @@ import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
 import { Router } from "express";
-import { AppConfig } from "../../z-library/server/server";
+import { AppConfig } from "../../z-library/types";
 import 'dotenv/config'
 
 let eventsRouter: Router

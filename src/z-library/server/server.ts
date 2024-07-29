@@ -6,6 +6,7 @@ import { Connection, Schema } from "mongoose"
 import { ConnectionPool } from "../db/connection"
 import { DB } from "../db/db"
 import { Authenticator, authenticator } from "../auth/auth"
+import { AppConfig } from "../types"
 
 export class Server{
 
@@ -58,17 +59,4 @@ export class Server{
         authenticator.initialize(this.app)
     }
 
-}
-
-
-export interface AppConfig{
-    connectionPool: ConnectionPool 
-    dBName: string, 
-    dataSchema: Schema<any>,
-    DataAccessConstructor: any,
-    ControllerConstructor: any, 
-    routesWrapper: (controller: any, authenticator: Authenticator)=> Router,
-    authenticator: Authenticator,
-    modelName: string,
-    applicationName: string
 }
