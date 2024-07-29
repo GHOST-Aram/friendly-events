@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 
-export interface Accessible{
+interface Accessible{
     createNew:(data: any) => Promise<HydratedDocument<any>>
     findByReferenceId:(refId: string) => Promise<HydratedDocument<any> | null>
     findWithPagination: (paginator: Paginator) => Promise<HydratedDocument<any>[]>
@@ -12,7 +12,7 @@ export interface Accessible{
             Promise<HydratedDocument<any>[]>
 }
 
-export interface AppConfig{
+interface AppConfig{
     connectionPool: ConnectionPool 
     dBName: string, 
     dataSchema: Schema<any>,
@@ -24,7 +24,7 @@ export interface AppConfig{
     applicationName: string
 }
 
-export interface AuthData{
+interface AuthData{
     fullName: string,
     email: string,
     username?: string,
@@ -32,7 +32,7 @@ export interface AuthData{
     userGroup: string
 }
 
-export interface Controllable{
+interface Controllable{
     addNew: (req: Request, res: Response, next: NextFunction) => Promise<void> 
     getOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
     getMany: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -41,16 +41,16 @@ export interface Controllable{
     deleteOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
 }
 
-export interface DomainData{
+interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
 
-export interface Paginator{
+interface Paginator{
     skipDocs: number,
     limit: number
 }
 
-export interface RequestData{
+interface RequestData{
     referenceId: string
     reqBody: any 
     user:any
@@ -59,4 +59,4 @@ export interface RequestData{
     files: Express.Multer.File[]
 }
 
-export type userDataAggregator = (user: any) => AuthData
+type userDataAggregator = (user: any) => AuthData
