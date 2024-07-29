@@ -6,6 +6,7 @@ import { Connection } from "mongoose"
 import { DB } from "../db/db"
 import { authenticator } from "../auth/auth"
 import { AppConfig, URLMetadata } from "../types"
+import { httpErrors } from "../HTTP/http-errors"
 
 export class Server{
 
@@ -61,6 +62,14 @@ export class Server{
         routesMetadata.forEach(data =>{
             this.app.use(data.path, data.router)
         })
+    }
+
+    public handleServerErrors = () =>{
+        this.app.use(httpErrors.handleServerErrors)
+    }
+    
+    public handleUnknownUrls = () =>{
+        this.app.use(httpErrors.handleUnknownUrls)
     }
 
 }

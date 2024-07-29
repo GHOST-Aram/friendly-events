@@ -1,7 +1,6 @@
-import { app, server } from "./_config/config";
+import { server } from "./_config/config";
 import { usersRouter } from "./apps/users/app";
 import { authRouter } from "./apps/authenticator/app";
-import { httpErrors } from "./z-library/HTTP/http-errors";
 import { eventsRouter } from "./apps/eventz/app";
 import { venuesRouter } from "./apps/venues/app";
 import { categoriesRouter } from "./apps/eventcategories/app";
@@ -21,9 +20,8 @@ try {
     server.configureUrls(urlsData)
     
 } catch (error:any) {
-    console.warn("Error occured while configuring routes: ", error.message)
+    console.warn("Error occured while configuring urls: ", error.message)
 }
 
-
-app.use(httpErrors.handleUnknownUrls)
-app.use(httpErrors.handleServerErrors)
+server.handleUnknownUrls()
+server.handleServerErrors()
