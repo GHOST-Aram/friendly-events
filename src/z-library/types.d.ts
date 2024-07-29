@@ -41,6 +41,10 @@ export interface Controllable{
     deleteOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
 }
 
+export interface DomainData{
+    createInputDocument :(reqData: RequestData) => any
+}
+
 export interface Paginator{
     skipDocs: number,
     limit: number

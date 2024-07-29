@@ -1,5 +1,4 @@
-import { DomainData } from "../../../z-library/bases/domain-data";
-import { RequestData } from "../../../z-library/types";
+import { RequestData, DomainData } from "../../../z-library/types";
 import { VenueCategory } from "../data-access/model";
 
 class VenueTData implements DomainData{

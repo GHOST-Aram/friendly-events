@@ -1,8 +1,7 @@
 import { hash } from "bcrypt"
 import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { User } from "../data-access/model"
-import { DomainData } from "../../../z-library/bases/domain-data"
-import { RequestData } from "../../../z-library/types"
+import { RequestData, DomainData } from "../../../z-library/types"
 import { getDataFromRequest } from "../../../z-library/request/request-data"
 import { Response, Request, NextFunction } from "express"
 

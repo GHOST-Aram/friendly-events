@@ -1,5 +1,4 @@
-import { DomainData } from "../../../z-library/bases/domain-data"
-import { RequestData } from "../../../z-library/types"
+import { RequestData, DomainData } from "../../../z-library/types"
 import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
 import { Event } from "../data-access/model"
 
