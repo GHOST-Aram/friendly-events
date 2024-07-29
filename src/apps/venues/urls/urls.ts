@@ -62,14 +62,6 @@ export class VenuesRouter extends GhostRouter{
         return this.router
     }
 }
-// export class VenuesRouter extends GhostRouter{
-    
-//     constructor(controller: Controller, authenticator: Authenticator){
-//         super(controller, authenticator)
-//     }
-
-//     public authenticateAndControlRoutes = () =>{}
-// }
 
 const router = Router()
 

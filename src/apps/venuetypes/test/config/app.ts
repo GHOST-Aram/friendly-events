@@ -1,5 +1,5 @@
 import { Controller } from "../../controller/controller";
-import { authenticateAndControlRoutes } from "../../urls/urls";
+import { VenuesTypesRouter } from "../../urls/urls";
 import express from "express"
 import { VenueCategoryDAL } from "../mocks/data-access";
 import { VenueCategory } from "../../data-access/model";
@@ -18,7 +18,7 @@ const controller = new Controller(dataAccess, 'venue-types')
 user.userGroup = 'host'
 const authenticator = new Authenticator(user)
 
-
-app.use('/venue-types', authenticateAndControlRoutes(controller, authenticator))
+const venueTypesRouter = new VenuesTypesRouter(controller, authenticator)
+app.use('/venue-types', venueTypesRouter.authenticateAndControlRoutes())
 
 export { app }
