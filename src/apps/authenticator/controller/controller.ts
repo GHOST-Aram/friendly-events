@@ -3,6 +3,7 @@ import { DataAccess } from "../data-access/data-access"
 import 'dotenv/config'
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"
+import { getDataFromRequest } from "../../../z-library/request/request-data"
 
 const secretOrkey = process.env.TOKEN_SECRET
 
@@ -16,13 +17,13 @@ export class AuthController{
 
     public signIn = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { email, password } = req.body
+        const { reqBody } = getDataFromRequest(req)
 
         try {
             if(secretOrkey){
 
-                const user = await this.findUser(email)
-                this.verifyUserAndIssueToken(user, password, res)
+                const user = await this.findUser(reqBody.email)
+                this.verifyUserAndIssueToken(user, reqBody.password, res)
 
             } else {
                 throw new Error('Token secret not Found.')
