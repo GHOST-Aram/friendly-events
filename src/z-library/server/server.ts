@@ -2,10 +2,9 @@ import express, { Application, Router } from "express"
 import cors from 'cors'
 import helmet from "helmet"
 import morgan from 'morgan'
-import { Connection, Schema } from "mongoose"
-import { ConnectionPool } from "../db/connection"
+import { Connection } from "mongoose"
 import { DB } from "../db/db"
-import { Authenticator, authenticator } from "../auth/auth"
+import { authenticator } from "../auth/auth"
 import { AppConfig } from "../types"
 
 export class Server{
@@ -39,7 +38,6 @@ export class Server{
             console.log(`Running ${appName} on http://localhost:${port}`)
         })
     }
-
 
     public setUpRouter = (config: AppConfig): Router =>{
 
