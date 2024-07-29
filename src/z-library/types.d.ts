@@ -27,6 +27,12 @@ interface AppConfig{
 }
 
 type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
+interface AppRouter{
+    router: Router
+    controller: GenericController
+    authenticator: Authenticator
+    authenticateAndControlRoutes: ()=> Router
+}
 
 interface AuthData{
     fullName: string,
@@ -49,13 +55,6 @@ interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
 
-interface AppRouter{
-    router: Router
-    controller: GenericController
-    authenticator: Authenticator
-    authenticateAndControlRoutes: ()=> Router
-}
-
 interface Paginator{
     skipDocs: number,
     limit: number
@@ -68,6 +67,10 @@ interface RequestData{
     currentUserId: string
     file: Express.Multer.File
     files: Express.Multer.File[]
+}
+interface URLMetadata{
+    path: string, 
+    router: Router 
 }
 
 type userDataAggregator = (user: any) => AuthData

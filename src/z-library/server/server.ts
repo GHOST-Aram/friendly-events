@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import { Connection } from "mongoose"
 import { DB } from "../db/db"
 import { authenticator } from "../auth/auth"
-import { AppConfig } from "../types"
+import { AppConfig, URLMetadata } from "../types"
 
 export class Server{
 
@@ -55,6 +55,12 @@ export class Server{
     public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
         authenticator.configureStrategy(secretOrKey, authDbConnection)
         authenticator.initialize(this.app)
+    }
+
+    public configureUrls = (routesMetadata: URLMetadata[]) =>{
+        routesMetadata.forEach(data =>{
+            this.app.use(data.path, data.router)
+        })
     }
 
 }
