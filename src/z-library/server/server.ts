@@ -2,10 +2,10 @@ import express, { Application, Router } from "express"
 import cors from 'cors'
 import helmet from "helmet"
 import morgan from 'morgan'
-import { Schema } from "mongoose"
+import { Connection, Schema } from "mongoose"
 import { ConnectionPool } from "../db/connection"
 import { DB } from "../db/db"
-import { Authenticator } from "../auth/auth"
+import { Authenticator, authenticator } from "../auth/auth"
 
 export class Server{
 
@@ -52,8 +52,13 @@ export class Server{
         const dataAccess = new config.DataAccessConstructor(dataModel)
         const controller = new config.ControllerConstructor(dataAccess, config.applicationName)
 
-    return config.routesWrapper(controller, config.authenticator)
-}
+        return config.routesWrapper(controller, config.authenticator)
+    }
+
+    public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
+        authenticator.configureStrategy(secretOrKey, authDbConnection)
+        authenticator.initialize(this.app)
+    }
 
 }
 

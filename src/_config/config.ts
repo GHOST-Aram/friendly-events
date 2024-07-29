@@ -24,13 +24,11 @@ try {
         const authDbConnection = connectionPool.getInitialConnection()
         
         if(secretOrKey){
-            authenticator.configureStrategy(secretOrKey, authDbConnection)
-            authenticator.initialize(app)
+            server.setUpAuthenticator(secretOrKey, authDbConnection)
         } else {
            throw new Error('Authentication Secret Key is Undefined In Environment variables.')
         }
-    }
-     else {
+    } else {
         throw new Error('Database Connection String not Found found in Environment Variables')
     }
    
