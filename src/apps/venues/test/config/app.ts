@@ -1,11 +1,11 @@
 import { Controller } from "../../controller/controller";
-import { authenticateAndControlRoutes } from "../../urls/urls";
 import express from "express"
 import { VenuesDAL } from "../mocks/data-access";
 import { Venue } from "../../data-access/model";
 import { Authenticator } from "../../../../z-library/testing/mocks/auth";
 import { user } from "../../../../z-library/testing/mocks/mock-user";
 import { validData } from "../mocks/raw-data";
+import { VenuesRouter } from "../../urls/urls";
 
 const app = express()
 
@@ -18,7 +18,9 @@ const controller = new Controller(dataAccess, 'venues')
 user.userGroup = 'host'
 const authenticator = new Authenticator(user)
 
+const venuesRouter = new VenuesRouter(controller, authenticator)
 
-app.use('/venues', authenticateAndControlRoutes(controller, authenticator))
+
+app.use('/venues', venuesRouter.authenticateAndControlRoutes())
 
 export { app }

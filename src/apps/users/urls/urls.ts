@@ -9,6 +9,7 @@ import { Router } from "express";
 
 
 export class UsersRouter extends GhostRouter{
+    
     constructor(controller: UsersController, authenticator: Authenticator){
         super(controller, authenticator)
     }
