@@ -1,6 +1,6 @@
 import { GenericDataAccess } from "../../../z-library/bases/generic-data-access"
 import { HydratedUserDoc, User, UserModel } from "./model"
-import { Paginator } from "../../../z-library/HTTP/http-response"
+import { Paginator } from "../../../z-library/types"
 
 export class UsersDAL extends GenericDataAccess<UserModel, User>{
     constructor (model : UserModel){

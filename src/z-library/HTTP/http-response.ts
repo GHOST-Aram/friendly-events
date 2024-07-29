@@ -1,5 +1,6 @@
 import { Response, Request } from "express"
 import { HydratedDocument } from "mongoose"
+import { Paginator } from "../types"
 
 export class HttpResponse{
 
@@ -76,9 +77,4 @@ export class HttpResponse{
     public respondWithToken = (token: string, res: Response) =>{
         res.status(200).json({ token })
     }
-}
-
-export interface Paginator{
-    skipDocs: number,
-    limit: number
 }

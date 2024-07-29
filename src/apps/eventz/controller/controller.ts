@@ -1,7 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { GenericController } from "../../../z-library/bases/generic-controller";
 import { EventsDataAccess } from "../data-access/data-access";
-import { Paginator } from "../../../z-library/HTTP/http-response";
 import { eventData as domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
 import { document } from "../../../z-library/document/document";

@@ -18,4 +18,9 @@ export interface AuthData{
     userGroup: string
 }
 
+export interface Paginator{
+    skipDocs: number,
+    limit: number
+}
+
 export type userDataAggregator = (user: any) => AuthData

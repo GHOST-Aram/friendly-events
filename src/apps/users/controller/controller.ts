@@ -1,7 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases/generic-controller";
-import { Paginator } from "../../../z-library/HTTP/http-response";
 import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request/request-data";
 
