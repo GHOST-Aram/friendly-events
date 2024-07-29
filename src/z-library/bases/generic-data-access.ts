@@ -1,6 +1,5 @@
 import { Model } from "mongoose";
-import { Paginator } from "../types";
-import { Accessible } from "./accessible";
+import { Paginator, Accessible } from "../types";
 import { HydratedDocument } from "mongoose";
 
 export class GenericDataAccess<T extends Model<any>, RawData> implements Accessible {
