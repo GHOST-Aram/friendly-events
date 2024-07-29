@@ -1,4 +1,4 @@
-import { routesWrapper } from "../../urls/urls";
+import { authenticateAndControlRoutes } from "../../urls/urls";
 import { UsersDAL } from "../mocks/data-access";
 import { UsersController } from "../../controller/controller";
 import express from "express"
@@ -16,6 +16,6 @@ const usersDAL = new UsersDAL(User, validUserData)
 const controller = new UsersController(usersDAL, 'users')
 
 const authenticator = new Authenticator(user)
-app.use('/users', routesWrapper(controller, authenticator))
+app.use('/users', authenticateAndControlRoutes(controller, authenticator))
 
 export { app }

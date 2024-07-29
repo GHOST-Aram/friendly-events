@@ -22,10 +22,10 @@ class UserData implements DomainData{
 
         const {currentUserId, referenceId } = getDataFromRequest(req)
 
-        if(currentUserId !== referenceId){
-            res.status(403).json(`Forbidden. Users cannot alter other users \' documents}`)
-        } else{
+        if(currentUserId === referenceId){
             next()
+        } else{
+            res.status(403).json(`Forbidden. Users cannot alter other users \' documents}`)
         }
     }
 

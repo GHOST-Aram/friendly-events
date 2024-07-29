@@ -1,7 +1,6 @@
-import { Paginator } from "../../HTTP/http-response"
+import { Paginator, Accessible } from "../../types"
 import { HydratedDocument } from "mongoose"
 import { jest } from "@jest/globals"
-import { Accessible } from '../../bases/accessible'
 import { Model } from "mongoose"
 
 

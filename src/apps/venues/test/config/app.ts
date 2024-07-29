@@ -1,5 +1,5 @@
 import { Controller } from "../../controller/controller";
-import { routesWrapper } from "../../urls/urls";
+import { authenticateAndControlRoutes } from "../../urls/urls";
 import express from "express"
 import { VenuesDAL } from "../mocks/data-access";
 import { Venue } from "../../data-access/model";
@@ -19,6 +19,6 @@ user.userGroup = 'host'
 const authenticator = new Authenticator(user)
 
 
-app.use('/venues', routesWrapper(controller, authenticator))
+app.use('/venues', authenticateAndControlRoutes(controller, authenticator))
 
 export { app }

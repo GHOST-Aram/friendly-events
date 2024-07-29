@@ -1,5 +1,5 @@
 import { Controller } from "../../controller/controller";
-import { routesWrapper } from "../../urls/urls";
+import { authenticateAndControlRoutes } from "../../urls/urls";
 import express from "express"
 import { CategoriesDAL } from "../mocks/data-access";
 import { EventCategory } from "../../data-access/model";
@@ -19,6 +19,6 @@ user.userGroup = 'superuser'
 const authenticator = new Authenticator(user)
 
 
-app.use('/categories', routesWrapper(controller, authenticator))
+app.use('/categories', authenticateAndControlRoutes(controller, authenticator))
 
 export { app }

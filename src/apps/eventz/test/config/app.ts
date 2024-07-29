@@ -1,5 +1,5 @@
 import { EventsController } from "../../controller/controller";
-import { routesWrapper } from "../../urls/urls";
+import { authenticateAndControlRoutes } from "../../urls/urls";
 import express from "express"
 import { EventsDAL } from "../mocks/data-access";
 import { Event } from "../../data-access/model";
@@ -19,6 +19,6 @@ user.userGroup = 'organizer'
 const authenticator = new Authenticator(user)
 
 
-app.use('/events', routesWrapper(controller, authenticator))
+app.use('/events', authenticateAndControlRoutes(controller, authenticator))
 
 export { app }
