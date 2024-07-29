@@ -21,7 +21,7 @@ export class AuthController{
         try {
             if(secretOrkey){
 
-                const user = await this.dataAccess.findUserByEmail(email)
+                const user = await this.findUser(email)
                 this.verifyUserAndIssueToken(user, password, res)
 
             } else {
@@ -31,6 +31,10 @@ export class AuthController{
         } catch (error) {
             next(error)
         } 
+    }
+
+    private findUser = async(email: string) =>{
+        return await this.dataAccess.findUserByEmail(email)
     }
 
     private verifyUserAndIssueToken = (user:any, incomingPassword: string, res: Response) =>{
