@@ -4,7 +4,7 @@ import { UsersController } from "../../controller/controller";
 import express from "express"
 import { User } from "../../data-access/model";
 import { Authenticator } from "../mocks/auth";
-import { user } from "../../../../z-library/auth/mock/mock-user";
+import { user } from "../../../../z-library/testing/mocks/mock-user";
 import { validUserData } from "../mocks/raw-data";
 
 const app = express()

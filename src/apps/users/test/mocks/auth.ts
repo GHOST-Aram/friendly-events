@@ -1,4 +1,4 @@
-import { Authenticator as Auth } from "../../../../z-library/auth/mock/auth"
+import { Authenticator as Auth } from "../../../../z-library/testing/mocks/auth"
 import { NextFunction, Response, Request } from "express"
 
 export class Authenticator extends Auth{
