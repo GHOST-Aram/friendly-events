@@ -1,5 +1,4 @@
 import express, { Application } from "express"
-import { authenticator } from "../z-library/auth/auth"
 import { Server } from "../z-library/server/server"
 import { ConnectionPool } from "../z-library/db/connection"
 import 'dotenv/config'

@@ -10,6 +10,7 @@ import { Authenticator, authenticator } from "../auth/auth"
 export class Server{
 
     private app:Application
+
     constructor(app: Application){
         this.app = app
     }
@@ -38,9 +39,6 @@ export class Server{
         })
     }
 
-    public switchDbConnection = (dbName: string) =>{
-        
-    }
 
     public setUpRouter = (config: AppConfig): Router =>{
 
