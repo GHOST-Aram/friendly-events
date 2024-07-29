@@ -12,8 +12,8 @@ export class Server{
 
     private app:Application
 
-    constructor(app: Application){
-        this.app = app
+    constructor(){
+        this.app = express()
     }
 
     public useJSONPayloads = () =>{

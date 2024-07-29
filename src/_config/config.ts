@@ -1,10 +1,8 @@
-import express, { Application } from "express"
 import { Server } from "../z-library/server/server"
 import { ConnectionPool } from "../z-library/db/connection"
 import 'dotenv/config'
 
-const app: Application = express()
-const server = new Server(app)
+const server = new Server()
 
 server.useJSONPayloads()
 server.allowCrossOriginResourceSharing()
@@ -38,5 +36,5 @@ try {
 const PORT = Number(process.env.PORT) || 8000
 server.listenToRequests(PORT,'')
 
-export { app, connectionPool, server }
+export { connectionPool, server }
 
