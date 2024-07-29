@@ -48,6 +48,13 @@ interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
 
+interface AppRouter{
+    router: Router
+    controller: GenericController
+    authenticator: Authenticator
+    authenticateAndControlRoutes: ()=> Router
+}
+
 interface Paginator{
     skipDocs: number,
     limit: number
