@@ -12,10 +12,8 @@ export class Controller extends GenericController<DataAccess>{
 
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const {files, reqBody, user } = getDataFromRequest(req)
-
-        const inputData = { ...reqBody, createdBy: user._id }
-        const venueData = files ? domainData.includeFiles(inputData, files) : inputData
+        const data = getDataFromRequest(req)
+        const venueData = domainData.createInputDocument(data)
 
         try {
             const newDocument = await this.dataAccess.createNew(venueData)
@@ -27,22 +25,19 @@ export class Controller extends GenericController<DataAccess>{
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { user, files, reqBody, referenceId } = getDataFromRequest(req)
-
-        const currentUserId = user._id
-        const inputData = { ...reqBody, createdBy: user._id }
-        const updateDoc = files ? domainData.includeFiles(inputData, files) : inputData
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -58,21 +53,19 @@ export class Controller extends GenericController<DataAccess>{
 
     public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { files, reqBody, referenceId, user } = getDataFromRequest(req)
-
-        const updateDoc = files ? domainData.includeFiles(reqBody, files) : reqBody
-        const currentUserId = user._id
+        const data = getDataFromRequest(req)
+        const updateDoc = domainData.createInputDocument(data)
 
         try {
-            const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+            const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
 
             if(document.exists(targetDoc)){
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: referenceId}, res)
+                    this.updateAndRespond({ updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
@@ -88,9 +81,7 @@ export class Controller extends GenericController<DataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { referenceId, user } = getDataFromRequest(req)
-
-        const currentUserId = user._id
+        const { referenceId, currentUserId} = getDataFromRequest(req)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
