@@ -7,6 +7,7 @@ import { DB } from "../db/db"
 import { authenticator } from "../auth/auth"
 import { AppConfig, URLMetadata } from "../types"
 import { httpErrors } from "../HTTP/http-errors"
+import { GhostRouter } from "../routing/router"
 
 export class Server{
 
@@ -50,7 +51,9 @@ export class Server{
         const dataAccess = new config.DataAccessConstructor(dataModel)
         const controller = new config.ControllerConstructor(dataAccess, config.applicationName)
 
-        return config.authenticateAndControlRoutes(controller, config.authenticator)
+        const appRouter: GhostRouter = new config.GhostRouterConstructor(controller, config.authenticator)
+
+        return appRouter.authenticateAndControlRoutes()
     }
 
     public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{

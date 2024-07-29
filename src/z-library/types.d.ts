@@ -20,7 +20,7 @@ interface AppConfig{
     dataSchema: Schema<any>,
     DataAccessConstructor: any,
     ControllerConstructor: any, 
-    authenticateAndControlRoutes: routesAuthandController,
+    GhostRouterConstructor: any,
     authenticator: Authenticator,
     modelName: string,
     applicationName: string

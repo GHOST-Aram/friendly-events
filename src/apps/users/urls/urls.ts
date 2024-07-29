@@ -5,11 +5,10 @@ import { fileUploader } from "../../../z-library/uploads/upload";
 import { permission } from "../../../utils/permissions";
 import { domainData } from "../domain/data";
 import { GhostRouter } from "../../../z-library/routing/router";
-import { Router } from "express";
 
 
 export class UsersRouter extends GhostRouter{
-    
+
     constructor(controller: UsersController, authenticator: Authenticator){
         super(controller, authenticator)
     }
@@ -64,57 +63,4 @@ export class UsersRouter extends GhostRouter{
     
         return this.router
     }
-}
-
-const router = Router()
-
-export const authenticateAndControlRoutes = (controller: UsersController, authenticator: Authenticator ) =>{
-    
-    router.post('/:id', controller.respondWithMethodNotAllowed)
-    router.post('/', 
-        fileUploader.uploadSingleFile('profilePicture'),
-        validator.validateFile,
-        validationChains.validatePostData ,
-        validator.handleValidationErrors,
-        controller.addNew
-    )
-    
-    router.get('/', 
-        authenticator.authenticate(),
-        authenticator.restrictAccess(permission.allowAdmin),
-        controller.getMany
-    )
-    
-    router.get('/:id',
-        authenticator.authenticate(), 
-        validator.handleValidationErrors,
-        controller.getOne
-    )
-    
-    router.put('/', controller.respondWithMethodNotAllowed)
-    router.put('/:id', 
-        authenticator.authenticate(),
-        domainData.allowDocumentOwner,
-        fileUploader.uploadSingleFile('profilePicture'),
-        validator.validateFile,
-        validationChains.validatePostData, 
-        validator.handleValidationErrors,
-        controller.updateOne
-    )
-    
-    router.patch('/', controller.respondWithMethodNotAllowed)
-    router.patch('/:id', 
-        authenticator.authenticate(),
-        domainData.allowDocumentOwner,
-        fileUploader.uploadSingleFile('profilePicture'),
-        validator.validateFile,
-        validationChains.validatePatchData, 
-        validator.handleValidationErrors,
-        controller.modifyOne
-    )
-
-    router.delete('/', controller.respondWithMethodNotAllowed)
-    router.delete('/:id', controller.respondWithMethodNotAllowed)
-
-    return router
 }

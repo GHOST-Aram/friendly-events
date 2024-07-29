@@ -1,4 +1,4 @@
-import { authenticateAndControlRoutes } from "./urls/urls";
+import { VenuesTypesRouter } from "./urls/urls";
 import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
@@ -22,7 +22,7 @@ try {
             authenticator,
             DataAccessConstructor: DataAccess,
             ControllerConstructor: Controller,
-            authenticateAndControlRoutes,
+            GhostRouterConstructor: VenuesTypesRouter
         }
 
         venueTypesRouter = server.setUpRouter(appConf)

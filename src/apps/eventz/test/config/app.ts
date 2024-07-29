@@ -1,5 +1,5 @@
 import { EventsController } from "../../controller/controller";
-import { authenticateAndControlRoutes, EventsRouter } from "../../urls/urls";
+import { EventsRouter } from "../../urls/urls";
 import express from "express"
 import { EventsDAL } from "../mocks/data-access";
 import { Event } from "../../data-access/model";
