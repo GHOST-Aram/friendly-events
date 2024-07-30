@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from "express";
-import { HttpResponse } from "../HTTP/http-response";
+import { HttpResponse } from "../http";
 import { Paginator, Accessible, Controllable } from "../types";
 
 export class GenericController <T extends Accessible> 

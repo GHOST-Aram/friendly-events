@@ -1,6 +1,6 @@
 import { HydratedDocument } from "mongoose"
 
-class Document{
+export class Document{
     public exists = (doc: HydratedDocument<any> | null ):boolean =>{
         return Boolean(doc)
     }
@@ -10,4 +10,6 @@ class Document{
     }
 }
 
-export const document = new Document()
+const document = new Document()
+
+export default document

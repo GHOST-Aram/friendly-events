@@ -57,6 +57,8 @@ interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
 
+interface FileError { message: string, filename: string }
+
 interface Paginator{
     skipDocs: number,
     limit: number

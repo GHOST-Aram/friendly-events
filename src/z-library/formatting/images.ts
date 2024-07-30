@@ -1,4 +1,4 @@
-export const formatImage = (image: {
+const formatImageDataToBase64 = (image: {
         name: string,
         data: Buffer,
         contentType: string,
@@ -11,4 +11,6 @@ export const formatImage = (image: {
             data: image.data.toString('base64'),
             contentType: image.contentType
     }
-    }
+}
+
+export default formatImageDataToBase64

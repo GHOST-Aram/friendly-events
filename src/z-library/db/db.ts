@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose"
 
-export class DB{
+export default class DB{
     private connection: mongoose.Connection
     constructor(connection : mongoose.Connection){
         this.connection = connection

@@ -3,10 +3,10 @@ import cors from 'cors'
 import helmet from "helmet"
 import morgan from 'morgan'
 import { Connection } from "mongoose"
-import { DB } from "../db/db"
-import { authenticator } from "../auth/auth"
+import { DB } from "../db"
+import { authenticator } from "../auth"
 import { AppConfig, URLMetadata } from "../types"
-import { httpErrors } from "../HTTP/http-errors"
+import { httpErrors } from "../http"
 import { GhostRouter } from "../routing/router"
 
 export class Server{
@@ -76,3 +76,6 @@ export class Server{
     }
 
 }
+
+const server = new Server()
+export default server

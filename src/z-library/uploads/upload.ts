@@ -20,4 +20,5 @@ class FileUploader {
 }
 
 
-export const fileUploader = new FileUploader()
+const fileUploader = new FileUploader()
+export default fileUploader

@@ -1,7 +1,7 @@
 import {Request} from "express"
 import { RequestData } from "../types"
 
-export const getDataFromRequest = (req: Request): RequestData =>{
+const getDataFromRequest = (req: Request): RequestData =>{
     const referenceId = req.params.id
     const reqBody = req.body
     const user:any = req.user
@@ -11,3 +11,5 @@ export const getDataFromRequest = (req: Request): RequestData =>{
 
     return { referenceId, reqBody, user, file, files, currentUserId }
 }
+
+export default getDataFromRequest

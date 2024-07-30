@@ -4,6 +4,7 @@ import {
 import { isValidObjectId } from "mongoose"
 import { formatter } from "../formatting/formatter"
 import { Request, Response, NextFunction } from "express"
+import { FileError } from "../types"
 
 interface ValidationOption{
     required?: boolean
@@ -188,7 +189,7 @@ export class Validator {
     }
 
     public validateDescription = (field: string, { required }: { required: boolean }) =>{
-        return validator.validateString(field, { required }).isLength({ min: 100, max: 1000})
+        return this.validateString(field, { required }).isLength({ min: 100, max: 1000})
             .withMessage(
                 `Category description should be a string of length 100 - 1000 characters long.`)
     }
@@ -288,7 +289,3 @@ export class Validator {
             }
     }
 }
-
-interface FileError { message: string, filename: string }
-export const validator = new Validator()
-

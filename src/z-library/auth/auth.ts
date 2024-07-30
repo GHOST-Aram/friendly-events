@@ -64,4 +64,6 @@ export class Authenticator{
 }
 
 
-export const authenticator = new Authenticator()
+const authenticator = new Authenticator()
+
+export default authenticator

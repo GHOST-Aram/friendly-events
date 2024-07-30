@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-export class ConnectionPool {
+export default class ConnectionPool {
 
     private initialConnection: mongoose.Connection
 
