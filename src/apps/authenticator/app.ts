@@ -1,10 +1,12 @@
 import { AuthController } from "./controller/controller";
 import { DataAccess } from "./data-access/data-access";
-import { routesWrapper } from "./urls/urls";
+import { AuthRouter } from "./urls/urls";
 
 const dataAccess  = new DataAccess()
 const controller = new AuthController(dataAccess)
 
-export const authRouter = routesWrapper(controller)
+
+
+export const authRouter = new AuthRouter(controller).controlRoutes()
 
 
