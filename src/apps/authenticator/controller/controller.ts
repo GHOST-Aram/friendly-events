@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request } from "express"
+import { NextFunction, Response, Request } from "../../../z-library/types"
 import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"

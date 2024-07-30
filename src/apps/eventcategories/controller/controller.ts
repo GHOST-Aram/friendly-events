@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction } from "../../../z-library/types";
 import { GenericController } from "../../../z-library/bases";
 import { DataAccess } from "../data-access/data-access";
 import { domainData } from "../domain/data";

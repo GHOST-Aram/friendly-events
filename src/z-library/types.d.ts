@@ -1,4 +1,9 @@
-import { Request, Response, NextFunction, Router } from "express"
+import { 
+    Request as ExpressRequest, 
+    Response as ExpressResponse, 
+    NextFunction as ExpressNextFunction,
+    Router 
+} from "express"
 import { GenericController } from "./bases/generic-controller"
 import { Authenticator } from "./auth/auth"
 
@@ -63,6 +68,8 @@ interface Paginator{
     skipDocs: number,
     limit: number
 }
+interface NextFunction extends ExpressNextFunction{}
+interface Request extends ExpressRequest{}
 
 interface RequestData{
     referenceId: string
@@ -72,6 +79,8 @@ interface RequestData{
     file: Express.Multer.File
     files: Express.Multer.File[]
 }
+
+interface Response extends ExpressResponse{}
 
 interface URLMetadata{
     path: string, 
