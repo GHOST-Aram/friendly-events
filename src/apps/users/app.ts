@@ -3,7 +3,7 @@ import { UsersDAL } from "./data-access/data-access";
 import { UsersController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth/auth";
+import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
 import 'dotenv/config'
 

@@ -3,7 +3,7 @@ import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth/auth";
+import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
 import 'dotenv/config'
 

@@ -3,7 +3,7 @@ import { EventsDataAccess } from "./data-access/data-access";
 import { EventsController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth/auth";
+import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
 import 'dotenv/config'
 
