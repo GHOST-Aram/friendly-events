@@ -12,6 +12,16 @@ export class VenuesRouter extends GhostRouter{
     }
 
     public authenticateAndControlRoutes = () =>{
+        this.post()
+        this.get()
+        this.put()
+        this.patch()
+        this.delete()
+        
+        return this.router
+    }
+    
+    private post = () =>{
         this.router.post('/:id', this.controller.respondWithMethodNotAllowed)
         this.router.post('/', 
             this.authenticator.authenticate(),
@@ -23,12 +33,15 @@ export class VenuesRouter extends GhostRouter{
             this.controller.addNew
         )
         
-        this.router.get('/', this.controller.getMany )
-        
+    }
+    
+    private get = () =>{
+        this.router.get('/', this.controller.getMany ) 
         this.router.get('/:id', this.controller.getOne )
-        
         this.router.get('/creators/:creatorId', this.controller.getByCreator )
+    }
 
+    private put = () =>{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
             this.authenticator.authenticate(),
@@ -39,7 +52,9 @@ export class VenuesRouter extends GhostRouter{
             validator.handleValidationErrors,
             this.controller.updateOne
         )
-        
+    }
+    
+    private patch = () =>{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
             this.authenticator.authenticate(),
@@ -49,15 +64,15 @@ export class VenuesRouter extends GhostRouter{
             validationChains.validatePatchData,
             validator.handleValidationErrors,
             this.controller.modifyOne
-        )
-
+        )    
+    }
+    
+    private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowVenueHost),
             this.controller.deleteOne
         )
-
-        return this.router
     }
 }
