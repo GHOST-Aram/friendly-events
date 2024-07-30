@@ -1,11 +1,9 @@
 import { Controller } from "../../controller/controller";
 import { CategoriesDAL } from "../mocks/data-access";
 import { EventCategory } from "../../data-access/model";
-import { Authenticator } from "../../../../z-library/testing/mocks/auth";
-import { user } from "../../../../z-library/testing/mocks/mock-user";
+import { app, Authenticator, user } from "../../../../z-library/testing";
 import { validData } from "../mocks/raw-data";
 import { CategoryRouter } from "../../urls/urls";
-import { app } from '../../../../z-library/testing/config/app'
 
 
 const dataAccess = new CategoriesDAL(EventCategory, validData)

@@ -1,5 +1,5 @@
 import { EventCategory, CategoryModel } from "../../data-access/model"
-import { MockDataAccess } from '../../../../z-library/testing/mocks/data-access'
+import { MockDataAccess } from '../../../../z-library/testing'
 
 export class CategoriesDAL extends MockDataAccess<CategoryModel, EventCategory>{
     
