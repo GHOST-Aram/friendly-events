@@ -8,10 +8,25 @@ class VenuesValidator extends Validator{
             .withMessage("Description can only be 100 to 1000 characters long.")
             .notEmpty().withMessage("Venue description is required.")
     }
+
+    public validateBookingTimeSpan = (path: string, { required }:{required: boolean}) =>{
+        return this.validateString(path, { required }).custom((value) =>{
+            return /^(hour|day|week|month)$/.test(value)
+        }).withMessage(
+            "Booking timespan parameters can only be \'hour\', \'day\', \'week\' or \'month\'")
+    }
+
+    public validateAvailabilityStatus = (path: string, { required }:{required: boolean}) =>{
+        return this.validateString(path, { required }).custom((value) =>{
+            return /^(available|booked|inactive)$/.test(value)
+        }).withMessage(
+            "Availability status can only be \'available\', \'booked\', or \'inactive\'")
+    }
 }
 const acceptedPaths = [
     'type', 'name', 'capacity','address', 'description',
-    'accessibilityFeatures','coordinates'
+    'accessibilityFeatures','coordinates', 'bookingTerms',
+    'availabilityStatus'
 ]
 const validator = new VenuesValidator()
 
@@ -20,6 +35,9 @@ const validatePostData: ValidationChain[] = [
     validator.validateName('type', { required: true }),
     validator.validateName('name', { required: true }),
     validator.validateNumber('capacity', { required: true }),
+    validator.validateString('bookingTerms.fee', { required: true }),
+    validator.validateBookingTimeSpan('bookingTerms.timeSpan', { required: true }),
+    validator.validateAvailabilityStatus('availabilityStatus', { required: true }),
     validator.validateName('address.cityOrTown', { required: true }),
     validator.validateName('address.street', { required: false }),
     validator.validateName('address.block.name', { required: false }),
@@ -37,6 +55,8 @@ const validatePatchData: ValidationChain[] = [
     validator.validateName('type', { required: false }),
     validator.validateName('name', { required: false }),
     validator.validateNumber('capacity', { required: false }),
+    validator.validateBookingTimeSpan('bookingTerms.timeSpan', { required: false }),
+    validator.validateAvailabilityStatus('availabilityStatus', { required: false }),
     validator.validateName('address.cityOrTown', { required: false }),
     validator.validateName('address.street', { required: false }),
     validator.validateName('address.block.name', { required: false }),
