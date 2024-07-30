@@ -29,10 +29,12 @@ interface AppConfig{
 type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
 interface AppRouter{
     router: Router
-    controller: Controllable
+    controller: Controller
     authenticator: Authenticator
     authenticateAndControlRoutes: ()=> Router
 }
+
+interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
 
 interface AuthData{
     fullName: string,
@@ -51,8 +53,6 @@ interface Controllable{
     deleteOne: (req: Request, res: Response, next: NextFunction) => Promise<void>
 }
 
-interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
-
 interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
@@ -70,6 +70,7 @@ interface RequestData{
     file: Express.Multer.File
     files: Express.Multer.File[]
 }
+
 interface URLMetadata{
     path: string, 
     router: Router 
