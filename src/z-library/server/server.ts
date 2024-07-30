@@ -44,7 +44,8 @@ export class Server{
     public setUpRouter = (config: AppConfig): Router =>{
 
         //Switch to another database in the connection pool
-        const db = new DB(config.connectionPool.switchConnection(config.dBName))
+        const connection = config.connectionPool.switchConnection(config.dBName)
+        const db = new DB(connection)
 
         const dataModel = db.createModel(config.modelName, config.dataSchema)
             
@@ -53,7 +54,9 @@ export class Server{
 
         const appRouter: GhostRouter = new config.GhostRouterConstructor(controller, config.authenticator)
 
-        return appRouter.authenticateAndControlRoutes()
+        const routes =  appRouter.authenticateAndControlRoutes()
+
+        return routes
     }
 
     public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
