@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express"
+import { Request, Response, NextFunction, Router } from "express"
 import { GenericController } from "./bases/generic-controller"
 import { Authenticator } from "./auth/auth"
 
@@ -75,5 +75,7 @@ interface URLMetadata{
     path: string, 
     router: Router 
 }
+
+interface ZRouter extends Router{}
 
 type userDataAggregator = (user: any) => AuthData

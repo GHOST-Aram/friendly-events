@@ -4,11 +4,10 @@ import { UsersController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
-import { Router } from "express";
-import { AppConfig } from "../../z-library/types";
+import { AppConfig, ZRouter } from "../../z-library/types";
 import 'dotenv/config'
 
-let usersRouter: Router
+let usersRouter: ZRouter
 const usersDbName = process.env.USERSDB_NAME
 
 try {

@@ -4,11 +4,10 @@ import { Controller } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { venueCatSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth/auth";
-import { Router } from "express";
-import { AppConfig } from "../../z-library/types";
+import { AppConfig, ZRouter } from "../../z-library/types";
 import 'dotenv/config'
 
-let venueTypesRouter: Router
+let venueTypesRouter: ZRouter
 const venueCategoryDbName = process.env.VENUECATEGORYDB_NAME
 
 try {
