@@ -2,6 +2,11 @@ export const validData = {
     type: "5 star Hotel",
     name: "Paradise Eden",
     capacity: 20000,
+    bookingTerms: {
+        fee: 5000,
+        timeSpan: 'day',
+    },
+    availabilityStatus: 'available',
     address: {
         cityOrTown: 'Nairobi',
         street: '34 North',
