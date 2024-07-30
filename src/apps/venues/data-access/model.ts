@@ -4,6 +4,11 @@ export interface Venue{
     type: string
     name: string
     capacity: number
+    bookingTerms: {
+        fee: number
+        timeSpan: string
+    }
+    availabilityStatus: string
     createdBy: ObjectId
     address: {
         cityOrTown: string
@@ -50,6 +55,21 @@ export const venueSchema = new Schema<Venue,VenueModel>({
     capacity: { 
         type: Number, 
         required: true 
+    },
+
+    bookingTerms: {
+        fee: { type: Number, required: true },
+        timeSpan: { 
+            type: String,
+            enum: ['hour', 'day', 'week', 'month'], 
+            required: true
+        },
+    },
+
+    availabilityStatus: {
+        type: String,
+        enum: ['available', 'booked', 'inactive'],
+        required: true
     },
 
     createdBy: {
