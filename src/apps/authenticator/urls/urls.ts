@@ -1,10 +1,8 @@
-import Router from 'express'
 import { AuthController } from '../controller/controller'
-import { validateLoginInput } from './input-validators'
-import { validator } from '../../../z-library/validation/validator'
+import { validateLoginInput, validator } from './input-validators'
 import { ZRouter } from '../../../z-library/types'
+import Router  from 'express'
 
-const router = Router()
 
 export class AuthRouter{
     private router: ZRouter

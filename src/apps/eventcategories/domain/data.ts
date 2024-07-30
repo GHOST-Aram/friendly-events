@@ -1,4 +1,4 @@
-import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
+import { createFileBuffer } from "../../../z-library/uploads"
 import { EventCategory } from "../data-access/model"
 import { RequestData, DomainData } from "../../../z-library/types"
 

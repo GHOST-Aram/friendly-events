@@ -1,5 +1,5 @@
 import { ValidationChain } from "express-validator";
-import { Validator } from "../../../z-library/validation/validator";
+import { Validator } from "../../../z-library/validation";
 
 class UserValidator extends Validator{
     public validateUserGroup  = ( path: string, { required }: { required: boolean }): ValidationChain =>{

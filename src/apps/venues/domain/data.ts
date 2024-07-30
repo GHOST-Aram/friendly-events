@@ -1,5 +1,5 @@
 import { DomainData, RequestData } from "../../../z-library/types"
-import { createFileBuffer } from "../../../z-library/uploads/file-buffer"
+import { createFileBuffer } from "../../../z-library/uploads"
 import { Venue } from "../data-access/model"
 
 class VenueData implements DomainData{

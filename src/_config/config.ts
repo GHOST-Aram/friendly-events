@@ -1,8 +1,6 @@
-import { Server } from "../z-library/server/server"
-import { ConnectionPool } from "../z-library/db/connection"
+import { server } from "../z-library/server"
+import { ConnectionPool } from "../z-library/db"
 import 'dotenv/config'
-
-const server = new Server()
 
 server.useJSONPayloads()
 server.allowCrossOriginResourceSharing()

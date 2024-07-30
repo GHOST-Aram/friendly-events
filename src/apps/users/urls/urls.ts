@@ -1,10 +1,10 @@
 import { UsersController } from "../controller/controller";
 import { validator, validationChains} from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
-import { fileUploader } from "../../../z-library/uploads/upload";
+import { fileUploader } from "../../../z-library/uploads";
 import { permission } from "../../../utils/permissions";
 import { domainData } from "../domain/data";
-import { GhostRouter } from "../../../z-library/routing/router";
+import { GhostRouter } from "../../../z-library/routing";
 
 
 export class UsersRouter extends GhostRouter{

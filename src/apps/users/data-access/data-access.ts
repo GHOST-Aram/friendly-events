@@ -1,4 +1,4 @@
-import { GenericDataAccess } from "../../../z-library/bases/generic-data-access"
+import { GenericDataAccess } from "../../../z-library/bases"
 import { HydratedUserDoc, User, UserModel } from "./model"
 import { Paginator } from "../../../z-library/types"
 

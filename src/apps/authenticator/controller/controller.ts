@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express"
 import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"
-import { getDataFromRequest } from "../../../z-library/request/request-data"
+import { getDataFromRequest } from "../../../z-library/request"
 import 'dotenv/config'
 
 const secretOrkey = process.env.TOKEN_SECRET

@@ -1,8 +1,8 @@
 import { Response, Request, NextFunction } from "express";
 import { UsersDAL } from "../data-access/data-access";
-import { GenericController } from "../../../z-library/bases/generic-controller";
+import { GenericController } from "../../../z-library/bases";
 import { domainData } from "../domain/data";
-import { getDataFromRequest } from "../../../z-library/request/request-data";
+import { getDataFromRequest } from "../../../z-library/request";
 
 export class UsersController extends GenericController<UsersDAL>{
 

@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from "express";
-import { GenericController } from "../../../z-library/bases/generic-controller";
+import { GenericController } from "../../../z-library/bases";
 import { EventsDataAccess } from "../data-access/data-access";
 import { eventData as domainData } from "../domain/data";
-import { getDataFromRequest } from "../../../z-library/request/request-data";
-import { document } from "../../../z-library/document/document";
+import { getDataFromRequest } from "../../../z-library/request";
+import { document } from "../../../z-library/document";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){

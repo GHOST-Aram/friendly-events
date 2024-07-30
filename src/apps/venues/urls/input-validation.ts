@@ -1,5 +1,5 @@
 import { body, ValidationChain } from "express-validator";
-import { Validator } from "../../../z-library/validation/validator";
+import { Validator } from "../../../z-library/validation";
 
 class VenuesValidator extends Validator{
 

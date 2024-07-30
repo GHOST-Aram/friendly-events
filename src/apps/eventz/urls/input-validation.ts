@@ -1,4 +1,4 @@
-import { Validator } from "../../../z-library/validation/validator";
+import { Validator } from "../../../z-library/validation";
 
 class EventsValidator extends Validator{
     public validateDate = (path: string, { required }: {required: boolean }) =>{

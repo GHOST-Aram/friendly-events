@@ -1,4 +1,4 @@
-import { Validator } from "../../../z-library/validation/validator";
+import { Validator } from "../../../z-library/validation";
 import { body } from "express-validator";
 
 class AuthValidator extends Validator{

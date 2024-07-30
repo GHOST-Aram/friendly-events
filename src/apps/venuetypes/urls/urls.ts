@@ -2,7 +2,7 @@ import { Controller } from "../controller/controller";
 import { validator, validationChains } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
-import { GhostRouter } from "../../../z-library/routing/router";
+import { GhostRouter } from "../../../z-library/routing";
 
 export class VenuesTypesRouter extends GhostRouter{
     

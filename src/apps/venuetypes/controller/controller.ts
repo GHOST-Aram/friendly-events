@@ -1,8 +1,8 @@
 import { Response, Request, NextFunction } from "express";
-import { GenericController } from "../../../z-library/bases/generic-controller";
+import { GenericController } from "../../../z-library/bases";
 import { DataAccess } from "../data-access/data-access";
-import { getDataFromRequest } from "../../../z-library/request/request-data";
-import { document } from "../../../z-library/document/document";
+import { getDataFromRequest } from "../../../z-library/request";
+import { document } from "../../../z-library/document";
 import { domainData } from "../domain/data";
 
 export class Controller extends GenericController<DataAccess>{
