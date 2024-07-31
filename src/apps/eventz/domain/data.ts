@@ -5,7 +5,7 @@ import { Event } from "../data-access/model"
 class EventData implements DomainData{
     public aggregateInputDocument = (reqData: RequestData): Event => {
         const { reqBody, currentUserId, file } = reqData
-        const inputData = {...reqBody, organizer: currentUserId }
+        const inputData = {...reqBody, createdBy: currentUserId }
         
         const eventData = file ? { ...inputData, graphic: createFileBuffer(file) } : inputData
 
