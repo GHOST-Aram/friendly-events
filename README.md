@@ -37,5 +37,5 @@ Venues app manages the list of available event venues. Venue hosts -- owners or 
 Visit the [venues endpoints documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venues/venues.md) for a guide on how to integrate venues app with your client app.
 
 #### 6. Venue Types [*View Code*](./src/apps/venuetypes/)
-The venue types app in the system is used for creating, reading and managing various groups under which venues can be classified. Find out more about venue types in [venue types documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venue-types/venue-types.md)
+The venue types app in the system is used for creating, reading and managing various groups under which venues can be classified. Venues can be anything from stadium, theatre, cinema hall etc. Its important to have them grouped under various types in the system. Find out more about venue types in [venue types documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/venue-types/venue-types.md)
 
