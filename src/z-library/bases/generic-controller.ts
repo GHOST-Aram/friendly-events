@@ -30,7 +30,8 @@ export class GenericController <T extends Accessible>
             const foundDocument = await this.dataAccess.findByReferenceId(referenceId)
 
             if(foundDocument){
-                this.respondWithFoundResource(foundDocument, res)
+                const serializedDoc = foundDocument.toObject()
+                this.respondWithFoundResource(serializedDoc, res)
             } else{
                 this.respondWithNotFound(res)
             }
@@ -123,7 +124,9 @@ export class GenericController <T extends Accessible>
 
     public updateAndRespond = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
-        this.respondWithUpdatedResource(updatedDoc, res)
+        const serializedDoc = updatedDoc.toObject()
+
+        this.respondWithUpdatedResource(serializedDoc, res)
     }
 
     public deleteAndRespond = async(referenceId: string, res: Response) =>{
