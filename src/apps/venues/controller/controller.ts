@@ -35,7 +35,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
 
                     this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
@@ -63,7 +63,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
 
                     this.updateAndRespond({ updateDoc, id: data.referenceId}, res)
 
@@ -90,7 +90,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isCreatedByCurrentUser(currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(currentUserId, creatorId)){
 
                     this.deleteAndRespond( referenceId, res)
 

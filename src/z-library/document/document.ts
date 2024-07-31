@@ -5,7 +5,7 @@ export class Document{
         return Boolean(doc)
     }
     
-    public isCreatedByCurrentUser = (creatorId: string, currentUserId: string ) =>{
+    public isOwnedByCurrentUser = (creatorId: string, currentUserId: string ) =>{
         return currentUserId === creatorId
     }
 }
