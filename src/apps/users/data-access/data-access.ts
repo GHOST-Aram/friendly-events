@@ -15,6 +15,11 @@ export class UsersDAL extends GenericDataAccess<UserModel, User>{
         return await this.model.findById(refId, { password: 0 })
     }
 
+    public findByIdAndUpdate = async(id: string, updateDoc: any)
+        :Promise<HydratedUserDoc | null> =>{
+        return await this.model.findByIdAndUpdate(id, updateDoc, { new: true, select: '-password' })
+    }
+
     public findWithPagination = async(paginator: Paginator)
     : Promise<HydratedUserDoc[]> => {
         return await this.model.find({}, { password: 0 }).skip(paginator.skipDocs)
