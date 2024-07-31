@@ -77,6 +77,10 @@ export class UsersRouter extends GhostRouter{
 
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
-        this.router.delete('/:id', this.controller.respondWithMethodNotAllowed)
+        this.router.delete('/:id', 
+            this.authenticator.authenticate(),
+            domainData.allowDocumentOwner,
+            this.controller.deleteOne
+        )
     }
 }
