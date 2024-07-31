@@ -84,6 +84,10 @@ export const eventSchema = new Schema<Event, EventModel>({
     availableTickets: {
         type: Number,
         required: true
+    },
+    ticketPrice: {
+        type: Number,
+        required: true
     }
 })
 

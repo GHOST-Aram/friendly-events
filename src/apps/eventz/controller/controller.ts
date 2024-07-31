@@ -18,7 +18,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
         try {
             const newDocument = await this.dataAccess.createNew(eventData)
 
-            this.respondWithCreatedResource(newDocument, res)
+            this.respondWithCreatedResource(newDocument.toObject(), res)
         } catch (error) {
             next(error)
         }   

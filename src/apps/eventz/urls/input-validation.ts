@@ -31,8 +31,9 @@ class EventsValidator extends Validator{
 
 const validator = new EventsValidator()
 const acceptedPaths = [
-    'category', 'venue', 'title', 'city', 'date', 'time', 
-    'duration', 'availableTickets', 'ticketPrice', 'ageLimit'
+    'category', 'venue', 'title', 'city', 'date', 'time', 'time.end', 'time.zone',
+    'time.start', 'duration', 'availableTickets', 'ticketPrice', 'ageLimit', 
+    'ageLimit.min', 'ageLimit.max'
 ]
 
 const validatePostData = [
