@@ -23,9 +23,8 @@ export class UsersController extends GenericController<UsersDAL>{
             else {
 
                 const user = await this.dataAccess.createNew(userData)
-                const userInfo = domainData.createMinizedUserObject(user)
-                
-                this.respondWithCreatedResource(userInfo, res)
+
+                this.respondWithCreatedResource(user, res)
             }
         } catch (error) {
             next(error)
