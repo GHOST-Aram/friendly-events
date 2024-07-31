@@ -44,7 +44,7 @@ export class UsersController extends GenericController<UsersDAL>{
                 updateDoc)
 
             if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
+                this.respondWithUpdatedResource(updatedDoc.toObject(), res)
             } else{
                 this.addNew(req, res, next)
             }
@@ -65,7 +65,7 @@ export class UsersController extends GenericController<UsersDAL>{
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
 
             if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
+                this.respondWithUpdatedResource(updatedDoc.toObject(), res)
             } else{
                 this.respondWithNotFound(res)
             }
