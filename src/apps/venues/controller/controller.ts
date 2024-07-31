@@ -17,7 +17,9 @@ export class Controller extends GenericController<DataAccess>{
 
         try {
             const newDocument = await this.dataAccess.createNew(venueData)
-            this.respondWithCreatedResource(newDocument, res)
+            const serializedDoc = newDocument.toObject()
+
+            this.respondWithCreatedResource(serializedDoc, res)
         } catch (error) {
             next(error)
         }   
