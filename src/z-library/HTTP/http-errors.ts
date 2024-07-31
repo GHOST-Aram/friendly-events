@@ -9,7 +9,7 @@ export class HTTPErrors{
     public handleServerErrors = ( 
         err:Error, req: Request, res: Response, next: NextFunction) =>{
             if(err){
-                res.status(500).json({ message : 'Unexpected server error.'})
+                res.status(500).json('Unexpected server error.')
                 console.log(`Name ${err.name}, Message:${err.message}`)
                 console.log(`Error Stack \n ${err.stack}`)
             }
