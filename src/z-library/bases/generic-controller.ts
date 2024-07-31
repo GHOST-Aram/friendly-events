@@ -44,7 +44,9 @@ export class GenericController <T extends Accessible>
 
         try {
             const docuements = await this.dataAccess.findWithPagination(paginator)
-            this.respondWithFoundResource(docuements, res)
+            const serializedDocs = docuements.map(doc => doc.toObject())
+            
+            this.respondWithFoundResource(serializedDocs, res)
         } catch (error) {
             next(error)
         }
