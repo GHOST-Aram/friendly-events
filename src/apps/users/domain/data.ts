@@ -30,6 +30,21 @@ class UserData implements DomainData{
         }
     }
 
+    public createMinizedUserObject = (user: any): MinimizedUserData =>{
+        return {
+            fullName: user.fullName,
+            userGroup: user.userGroup,
+            email: user.email,
+            _id: user._id.toString()
+        }
+    }
+}
+
+interface MinimizedUserData{
+    fullName: string
+    email: string
+    userGroup: string
+    _id: string
 }
 
 export const domainData = new UserData()
