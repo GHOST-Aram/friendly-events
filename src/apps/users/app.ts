@@ -15,8 +15,8 @@ try {
         const appConf: AppConfig  = {
             connectionPool,
             dBName: usersDbName,
-            modelName: 'VenueCategory',
-            applicationName: 'venue-types',
+            modelName: 'User',
+            applicationName: 'users',
             dataSchema: userSchema,
             authenticator,
             DataAccessConstructor: UsersDAL,
