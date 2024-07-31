@@ -67,7 +67,7 @@ export class HttpResponse{
     }
 
     public respondWithForbidden = (res: Response, reason?:string) =>{
-        res.status(403).json({ message: `Forbidden. ${ reason ? reason : ''}` })
+        res.status(403).json( `Forbidden. ${ reason ? reason : ''}` )
     }
 
     public respondWithUnauthorised = (res: Response, reason?: string) =>{

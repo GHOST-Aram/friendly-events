@@ -59,7 +59,7 @@ export class Authenticator{
     }
 
     private respondWithForbidden = (res: Response) =>{
-        res.status(403).json({ message: 'Forbidden. Access denied'})
+        res.status(403).json( 'Forbidden. Access denied')
     }
 }
 
