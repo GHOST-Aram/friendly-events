@@ -24,9 +24,12 @@ class VenuesValidator extends Validator{
     }
 }
 const acceptedPaths = [
-    'type', 'name', 'capacity','address', 'description',
-    'accessibilityFeatures','coordinates', 'bookingTerms',
-    'availabilityStatus'
+    'type', 'name', 'capacity','address', 'address.cityOrTown', 'address.street',
+    'address.block.name', 'address.block.floor', 'description', 'accessibilityFeatures',
+    'accessibilityFeatures.stairCase', 'accessibilityFeatures.elevator', 
+    'accessibilityFeatures.ramp', 'accessibilityFeatures.escallator', 
+    'coordinates', 'coordinates.longitude', 'coordinates.latitude', 'bookingTerms',
+    `bookingTerms.fee`, `bookingTerms.timeSpan`, 'availabilityStatus'
 ]
 const validator = new VenuesValidator()
 
