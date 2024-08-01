@@ -52,11 +52,11 @@ export class CategoryRouter extends GhostRouter{
     private put = () =>{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
-            validator.validateReferenceId('id', { required: true }),
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData,
             validator.handleValidationErrors,
             this.controller.updateOne
@@ -66,11 +66,11 @@ export class CategoryRouter extends GhostRouter{
     private patch = () =>{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
-            validator.validateReferenceId('id', { required: true }),
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
             this.controller.modifyOne
@@ -80,9 +80,9 @@ export class CategoryRouter extends GhostRouter{
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
+            this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             this.controller.deleteOne
         )

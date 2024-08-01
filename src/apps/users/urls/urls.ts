@@ -56,8 +56,8 @@ export class UsersRouter extends GhostRouter{
             this.authenticator.authenticate(),
             domainData.allowDocumentOwner,
             fileUploader.uploadSingleFile('profilePicture'),
-            validator.validateReferenceId('id', { required: true }),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData, 
             validator.handleValidationErrors,
             this.controller.updateOne

@@ -71,8 +71,8 @@ export class VenuesRouter extends GhostRouter{
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowVenueHost),
             fileUploader.uploadMultipleFiles('pictures'),
-            validator.validateReferenceId('id', { required: true }),
             validator.validateFiles,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
             this.controller.modifyOne
@@ -82,9 +82,9 @@ export class VenuesRouter extends GhostRouter{
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
+            this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowVenueHost),
             this.controller.deleteOne
         )

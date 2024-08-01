@@ -71,9 +71,9 @@ export class VenuesTypesRouter extends GhostRouter{
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
+            this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             this.controller.deleteOne
         )
