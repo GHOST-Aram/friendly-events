@@ -15,12 +15,24 @@ export class Controller extends GenericController<DataAccess>{
         const data = getDataFromRequest(req)
         const inputData = domainData.aggregateInputDocument(data)
 
+        
         try {
-            const newDocument = await this.dataAccess.createNew(inputData)
-            this.respondWithCreatedResource(newDocument, res)
+            const existingVenueType = await this.findExistingVenueType(inputData.name)
+
+            if(existingVenueType === null){
+                const newDocument = await this.dataAccess.createNew(inputData)
+                this.respondWithCreatedResource(newDocument, res)
+            } else{
+                this.respondWithConflict(res)
+            }
+
         } catch (error) {
             next(error)
         }   
+    }
+
+    private findExistingVenueType = async(name: string) =>{
+        return await this.dataAccess.findByName(name)
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
