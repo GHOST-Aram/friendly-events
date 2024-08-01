@@ -18,6 +18,7 @@ const validatePostData: ValidationChain[] = [
     validator.validateDescription('description', { required:true })
 ]
 const validatePatchData: ValidationChain[] = [
+    validator.validateReferenceId('id', {required: true}),
     validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateName('name', { required: false }),
     validator.validateDescription('description', { required:false })

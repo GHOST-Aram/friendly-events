@@ -15,6 +15,7 @@ describe('DELETE categories route', () =>{
         async() =>{
             const response = await request(app).delete('/categories/64c9e4f2df7cc072af2ac8ax')
 
+            assert.respondsWithBadRequest(response)
             assert.respondsWithValidationErrors(response)
         }
     })
