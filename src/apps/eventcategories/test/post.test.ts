@@ -14,6 +14,17 @@ describe('POST categories', () =>{
         }
     )
 
+    test('Responds with conflict (status 409): CAtegory already exists. ', 
+        async() =>{
+            const response = await request(app).post('/categories')
+                .send({
+                    name: 'Existing', 
+                    description: data.validData.description
+                })
+            assert.respondsWithConflict(response)
+        }
+    )
+
     test('Responds with validation errors (status 400): Invalid input.', 
         async() =>{
             const response = await request(app).post('/categories').send(data.invalidData)
