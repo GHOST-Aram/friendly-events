@@ -13,16 +13,26 @@ export class Controller extends GenericController<DataAccess>{
     public addNew = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
-        const categoryData = domainData.aggregateInputDocument(data)
+        const inputData = domainData.aggregateInputDocument(data)
 
         try {
-            const newDocument = await this.dataAccess.createNew(categoryData)
-            const serializedDoc = newDocument.toObject()
+            const existingEventCategory = await this.findExistingCategory(inputData.name)
 
-            this.respondWithCreatedResource(serializedDoc, res)
+            if(existingEventCategory === null){
+                const newDocument = await this.dataAccess.createNew(inputData)
+                const serializedDoc = newDocument.toObject()
+    
+                this.respondWithCreatedResource(serializedDoc, res)
+            } else {
+                this.respondWithConflict(res)
+            }
         } catch (error) {
             next(error)
         }   
+    }
+
+    private findExistingCategory = async(name: string) =>{
+        return await this.dataAccess.findByName(name)
     }
  
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
