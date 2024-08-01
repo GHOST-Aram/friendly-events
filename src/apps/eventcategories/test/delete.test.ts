@@ -11,6 +11,14 @@ describe('DELETE categories route', () =>{
         }
     )
 
+    test('Responds with Validation Errors (status 400): Reference Id is invalid', () =>{
+        async() =>{
+            const response = await request(app).delete('/categories/64c9e4f2df7cc072af2ac8ax')
+
+            assert.respondsWithValidationErrors(response)
+        }
+    })
+
     test('Responds with Not Found (status 404): event does not exist.', 
         async() =>{
             const response = await request(app).delete('/categories/64c9e4f2df7cc072af2ac8a4')
@@ -18,6 +26,7 @@ describe('DELETE categories route', () =>{
         assert.respondsWithNotFound(response)
         }
     )
+
 
     test('Responds with deleted resource Id (status 200): Delete Operation success.', 
         async() =>{

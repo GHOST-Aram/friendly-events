@@ -32,6 +32,15 @@ describe('GET categories Route', () =>{
         } 
     )
 
+    test('Responds with Validation Errors (status 400): Creator Id is invalid', () =>{
+        async() =>{
+            const response = await request(app).get('/categories/creators/64c9e4f2df7cc072af2ac8ax')
+
+            assert.respondsWithBadRequest(response)
+            assert.respondsWithValidationErrors(response)
+        }
+    })
+
     test('Responds with paginated array (Status 200): Search by specific creator id', 
         async() =>{
             const response = await request(app).get(
@@ -41,6 +50,15 @@ describe('GET categories Route', () =>{
             assert.respondsWithPaginatedResource(response, 23)
         } 
     )
+
+    test('Responds with Validation Errors (status 400): Reference Id is invalid', () =>{
+        async() =>{
+            const response = await request(app).get('/categories/64c9e4f2df7cc072af2ac8ax')
+
+            assert.respondsWithBadRequest(response)
+            assert.respondsWithValidationErrors(response)
+        }
+    })
 
     test('Responds with found resource (status 200): GET operation success.', 
         async() =>{
