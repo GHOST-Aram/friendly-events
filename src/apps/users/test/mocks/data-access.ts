@@ -2,6 +2,8 @@ import { Paginator } from "../../../../z-library/types"
 import { HydratedUserDoc, User, UserModel } from "../../data-access/model"
 import { jest } from "@jest/globals"
 import { MockDataAccess } from "../../../../z-library/testing"
+import { Mock } from "jest-mock"
+import { HydratedDocument } from "mongoose"
 
 
 export class UsersDAL extends MockDataAccess<UserModel, User>{
@@ -22,6 +24,10 @@ export class UsersDAL extends MockDataAccess<UserModel, User>{
         if(email === existingDocumentEmail){
             return new this.model(this.validData)
         } else return null
+    })
+
+    public findByIdAndUpdate = jest.fn((id: string, updateDoc: any) =>{
+        return this.documentOrNull(id)
     })
     
     public findWithPagination = jest.fn(async( pagination: Paginator): Promise<HydratedUserDoc[]> =>{
