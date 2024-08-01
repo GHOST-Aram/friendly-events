@@ -5,10 +5,19 @@ import request from 'supertest'
 
 describe('GET events Route', () =>{
 
+
+    test('Responds with Validation Errors (status 400): Invalid reference Id', 
+        async() =>{
+            const response = await request(app).get('/events/64c9e4f2df7cc072af2acxx')
+                
+            assert.respondsWithBadRequest(response)
+            assert.respondsWithValidationErrors(response)
+        }
+    )
+
     test('Responds with Not Found(status 404): event does not exist.', 
         async() =>{
-            const response = await request(app).get(
-                '/events/64c9e4f2df7cc072af2ac8a4')
+            const response = await request(app).get('/events/64c9e4f2df7cc072af2ac8a4')
             assert.respondsWithNotFound(response)
         }
     )
@@ -30,6 +39,16 @@ describe('GET events Route', () =>{
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
         } 
+    )
+
+
+    test('Responds with Validation Errors (status 400): Invalid reference Id', 
+        async() =>{
+            const response = await request(app).get('/events/creators/64c9e4f2df7cc072af2acxx')
+                
+            assert.respondsWithBadRequest(response)
+            assert.respondsWithValidationErrors(response)
+        }
     )
 
     test('Responds with paginated array (Status 200): Search by specific creator id', 
