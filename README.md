@@ -24,7 +24,7 @@ The events app allows event organizers create and manage listings of events. The
 - Event organizers can update event information
 - Event organizers can delete events from listings
 
-Visit the [Events documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/events/events.md) to learn how you can intergrate this application with your client app.
+Visit the [Events documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/eventz/events.md) to learn how you can intergrate this application with your client app.
 
 
 #### 4. Event Categories [*View code*](./src/apps/eventcategories/)
