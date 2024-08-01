@@ -37,18 +37,13 @@ export class CategoryRouter extends GhostRouter{
 
     private get = () =>{
         this.router.get('/', this.controller.getMany )
-        this.router.get('/:id', validator.validateReferenceId('id', { required: true }),
-            this.controller.getOne 
-        )
-        this.router.get('/creators/:creatorId', 
-            validator.validateReferenceId('creatorId', { required: true }),
-            this.controller.getByCreator)
+        this.router.get('/:id', this.controller.getOne )
+        this.router.get('/creators/:creatorId', this.controller.getByCreator)
     }
 
     private put = () =>{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
-            validator.validateReferenceId('id', {required: true}),
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             fileUploader.uploadSingleFile('graphic'),
@@ -62,7 +57,6 @@ export class CategoryRouter extends GhostRouter{
     private patch = () =>{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
-            validator.validateReferenceId('id', {required: true}),
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             fileUploader.uploadSingleFile('graphic'),
@@ -76,7 +70,6 @@ export class CategoryRouter extends GhostRouter{
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
-            validator.validateReferenceId('id', { required: true }),
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
             this.controller.deleteOne
