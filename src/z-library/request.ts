@@ -1,3 +1,3 @@
-import getDataFromRequest from "./request/request-data";
+import getDataFromRequest, {RequestData} from "./request/request-data";
 
-export { getDataFromRequest }
+export { getDataFromRequest, RequestData }
