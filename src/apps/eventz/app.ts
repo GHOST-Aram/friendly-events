@@ -4,8 +4,9 @@ import { EventsController } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
-import { AppConfig, ZRouter } from "../../z-library/types";
+import { ZRouter } from "../../z-library/types";
 import { eventsDbName } from "../../_environment";
+import { AppConfig } from "../../z-library/server/types";
 
 let eventsRouter: ZRouter
 

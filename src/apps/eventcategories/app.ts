@@ -4,8 +4,9 @@ import { Controller } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
-import { AppConfig, ZRouter } from "../../z-library/types";
+import { ZRouter } from "../../z-library/types";
 import { categoriesDbName } from "../../_environment";
+import { AppConfig } from "../../z-library/server/types";
 
 let categoriesRouter: ZRouter
 

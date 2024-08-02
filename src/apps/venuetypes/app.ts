@@ -4,8 +4,9 @@ import { Controller } from "./controller/controller";
 import { connectionPool, server } from "../../_config/config";
 import { venueCatSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
-import { AppConfig, ZRouter } from "../../z-library/types";
+import { ZRouter } from "../../z-library/types";
 import { venueCategoryDbName } from "../../_environment";
+import { AppConfig } from "../../z-library/server/types";
 
 let venueTypesRouter: ZRouter
 
