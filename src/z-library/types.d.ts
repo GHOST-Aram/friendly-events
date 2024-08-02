@@ -23,15 +23,25 @@ interface AppConfig{
     connectionPool: ConnectionPool 
     dBName: string, 
     dataSchema: Schema<any>,
-    DataAccessConstructor: any,
-    ControllerConstructor: any, 
-    GhostRouterConstructor: any,
+    DataAccess: DataAccessConstructor<GenericDataAccess<Model<any>, any>>,
+    Controller: ControllerConstructor<GenericController<Accessible>>, 
+    GhostRouter: GhostRouterConstructor<GhostRouter>,
     authenticator: Authenticator,
     modelName: string,
     applicationName: string
 }
 
+type DataAccessConstructor<DataAccess> = new (model: Model<any>) => DataAccess
+type ControllerConstructor<Controller> = new (
+    dataAccess: GenericDataAccess<Model<any>, any>, microserViceName: string) => Controller
+
+type GhostRouterConstructor<GhostRouter> = new(
+        controller: GenericController<GenericDataAccess<Model<any>, any>>, 
+        authenticator: Authenticator
+    ) => GhostRouter
+
 type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
+
 interface AppRouter{
     router: Router
     controller: Controller
