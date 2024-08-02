@@ -40,10 +40,6 @@ interface DomainData{
 
 interface FileError { message: string, filename: string }
 
-interface Paginator{
-    skipDocs: number,
-    limit: number
-}
 interface NextFunction extends ExpressNextFunction{}
 interface Request extends ExpressRequest{}
 
