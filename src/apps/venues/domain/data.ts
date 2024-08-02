@@ -1,6 +1,7 @@
-import { DomainData, RequestData } from "../../../z-library/types"
+import { DomainData } from "../../../z-library/types"
 import { createFileBuffer } from "../../../z-library/uploads"
 import { Venue } from "../data-access/model"
+import { RequestData } from "../../../z-library/request"
 
 class VenueData implements DomainData{
     public aggregateInputDocument = (reqData: RequestData) => {

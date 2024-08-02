@@ -1,6 +1,7 @@
 import { createFileBuffer } from "../../../z-library/uploads"
 import { EventCategory } from "../data-access/model"
-import { RequestData, DomainData } from "../../../z-library/types"
+import { DomainData } from "../../../z-library/types"
+import { RequestData } from "../../../z-library/request"
 
 class CategoryData implements DomainData{
     public aggregateInputDocument = (reqData: RequestData): EventCategory =>{
