@@ -1,6 +1,5 @@
 import { NextFunction, Response, Request } from "express";
-import { HttpResponse } from "../http";
-import { Paginator } from "../types";
+import { HttpResponse, Paginator } from "../http"
 import { Accessible } from "./accessible";
 import { Controllable } from "./controllable";
 

@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { Paginator } from "../types";
+import { Paginator } from "../http";
 import { Accessible } from "./accessible";
 import { HydratedDocument } from "mongoose";
 

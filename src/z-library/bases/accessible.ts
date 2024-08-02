@@ -1,5 +1,5 @@
 import { HydratedDocument } from "mongoose"
-import { Paginator } from "../types"
+import { Paginator } from "../http"
 
 export interface Accessible{
     createNew:(data: any) => Promise<HydratedDocument<any>>
