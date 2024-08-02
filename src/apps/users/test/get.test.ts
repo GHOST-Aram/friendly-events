@@ -32,6 +32,15 @@ describe('GET Users Route', () =>{
         } 
     )
 
+    test('Responds with Validation Errors (status 400): Invalid reference Id', 
+        async() =>{
+            const response = await request(app).get('/users/64c9e4f2df7cc072af2acxx')
+                
+            assert.respondsWithBadRequest(response)
+            assert.respondsWithValidationErrors(response)
+        }
+    )
+
     test('Responds with found resource (status 200): GET operation success.', 
         async() =>{
             const response = await request(app).get(

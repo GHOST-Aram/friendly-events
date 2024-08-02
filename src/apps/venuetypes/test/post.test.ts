@@ -14,6 +14,19 @@ describe('POST venue-types', () =>{
         }
     )
 
+    test('Responds with conflict (status 409): The type to be created already exists', 
+        async() =>{
+            const response = await request(app).post('/venue-types').send(
+                {
+                    name: 'Existing', 
+                    description: data.validData.description
+                }
+            )
+            assert.respondsWithConflict(response)
+        }
+    )
+
+
     test('Responds with validation errors (status 400): Invalid input.', 
         async() =>{
             const response = await request(app).post('/venue-types').send(data.invalidData)

@@ -37,17 +37,26 @@ export class CategoryRouter extends GhostRouter{
 
     private get = () =>{
         this.router.get('/', this.controller.getMany )
-        this.router.get('/:id', this.controller.getOne )
-        this.router.get('/creators/:creatorId', this.controller.getByCreator)
+        this.router.get('/:id', 
+            validator.validateReferenceId('id', { required: true }),
+            validator.handleValidationErrors,
+            this.controller.getOne )
+
+        this.router.get('/creators/:creatorId', 
+            validator.validateReferenceId('creatorId', { required: true }),
+            validator.handleValidationErrors,
+            this.controller.getByCreator
+        )
     }
 
     private put = () =>{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowAdmin),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData,
             validator.handleValidationErrors,
             this.controller.updateOne
@@ -58,9 +67,10 @@ export class CategoryRouter extends GhostRouter{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowAdmin),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
             this.controller.modifyOne
@@ -71,7 +81,9 @@ export class CategoryRouter extends GhostRouter{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowAdmin),
+            validator.validateReferenceId('id', { required: true }),
+            validator.handleValidationErrors,
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             this.controller.deleteOne
         )
     }

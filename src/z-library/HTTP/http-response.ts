@@ -19,7 +19,7 @@ export class HttpResponse{
     }
 
     public respondWithCreatedResource = (resource: any, res: Response) =>{
-        res.location(`/${this.microserviceName}/${resource.id}`)
+        res.location(`/${this.microserviceName}/${resource._id.toString()}`)
         res.status(201).json(resource)
     }
 
@@ -52,13 +52,13 @@ export class HttpResponse{
         res.status(404).json('Not Found')
     }
 
-    public respondWithModifiedResource = (item: HydratedDocument<Object>, res: Response) =>{
-        res.location(`/${this.microserviceName}/${item.id}`)
+    public respondWithModifiedResource = (item: HydratedDocument<any>, res: Response) =>{
+        res.location(`/${this.microserviceName}/${item._id.toString()}`)
         res.status(200).json(item)
     } 
 
-    public respondWithUpdatedResource = (resource: HydratedDocument<Object>, res: Response) =>{
-        res.location(`/${this.microserviceName}/${resource.id}`)
+    public respondWithUpdatedResource = (resource: HydratedDocument<any>, res: Response) =>{
+        res.location(`/${this.microserviceName}/${resource._id.toString()}`)
         res.status(200).json(resource)
     }
 

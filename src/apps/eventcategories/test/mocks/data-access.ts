@@ -7,4 +7,16 @@ export class CategoriesDAL extends MockDataAccess<CategoryModel, EventCategory>{
         super(model, validData)
     }
 
+    public findByName = async(name: string) =>{
+
+        if(name === 'Existing'){
+            return new this.model({
+                name: 'Existing', 
+                description: this.validData.description
+            })
+        }
+
+        return null
+    }
+
 }

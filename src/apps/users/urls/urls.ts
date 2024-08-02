@@ -44,6 +44,7 @@ export class UsersRouter extends GhostRouter{
         
         this.router.get('/:id',
             this.authenticator.authenticate(), 
+            validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
             this.controller.getOne
         )
@@ -56,6 +57,7 @@ export class UsersRouter extends GhostRouter{
             domainData.allowDocumentOwner,
             fileUploader.uploadSingleFile('profilePicture'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData, 
             validator.handleValidationErrors,
             this.controller.updateOne
@@ -69,6 +71,7 @@ export class UsersRouter extends GhostRouter{
             domainData.allowDocumentOwner,
             fileUploader.uploadSingleFile('profilePicture'),
             validator.validateFile,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData, 
             validator.handleValidationErrors,
             this.controller.modifyOne
@@ -77,8 +80,10 @@ export class UsersRouter extends GhostRouter{
 
     private delete = () =>{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
-        this.router.delete('/:id', 
+        this.router.delete('/:id',
             this.authenticator.authenticate(),
+            validator.validateReferenceId('id', { required: true }),
+            validator.handleValidationErrors,
             domainData.allowDocumentOwner,
             this.controller.deleteOne
         )

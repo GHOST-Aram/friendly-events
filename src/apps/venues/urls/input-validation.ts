@@ -3,10 +3,9 @@ import { Validator } from "../../../z-library/validation";
 
 class VenuesValidator extends Validator{
 
-    public validateDescription = (path: string) =>{
-        return body(path).trim().escape().isString().isLength({ min: 100, max: 1000 })
+    public validateDescription = (path: string, { required }: {required: boolean }) =>{
+        return this.validateString(path, { required }).isLength({ min: 100, max: 1000 })
             .withMessage("Description can only be 100 to 1000 characters long.")
-            .notEmpty().withMessage("Venue description is required.")
     }
 
     public validateBookingTimeSpan = (path: string, { required }:{required: boolean}) =>{
@@ -45,7 +44,7 @@ const validatePostData: ValidationChain[] = [
     validator.validateName('address.street', { required: false }),
     validator.validateName('address.block.name', { required: false }),
     validator.validateNumber('address.block.floor', { required: false }),
-    validator.validateDescription('description'),
+    validator.validateDescription('description', { required: true }),
     validator.validateBooleanField('accessibilityFeatures.stairCase', { required: false }),
     validator.validateBooleanField('accessibilityFeatures.elevator', { required: false }),
     validator.validateBooleanField('accessibilityFeatures.escallator', { required: false }),
@@ -64,7 +63,7 @@ const validatePatchData: ValidationChain[] = [
     validator.validateName('address.street', { required: false }),
     validator.validateName('address.block.name', { required: false }),
     validator.validateNumber('address.block.floor', { required: false }),
-    validator.validateDescription('description'),
+    validator.validateDescription('description', { required: false }),
     validator.validateBooleanField('accessibilityFeatures.stairCase', { required: false }),
     validator.validateBooleanField('accessibilityFeatures.elevator', { required: false }),
     validator.validateBooleanField('accessibilityFeatures.escallator', { required: false }),

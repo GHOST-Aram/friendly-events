@@ -37,8 +37,18 @@ export class VenuesRouter extends GhostRouter{
     
     private get = () =>{
         this.router.get('/', this.controller.getMany ) 
-        this.router.get('/:id', this.controller.getOne )
-        this.router.get('/creators/:creatorId', this.controller.getByCreator )
+
+        this.router.get('/:id', 
+            validator.validateReferenceId('id', { required: true }),
+            validator.handleValidationErrors,
+            this.controller.getOne 
+        )
+
+        this.router.get('/creators/:creatorId', 
+            validator.validateReferenceId('creatorId', { required: true }),
+            validator.handleValidationErrors,
+            this.controller.getByCreator 
+        )
     }
 
     private put = () =>{
@@ -48,6 +58,7 @@ export class VenuesRouter extends GhostRouter{
             this.authenticator.restrictAccess(permission.allowVenueHost),
             fileUploader.uploadMultipleFiles('pictures'),
             validator.validateFiles,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData,
             validator.handleValidationErrors,
             this.controller.updateOne
@@ -61,6 +72,7 @@ export class VenuesRouter extends GhostRouter{
             this.authenticator.restrictAccess(permission.allowVenueHost),
             fileUploader.uploadMultipleFiles('pictures'),
             validator.validateFiles,
+            validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
             this.controller.modifyOne
@@ -71,6 +83,8 @@ export class VenuesRouter extends GhostRouter{
         this.router.delete('/', this.controller.respondWithMethodNotAllowed)
         this.router.delete('/:id',
             this.authenticator.authenticate(),
+            validator.validateReferenceId('id', { required: true }),
+            validator.handleValidationErrors,
             this.authenticator.restrictAccess(permission.allowVenueHost),
             this.controller.deleteOne
         )
