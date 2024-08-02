@@ -16,7 +16,7 @@ export class Controller extends GenericController<DataAccess>{
         const inputData = domainData.aggregateInputDocument(data)
 
         try {
-            const existingEventCategory = await this.findExistingCategory(inputData.name)
+            const existingEventCategory = await this.dataAccess.findByName(inputData.name)
 
             if(existingEventCategory === null){
                 const newDocument = await this.dataAccess.createNew(inputData)
@@ -29,10 +29,6 @@ export class Controller extends GenericController<DataAccess>{
         } catch (error) {
             next(error)
         }   
-    }
-
-    private findExistingCategory = async(name: string) =>{
-        return await this.dataAccess.findByName(name)
     }
  
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
