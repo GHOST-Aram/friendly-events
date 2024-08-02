@@ -17,7 +17,7 @@ export class Controller extends GenericController<DataAccess>{
 
         
         try {
-            const existingVenueType = await this.findExistingVenueType(inputData.name)
+            const existingVenueType = await this.dataAccess.findByName(inputData.name)
 
             if(existingVenueType === null){
                 const newDocument = await this.dataAccess.createNew(inputData)
@@ -31,9 +31,7 @@ export class Controller extends GenericController<DataAccess>{
         }   
     }
 
-    private findExistingVenueType = async(name: string) =>{
-        return await this.dataAccess.findByName(name)
-    }
+    
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
