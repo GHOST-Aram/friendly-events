@@ -29,14 +29,9 @@ type GhostRouterConstructor<GhostRouter> = new(
         authenticator: Authenticator
     ) => GhostRouter
 
-type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
-
-interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
-interface DataAccess extends GenericDataAccess<Model<any>, any>{}
-
-interface DomainData{
-    aggregateInputDocument :(reqData: RequestData) => Object
-}
+    
+    interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
+    interface DataAccess extends GenericDataAccess<Model<any>, any>{}
 
 interface NextFunction extends ExpressNextFunction{}
 interface Request extends ExpressRequest{}
