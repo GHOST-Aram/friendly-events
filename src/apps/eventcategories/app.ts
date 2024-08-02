@@ -20,9 +20,9 @@ try {
             applicationName: 'event-categories',
             dataSchema: categorySchema,
             authenticator,
-            DataAccessConstructor: DataAccess,
-            ControllerConstructor: Controller,
-            GhostRouterConstructor: CategoryRouter,
+            DataAccess: DataAccess,
+            Controller: Controller,
+            GhostRouter: CategoryRouter,
         }
 
         categoriesRouter = server.setUpRouter(appConf)

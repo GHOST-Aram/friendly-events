@@ -18,9 +18,9 @@ try {
             applicationName: 'venue-types',
             dataSchema: venueSchema,
             authenticator,
-            DataAccessConstructor: DataAccess,
-            ControllerConstructor: Controller,
-            GhostRouterConstructor: VenuesRouter
+            DataAccess: DataAccess,
+            Controller: Controller,
+            GhostRouter: VenuesRouter
         }
 
         venuesRouter = server.setUpRouter(appConf)

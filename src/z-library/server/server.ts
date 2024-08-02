@@ -49,10 +49,10 @@ export class Server{
 
         const dataModel = db.createModel(config.modelName, config.dataSchema)
             
-        const dataAccess = new config.DataAccessConstructor(dataModel)
-        const controller = new config.ControllerConstructor(dataAccess, config.applicationName)
+        const dataAccess = new config.DataAccess(dataModel)
+        const controller = new config.Controller(dataAccess, config.applicationName)
 
-        const appRouter: GhostRouter = new config.GhostRouterConstructor(controller, config.authenticator)
+        const appRouter: GhostRouter = new config.GhostRouter(controller, config.authenticator)
 
         const routes =  appRouter.authenticateAndControlRoutes()
 
@@ -82,3 +82,5 @@ export class Server{
 
 const server = new Server()
 export default server
+
+

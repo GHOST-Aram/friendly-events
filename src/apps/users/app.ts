@@ -19,9 +19,9 @@ try {
             applicationName: 'users',
             dataSchema: userSchema,
             authenticator,
-            DataAccessConstructor: UsersDAL,
-            ControllerConstructor: UsersController,
-            GhostRouterConstructor: UsersRouter,
+            DataAccess: UsersDAL,
+            Controller: UsersController,
+            GhostRouter: UsersRouter,
         }
 
         usersRouter = server.setUpRouter(appConf)
