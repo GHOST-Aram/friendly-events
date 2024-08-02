@@ -1,6 +1,6 @@
 import { Response, Request } from "express"
 import { HydratedDocument } from "mongoose"
-import { Paginator } from "./paginator"
+import { Paginator } from "./types"
 
 export class HttpResponse{
 

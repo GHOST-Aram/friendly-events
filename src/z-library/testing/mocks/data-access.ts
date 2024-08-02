@@ -1,4 +1,4 @@
-import { Paginator} from "../../HTTP/paginator"
+import { Paginator} from "../../HTTP/types"
 import { Accessible } from "../../bases/accessible"
 import { HydratedDocument } from "mongoose"
 import { jest } from "@jest/globals"

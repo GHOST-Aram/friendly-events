@@ -1,4 +1,4 @@
-import { Paginator } from "../../../../z-library/HTTP/paginator"
+import { Paginator } from "../../../../z-library/HTTP/types"
 import { HydratedUserDoc, User, UserModel } from "../../data-access/model"
 import { jest } from "@jest/globals"
 import { MockDataAccess } from "../../../../z-library/testing"
