@@ -6,13 +6,14 @@ import {
 } from "express"
 import { GenericController } from "./bases/generic-controller"
 import { Authenticator } from "./auth/auth"
+import { GhostRouter } from "./routing"
 
 interface AppConfig{
     connectionPool: ConnectionPool 
     dBName: string, 
     dataSchema: Schema<any>,
-    DataAccess: DataAccessConstructor<GenericDataAccess<Model<any>, any>>,
-    Controller: ControllerConstructor<GenericController<Accessible>>, 
+    DataAccess: DataAccessConstructor<DataAccess>,
+    Controller: ControllerConstructor<Controller>, 
     GhostRouter: GhostRouterConstructor<GhostRouter>,
     authenticator: Authenticator,
     modelName: string,
@@ -30,6 +31,9 @@ type GhostRouterConstructor<GhostRouter> = new(
 
 type routesAuthandController =  (controller: GenericController, authenticator: Authenticator)=> Router
 
+interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
+interface DataAccess extends GenericDataAccess<Model<any>, any>{}
+
 interface AppRouter{
     router: Router
     controller: Controller
@@ -37,7 +41,6 @@ interface AppRouter{
     authenticateAndControlRoutes: ()=> Router
 }
 
-interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
 
 interface AuthData{
     fullName: string,
