@@ -1,3 +1,9 @@
+import { 
+    Request as ExpressRequest, 
+    Response as ExpressResponse, 
+    NextFunction as ExpressNextFunction,
+    Router 
+} from "express"
 import { GenericController } from "./bases/generic-controller"
 import { Authenticator } from "./auth/auth"
 import { GhostRouter } from "./routing"
@@ -33,6 +39,13 @@ interface DomainData{
 }
 
 interface FileError { message: string, filename: string }
+
+interface NextFunction extends ExpressNextFunction{}
+interface Request extends ExpressRequest{}
+
+
+
+interface Response extends ExpressResponse{}
 
 interface URLMetadata{
     path: string, 
