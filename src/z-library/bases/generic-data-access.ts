@@ -26,6 +26,10 @@ export class GenericDataAccess<T extends Model<any>, RawData> implements Accessi
         return await this.model.findById(refId)
     }
 
+    public findByName = async(name: string) =>{
+        return await this.model.findOne({ name })
+    }
+
     public findWithPagination = async(paginator: Paginator)
         : Promise<HydratedDocument<RawData>[]> => {
         return await this.model.find().skip(paginator.skipDocs)
