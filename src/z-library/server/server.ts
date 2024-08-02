@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import { Connection } from "mongoose"
 import { DB } from "../db"
 import { authenticator } from "../auth"
-import { AppConfig} from "../types"
+import { AppConfig} from "./types"
 import { URLMetadata } from "./types"
 import { httpErrors } from "../http"
 import { GhostRouter } from "../routing/router"
