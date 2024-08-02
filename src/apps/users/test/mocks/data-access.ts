@@ -1,9 +1,7 @@
-import { Paginator } from "../../../../z-library/types"
+import { Paginator } from "../../../../z-library/HTTP/paginator"
 import { HydratedUserDoc, User, UserModel } from "../../data-access/model"
 import { jest } from "@jest/globals"
 import { MockDataAccess } from "../../../../z-library/testing"
-import { Mock } from "jest-mock"
-import { HydratedDocument } from "mongoose"
 
 
 export class UsersDAL extends MockDataAccess<UserModel, User>{

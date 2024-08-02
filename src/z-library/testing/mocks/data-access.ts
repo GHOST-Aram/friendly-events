@@ -1,4 +1,5 @@
-import { Paginator, Accessible } from "../../types"
+import { Paginator} from "../../HTTP/paginator"
+import { Accessible } from "../../bases/accessible"
 import { HydratedDocument } from "mongoose"
 import { jest } from "@jest/globals"
 import { Model } from "mongoose"
@@ -48,6 +49,18 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
         }
 
         return mockDocs
+    }
+
+    public findByName = async(name: string) =>{
+
+        if(name === 'Existing'){
+            return new this.model({
+                name: 'Existing', 
+                description: this.validData.description
+            })
+        }
+
+        return null
     }
 
     public findByCreatorId = jest.fn(async(creatorId: string, paginator: Paginator
