@@ -41,7 +41,7 @@ export class AuthController{
             const isValidPassword = auth.verifyPassword(user?.password, incomingPassword)
             
             if(isValidPassword){
-                const userData = auth.aggregateUserData(user, createUserDataForAuth)
+                const userData = auth.createTokenPayload(user, createUserDataForAuth)
                 const token = auth.issueToken(userData, secretOrKey as string )
                 
                 this.respondWithToken(token, res)  

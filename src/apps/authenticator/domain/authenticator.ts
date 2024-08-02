@@ -20,7 +20,7 @@ export class Authenticator{
         })
     }
 
-    public aggregateUserData = (user: any, callBack: tokenPayloadCreator): TokenPayload =>{
+    public createTokenPayload = (user: any, callBack: tokenPayloadCreator): TokenPayload =>{
         return callBack(user)
     }
 }
