@@ -47,11 +47,6 @@ interface Request extends ExpressRequest{}
 
 interface Response extends ExpressResponse{}
 
-interface URLMetadata{
-    path: string, 
-    router: Router 
-}
-
 interface ZRouter extends Router{}
 
 type userDataAggregator = (user: any) => AuthData
