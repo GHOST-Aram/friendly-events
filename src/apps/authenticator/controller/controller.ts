@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "../../../z-library/types"
 import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
-import { createUserDataForAuth } from "../../../utils/auth-user-data"
+import { createTokenPayload } from "../../../utils/auth-user-data"
 import { getDataFromRequest } from "../../../z-library/request"
 import { secretOrKey } from "../../../_environment"
 
@@ -41,7 +41,7 @@ export class AuthController{
             const isValidPassword = auth.verifyPassword(user?.password, incomingPassword)
             
             if(isValidPassword){
-                const userData = auth.createTokenPayload(user, createUserDataForAuth)
+                const userData = auth.createTokenPayload(user, createTokenPayload)
                 const token = auth.issueToken(userData, secretOrKey as string )
                 
                 this.respondWithToken(token, res)  
