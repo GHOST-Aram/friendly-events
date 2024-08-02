@@ -5,10 +5,10 @@ import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import 'dotenv/config'
+import { usersDbName } from "../../_settings";
 
 let usersRouter: ZRouter
-const usersDbName = process.env.USERSDB_NAME
+
 
 try {
     if(usersDbName) {

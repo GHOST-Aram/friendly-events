@@ -3,9 +3,7 @@ import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"
 import { getDataFromRequest } from "../../../z-library/request"
-import 'dotenv/config'
-
-const secretOrkey = process.env.TOKEN_SECRET
+import { secretOrKey } from "../../../_settings"
 
 export class AuthController{
 
@@ -20,7 +18,7 @@ export class AuthController{
         const { reqBody } = getDataFromRequest(req)
 
         try {
-            if(secretOrkey){
+            if(secretOrKey){
 
                 const user = await this.findUser(reqBody.email)
                 this.verifyUserAndIssueToken(user, reqBody.password, res)
@@ -44,7 +42,7 @@ export class AuthController{
             
             if(isValidPassword){
                 const userData = auth.aggregateUserData(user, createUserDataForAuth)
-                const token = auth.issueToken(userData, secretOrkey as string )
+                const token = auth.issueToken(userData, secretOrKey as string )
                 
                 this.respondWithToken(token, res)  
             } else {

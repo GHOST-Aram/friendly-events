@@ -1,14 +1,12 @@
 import { server } from "../z-library/server"
 import { ConnectionPool } from "../z-library/db"
-import 'dotenv/config'
+import { dbUri, secretOrKey, PORT } from "../_settings"
 
 server.useJSONPayloads()
 server.allowCrossOriginResourceSharing()
 server.enforceSecurity()
 server.logRequestsandResponses()
 
-const dbUri = process.env.USERSDB_URI
-const secretOrKey = process.env.TOKEN_SECRET
 let connectionPool: ConnectionPool
 
 try {
@@ -31,7 +29,6 @@ try {
     console.warn(error.message)
 }
 
-const PORT = Number(process.env.PORT) || 8000
 server.listenToRequests(PORT,'')
 
 export { connectionPool, server }

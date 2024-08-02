@@ -5,10 +5,10 @@ import { connectionPool, server } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import 'dotenv/config'
+import { categoriesDbName } from "../../_settings";
 
 let categoriesRouter: ZRouter
-const categoriesDbName = process.env.CATEGORIESDB_NAME
+
 
 try {
     if(categoriesDbName) {

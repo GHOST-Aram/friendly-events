@@ -5,10 +5,9 @@ import { connectionPool,server } from "../../_config/config";
 import { venueSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import 'dotenv/config'
+import { venuesDbName } from "../../_settings";
 
 let venuesRouter: ZRouter
-const venuesDbName = process.env.VENUESDB_NAME
 
 try {
     if(venuesDbName) {

@@ -5,10 +5,10 @@ import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import 'dotenv/config'
+import { eventsDbName } from "../../_settings";
 
 let eventsRouter: ZRouter
-const eventsDbName = process.env.EVENTSDB_NAME
+
 
 try {
     if(eventsDbName) {
