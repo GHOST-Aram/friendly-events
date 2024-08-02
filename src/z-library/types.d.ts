@@ -41,15 +41,6 @@ interface AppRouter{
     authenticateAndControlRoutes: ()=> Router
 }
 
-
-interface AuthData{
-    fullName: string,
-    email: string,
-    username?: string,
-    id: string,
-    userGroup: string
-}
-
 interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
