@@ -48,5 +48,3 @@ interface Request extends ExpressRequest{}
 interface Response extends ExpressResponse{}
 
 interface ZRouter extends Router{}
-
-type userDataAggregator = (user: any) => AuthData
