@@ -38,8 +38,6 @@ interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
 
-interface FileError { message: string, filename: string }
-
 interface NextFunction extends ExpressNextFunction{}
 interface Request extends ExpressRequest{}
 interface Response extends ExpressResponse{}
