@@ -5,7 +5,7 @@ import { eventsRouter } from "./apps/eventz/app";
 import { venuesRouter } from "./apps/venues/app";
 import { categoriesRouter } from "./apps/eventcategories/app";
 import { venueTypesRouter } from "./apps/venuetypes/app";
-import { URLMetadata } from "./z-library/types";
+import { URLMetadata } from "./z-library/server/types";
 
 const urlsData: URLMetadata[] = [
     { path: '/auth', router: authRouter },
