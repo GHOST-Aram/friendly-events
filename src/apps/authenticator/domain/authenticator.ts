@@ -1,6 +1,6 @@
 import { compareSync } from "bcrypt"
 import jwt from 'jsonwebtoken'
-import { userDataAggregator } from "../../../z-library/types"
+import { tokenPayloadCreator } from "../../../z-library/auth/types"
 import { AuthData } from "../../../z-library/auth"
 
 export class Authenticator{
@@ -21,7 +21,7 @@ export class Authenticator{
         })
     }
 
-    public aggregateUserData = (user: any, callBack: userDataAggregator): AuthData =>{
+    public aggregateUserData = (user: any, callBack: tokenPayloadCreator): AuthData =>{
         return callBack(user)
     }
 }
