@@ -1,5 +1,4 @@
 import {Request} from "express"
-import { RequestData } from "../types"
 
 const getDataFromRequest = (req: Request): RequestData =>{
     const referenceId = req.params.id
@@ -11,5 +10,12 @@ const getDataFromRequest = (req: Request): RequestData =>{
 
     return { referenceId, reqBody, user, file, files, currentUserId }
 }
-
+export interface RequestData{
+    referenceId: string
+    reqBody: any 
+    user:any
+    currentUserId: string
+    file: Express.Multer.File
+    files: Express.Multer.File[]
+}
 export default getDataFromRequest

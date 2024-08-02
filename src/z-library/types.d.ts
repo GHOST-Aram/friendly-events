@@ -43,14 +43,7 @@ interface FileError { message: string, filename: string }
 interface NextFunction extends ExpressNextFunction{}
 interface Request extends ExpressRequest{}
 
-interface RequestData{
-    referenceId: string
-    reqBody: any 
-    user:any
-    currentUserId: string
-    file: Express.Multer.File
-    files: Express.Multer.File[]
-}
+
 
 interface Response extends ExpressResponse{}
 
