@@ -5,7 +5,7 @@ import { connectionPool, server } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import { eventsDbName } from "../../_settings";
+import { eventsDbName } from "../../_environment";
 
 let eventsRouter: ZRouter
 

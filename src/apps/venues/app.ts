@@ -5,7 +5,7 @@ import { connectionPool,server } from "../../_config/config";
 import { venueSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { AppConfig, ZRouter } from "../../z-library/types";
-import { venuesDbName } from "../../_settings";
+import { venuesDbName } from "../../_environment";
 
 let venuesRouter: ZRouter
 

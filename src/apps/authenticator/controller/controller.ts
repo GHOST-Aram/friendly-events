@@ -3,7 +3,7 @@ import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
 import { createUserDataForAuth } from "../../../utils/auth-user-data"
 import { getDataFromRequest } from "../../../z-library/request"
-import { secretOrKey } from "../../../_settings"
+import { secretOrKey } from "../../../_environment"
 
 export class AuthController{
 
