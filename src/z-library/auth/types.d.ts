@@ -1,1 +1,1 @@
-export type userDataAggregator = (user: any) => AuthData
+export type tokenPayloadCreator = (user: any) => AuthData
