@@ -34,13 +34,6 @@ type routesAuthandController =  (controller: GenericController, authenticator: A
 interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
 interface DataAccess extends GenericDataAccess<Model<any>, any>{}
 
-interface AppRouter{
-    router: Router
-    controller: Controller
-    authenticator: Authenticator
-    authenticateAndControlRoutes: ()=> Router
-}
-
 interface DomainData{
     aggregateInputDocument :(reqData: RequestData) => Object
 }
