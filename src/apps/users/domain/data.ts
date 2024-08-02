@@ -1,9 +1,9 @@
 import { hash } from "bcrypt"
 import { createFileBuffer } from "../../../z-library/uploads"
 import { User } from "../data-access/model"
-import { 
-    Response, Request, NextFunction, DomainData } from "../../../z-library/types"
+import { Response, Request, NextFunction } from "../../../z-library/types"
 import { getDataFromRequest, RequestData } from "../../../z-library/request"
+import { DomainData } from "../../../z-library/domain-data"
 
 class UserData implements DomainData{
     

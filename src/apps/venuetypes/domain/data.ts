@@ -1,4 +1,4 @@
-import { DomainData } from "../../../z-library/types";
+import { DomainData } from "../../../z-library/domain-data";
 import { VenueCategory } from "../data-access/model";
 import { RequestData } from "../../../z-library/request";
 

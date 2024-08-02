@@ -1,6 +1,6 @@
 import { createFileBuffer } from "../../../z-library/uploads"
 import { EventCategory } from "../data-access/model"
-import { DomainData } from "../../../z-library/types"
+import { DomainData } from "../../../z-library/domain-data"
 import { RequestData } from "../../../z-library/request"
 
 class CategoryData implements DomainData{
