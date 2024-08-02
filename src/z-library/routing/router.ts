@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Authenticator } from "../auth/auth";
-import { AppRouter, Controller } from "../types";
+import { Controller } from "../types";
+import { AppRouter } from "./app-router";
 
 export class GhostRouter implements AppRouter{
     public router: Router;
