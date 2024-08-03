@@ -1,4 +1,4 @@
-import { userGroup } from "./user-group"
+import { userGroup } from "./user-group/user-group"
 
 class Permission{
     public allowAdmin = (user: any): boolean =>{
