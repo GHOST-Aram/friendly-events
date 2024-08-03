@@ -1,5 +1,5 @@
 import { assert} from "../../../z-library/testing";
-import { describe, test } from '@jest/globals'
+import { describe, test, expect } from '@jest/globals'
 import request from 'supertest'
 import {app} from './config/app'
 import * as data from './mocks/raw-data'
@@ -11,6 +11,15 @@ describe('POST events', () =>{
         async() =>{
             const response = await request(app).post('/events/64c9e4f2df7cc072af2ac9e4')
             assert.respondsWithMethodNotAllowed(response)
+        }
+    )
+
+    test("Responds with conflict if an event exists with exact matching data: ",
+        async() =>{
+            const response = await request(app).post('/events')
+                .send({...data.validData, title: 'Existing' })
+                
+            assert.respondsWithConflict(response)
         }
     )
 

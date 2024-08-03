@@ -1,4 +1,4 @@
-export const validData = {
+export const validData:any = {
     category: "Music Concert",
     venue: "Quiver Lounge",
     title:"Ramogi Night",
