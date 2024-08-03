@@ -4,6 +4,7 @@ import { DataAccess } from "../data-access/data-access";
 import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
 import { document } from "../../../z-library/document";
+import { userGroup } from "../../../utils/user-group/user-group";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -37,7 +38,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
 
                     this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
@@ -65,7 +66,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
 
                     this.updateAndRespond({ updateDoc, id: data.referenceId}, res)
 
@@ -83,7 +84,7 @@ export class Controller extends GenericController<DataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
 
-        const { referenceId, currentUserId} = getDataFromRequest(req)
+        const { referenceId, currentUserId, user } = getDataFromRequest(req)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
@@ -92,7 +93,7 @@ export class Controller extends GenericController<DataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(currentUserId, creatorId) || userGroup.isAdmin(user)){
 
                     this.deleteAndRespond( referenceId, res)
 

@@ -4,6 +4,7 @@ import { EventsDataAccess } from "../data-access/data-access";
 import { eventData as domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
 import { document } from "../../../z-library/document";
+import { userGroup } from "../../../utils/user-group/user-group";
 
 export class EventsController extends GenericController<EventsDataAccess>{
     constructor (dataAccess: EventsDataAccess, microserviceName: string){
@@ -36,7 +37,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
 
                     this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
@@ -64,7 +65,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
 
                     this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
 
@@ -82,7 +83,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
     public deleteOne = async(req: Request, res: Response, next: NextFunction) =>{
         
-        const { currentUserId, referenceId } = getDataFromRequest(req)
+        const { currentUserId, referenceId, user } = getDataFromRequest(req)
 
         try {
             const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
@@ -91,7 +92,7 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
                 const creatorId = targetDoc?.createdBy.toString() as string
 
-                if(document.isOwnedByCurrentUser(currentUserId, creatorId)){
+                if(document.isOwnedByCurrentUser(currentUserId, creatorId) || userGroup.isAdmin(user)){
 
                     this.deleteAndRespond(referenceId, res)
 
