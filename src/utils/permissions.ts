@@ -1,22 +1,24 @@
+import { userGroup } from "./user-group"
+
 class Permission{
     public allowAdmin = (user: any): boolean =>{
-       return user.userGroup === 'superuser'
+       return userGroup.isAdmin(user)
     }
     
     public allowEventOrganizer = (user: any) =>{
-        return user.userGroup === 'organizer'
+       return userGroup.isOrganizer(user)
     }
 
     public allowVenueHost = (user: any) =>{
-        return user.userGroup === 'host'
+        return userGroup.isHost(user)
     }
 
     public allowOrganizerOrAdmin = (user: any) =>{
-        return /^(organizer|superuser)$/.test(user.userGroup)
+        return userGroup.isOrganizer(user) || userGroup.isAdmin(user)
     }
 
     public allowHostOrAdmin = (user: any) =>{
-        return /^(host|superuser)$/.test(user.userGroup)
+        return userGroup.isHost(user) || userGroup.isAdmin(user)
     }
 }
 
