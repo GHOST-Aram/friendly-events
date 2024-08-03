@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 export class HTTPErrors{
 
     public handleUnknownUrls = ( req: Request, res: Response, next: NextFunction ) =>{
-        res.status(404).json({ message: 'Resource not found' })
+        res.status(404).json('Resource not found' )
         
     }
 
