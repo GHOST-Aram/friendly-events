@@ -17,9 +17,15 @@ export class EventsController extends GenericController<EventsDataAccess>{
         const eventData = domainData.aggregateInputDocument(reqData)
 
         try {
-            const newDocument = await this.dataAccess.createNew(eventData)
+            const existingEvent = await this.dataAccess.findExactMatch(reqData.reqBody)
 
-            this.respondWithCreatedResource(newDocument.toObject(), res)
+            if(!document.exists(existingEvent)){
+                const newDocument = await this.dataAccess.createNew(eventData)
+                this.respondWithCreatedResource(newDocument.toObject(), res)
+            } else {
+                this.respondWithConflict(res)
+            }
+
         } catch (error) {
             next(error)
         }   
