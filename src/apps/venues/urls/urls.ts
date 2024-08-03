@@ -25,7 +25,7 @@ export class VenuesRouter extends GhostRouter{
         this.router.post('/:id', this.controller.respondWithMethodNotAllowed)
         this.router.post('/', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowVenueHost),
+            this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             fileUploader.uploadMultipleFiles('pictures'),
             validator.validateFiles,
             validationChains.validatePostData,
@@ -55,7 +55,7 @@ export class VenuesRouter extends GhostRouter{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowVenueHost),
+            this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             fileUploader.uploadMultipleFiles('pictures'),
             validator.validateFiles,
             validator.validateReferenceId('id', { required: true }),
@@ -69,7 +69,7 @@ export class VenuesRouter extends GhostRouter{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowVenueHost),
+            this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             fileUploader.uploadMultipleFiles('pictures'),
             validator.validateFiles,
             validator.validateReferenceId('id', { required: true }),
@@ -85,7 +85,7 @@ export class VenuesRouter extends GhostRouter{
             this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.authenticator.restrictAccess(permission.allowVenueHost),
+            this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             this.controller.deleteOne
         )
     }

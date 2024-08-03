@@ -26,7 +26,7 @@ export class EventsRouter extends GhostRouter{
         this.router.post('/:id', this.controller.respondWithMethodNotAllowed)
         this.router.post('/', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowEventOrganizer),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
             validationChains.validatePostData,
@@ -54,7 +54,7 @@ export class EventsRouter extends GhostRouter{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowEventOrganizer),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
             validator.validateReferenceId('id', { required: true }),
@@ -69,7 +69,7 @@ export class EventsRouter extends GhostRouter{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
             this.authenticator.authenticate(),
-            this.authenticator.restrictAccess(permission.allowEventOrganizer),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             fileUploader.uploadSingleFile('graphic'),
             validator.validateFile,
             validator.validateReferenceId('id', { required: true }),
@@ -86,7 +86,7 @@ export class EventsRouter extends GhostRouter{
             this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.authenticator.restrictAccess(permission.allowEventOrganizer),
+            this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
             this.controller.deleteOne
         )   
     }

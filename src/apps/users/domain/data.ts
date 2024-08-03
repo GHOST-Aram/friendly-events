@@ -4,6 +4,7 @@ import { User } from "../data-access/model"
 import { Response, Request, NextFunction } from "../../../z-library/types"
 import { getDataFromRequest, RequestData } from "../../../z-library/request"
 import { DomainData } from "../../../z-library/domain-data"
+import { userGroup } from "../../../utils/user-group"
 
 class UserData implements DomainData{
     
@@ -18,11 +19,11 @@ class UserData implements DomainData{
         return { ...updateDoc, password: await hash(updateDoc.password, 10) }  
     }
 
-    public allowDocumentOwner = (req: Request, res: Response, next: NextFunction) =>{
+    public allowOwnerOrAdmin = (req: Request, res: Response, next: NextFunction) =>{
 
-        const {currentUserId, referenceId } = getDataFromRequest(req)
+        const {currentUserId, user, referenceId } = getDataFromRequest(req)
 
-        if(currentUserId === referenceId){
+        if(currentUserId === referenceId || userGroup.isAdmin(user)){
             next()
         } else{
             res.status(403).json(`Forbidden. Users cannot alter other users \' documents}`)

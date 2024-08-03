@@ -54,7 +54,7 @@ export class UsersRouter extends GhostRouter{
         this.router.put('/', this.controller.respondWithMethodNotAllowed)
         this.router.put('/:id', 
             this.authenticator.authenticate(),
-            domainData.allowDocumentOwner,
+            domainData.allowOwnerOrAdmin,
             fileUploader.uploadSingleFile('profilePicture'),
             validator.validateFile,
             validator.validateReferenceId('id', { required: true }),
@@ -68,7 +68,7 @@ export class UsersRouter extends GhostRouter{
         this.router.patch('/', this.controller.respondWithMethodNotAllowed)
         this.router.patch('/:id', 
             this.authenticator.authenticate(),
-            domainData.allowDocumentOwner,
+            domainData.allowOwnerOrAdmin,
             fileUploader.uploadSingleFile('profilePicture'),
             validator.validateFile,
             validator.validateReferenceId('id', { required: true }),
@@ -84,7 +84,7 @@ export class UsersRouter extends GhostRouter{
             this.authenticator.authenticate(),
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            domainData.allowDocumentOwner,
+            domainData.allowOwnerOrAdmin,
             this.controller.deleteOne
         )
     }
