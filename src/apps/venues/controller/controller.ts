@@ -5,6 +5,9 @@ import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
 import { document } from "../../../z-library/document";
 import { userGroup } from "../../../utils/user-group/user-group";
+import { Paginator } from "../../../z-library/http";
+import { queryString } from "../../../z-library/request";
+import { searchablePaths } from "../data-access/model";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
@@ -24,6 +27,22 @@ export class Controller extends GenericController<DataAccess>{
         } catch (error) {
             next(error)
         }   
+    }
+
+    public getMany = async(req: Request, res: Response, next: NextFunction) =>{
+        const paginator: Paginator = this.paginate(req)
+        const { query } = getDataFromRequest(req) 
+
+        const searchDocument = queryString.createSearchDocument(query, searchablePaths)
+
+        try {
+            const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
+            const serializedDocs = docuements.map(doc => doc.toObject())
+
+            this.respondWithFoundResource(serializedDocs, res)
+        } catch (error) {
+            next(error)
+        }
     }
 
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{

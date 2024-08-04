@@ -36,6 +36,8 @@ export interface Venue{
     }
 }
 
+const searchablePaths = ['type', 'name', 'createdBy']
+
 export type VenueModel = Model<Venue>
 
 export const venueSchema = new Schema<Venue,VenueModel>({
@@ -141,3 +143,5 @@ export const venueSchema = new Schema<Venue,VenueModel>({
 export type HydratedVenueDoc = HydratedDocument<Venue>
 
 export const Venue = model<Venue, VenueModel>('Venue', venueSchema)
+
+export { searchablePaths }
