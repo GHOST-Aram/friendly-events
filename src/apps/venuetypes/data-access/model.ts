@@ -6,6 +6,8 @@ export interface VenueCategory {
     createdBy: ObjectId
 }
 
+const searchablePaths = ['name', 'createdBy']
+
 export type VenueCategoryModel = Model<VenueCategory>
 
 export const venueCatSchema = new Schema<VenueCategory, VenueCategoryModel>({
@@ -28,3 +30,5 @@ export const venueCatSchema = new Schema<VenueCategory, VenueCategoryModel>({
 export type HydratedVenueCategory = HydratedDocument<VenueCategory>
 
 export const VenueCategory = model('VenueCategory', venueCatSchema)
+
+export { searchablePaths }
