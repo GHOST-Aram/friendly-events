@@ -33,6 +33,10 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
         return null
     }
 
+    public findBySearchDocument = async(searchDoc: any, paginator: Paginator) =>{
+        return this.createDocsArray(paginator.limit)
+    }
+
     public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<RawData>[]> =>{
         return this.createDocsArray(paginator.limit)
     })
