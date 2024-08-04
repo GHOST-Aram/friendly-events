@@ -3,6 +3,8 @@ import { HttpResponse, Paginator } from "../http"
 import { Accessible } from "./accessible";
 import { Controllable } from "./controllable";
 import { getDataFromRequest, queryString } from "../request";
+import { document } from "../document";
+import { DomainData } from "../domain-data";
 
 interface UpdateData {updateDoc: any, id: string }
 
@@ -16,16 +18,34 @@ export class GenericController <T extends Accessible>
         this.dataAccess = dataAccess
 }
 
-    public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-        const inputData = req.body
-
+public addNew = (domainData: DomainData) =>{
+    return async(req: Request, res: Response, next: NextFunction) =>{
+            
+        const data = getDataFromRequest(req)
+        const inputData = domainData.aggregateInputDocument(data)
+        const searchDoc = domainData.createUniqueSearchDocument(inputData)
+    
         try {
-            const newDocument = await this.dataAccess.createNew(inputData)
-            this.respondWithCreatedResource(newDocument, res)
+            const existingEventCategory = await this.dataAccess.findExistingDocument(searchDoc)
+    
+            if(!document.exists(existingEventCategory)){
+                this.createAndRespond(inputData, res)
+            } else {
+                this.respondWithConflict(res)
+            }
         } catch (error) {
             next(error)
         }   
     }
+}
+
+public createAndRespond = async(document: any, res: Response) =>{
+    const newDocument = await this.dataAccess.createNew(document)
+    const serializedDoc = newDocument.toObject()
+    
+    this.respondWithCreatedResource(serializedDoc, res)
+}
+
 
     public getOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
@@ -89,7 +109,7 @@ export class GenericController <T extends Accessible>
             if(updatedDoc){
                 this.respondWithUpdatedResource(updatedDoc, res)
             } else{
-                this.addNew(req, res, next)
+                this.createAndRespond(updateDoc, res)
             }
 
         } catch (error) {
