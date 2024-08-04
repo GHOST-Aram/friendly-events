@@ -34,20 +34,25 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
     }
 
     public findBySearchDocument = async(searchDoc: any, paginator: Paginator) =>{
-        return this.createDocsArray(paginator.limit)
+
+        return this.createDocsArray(paginator.limit,
+            
+            //Include the data in the search document for verifaction in tests 
+            {...this.validData, ...searchDoc }
+        )
     }
 
     public findWithPagination = jest.fn(async(paginator: Paginator): Promise<HydratedDocument<RawData>[]> =>{
         return this.createDocsArray(paginator.limit)
     })
 
-    public createDocsArray = (limit: number) =>{
+    public createDocsArray = (limit: number, doc?:{}) =>{
 
         const mockDocs: HydratedDocument<RawData>[] = []
 
         let userCount = 0
         while(userCount < limit){
-            mockDocs.push(new this.model(this.validData))
+            mockDocs.push(new this.model( doc ? doc: this.validData))
 
             userCount ++
         }
