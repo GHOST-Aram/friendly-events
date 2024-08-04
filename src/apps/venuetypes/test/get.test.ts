@@ -32,6 +32,21 @@ describe('GET venue-types Route', () =>{
         } 
     )
 
+    test('Responds with paginated array (Status 200): Length equals given query params.', 
+        async() =>{
+            const response = await request(app).get(
+                '/venue-types?name=sometype&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
+
+            assert.respondsWithSuccess(response)
+            assert.respondsWithPaginatedResource(response, 23)
+
+            response.body.forEach((item: any) =>{
+                expect(item.name).toBe('sometype')
+                expect(item.createdBy).toBe('64c9e4f2df7cc072af2ac9e4')
+            })
+        } 
+    )
+
     test('Responds with Validation Errors (status 400): Invalid reference Id', 
         async() =>{
             const response = await request(app).get('/venue-types/creators/64c9e4f2df7cc072af2acxx')
