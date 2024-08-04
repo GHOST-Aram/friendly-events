@@ -16,6 +16,20 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
         this.validData = validData
     }
 
+    public findExistingDocument = async(searchDoc: {}) =>{
+
+        let existingDocument:any = null
+        
+        for(const key in searchDoc){
+            if(/existing/gi.test((searchDoc as any )[key])){
+                existingDocument = new this.model(this.validData)
+                break 
+            }
+        }
+
+        return existingDocument
+    }
+
     public createNew = jest.fn(async(data: RawData): Promise<HydratedDocument<RawData>> =>{
             const document = new this.model(data)  
             return document
@@ -36,7 +50,7 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
     public findBySearchDocument = async(searchDoc: any, paginator: Paginator) =>{
 
         return this.createDocsArray(paginator.limit,
-            
+
             //Include the data in the search document for verifaction in tests 
             {...this.validData, ...searchDoc }
         )
