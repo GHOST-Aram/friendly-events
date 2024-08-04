@@ -3,6 +3,7 @@ import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases";
 import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
+import { document } from "../../../z-library/document";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -18,7 +19,7 @@ export class UsersController extends GenericController<UsersDAL>{
         try {
             const user = await this.dataAccess.findByEmail(userData.email)
 
-            if(user)
+            if(document.exists(user))
                 this.respondWithConflict(res)
             else {
 
