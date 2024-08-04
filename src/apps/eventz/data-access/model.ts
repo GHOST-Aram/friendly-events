@@ -26,6 +26,8 @@ export interface Event{
     ticketPrice: number
 }
 
+const searchablePaths = ['category', 'venue', 'title', 'createdBy', 'city' ]
+
 export type EventModel = Model<Event>
 
 export const eventSchema = new Schema<Event, EventModel>({
@@ -94,4 +96,6 @@ export const eventSchema = new Schema<Event, EventModel>({
 export type HydratedEventDoc = HydratedDocument<Event>
 
 export const Event = model<Event, EventModel>('Event', eventSchema)
+
+export { searchablePaths }
 
