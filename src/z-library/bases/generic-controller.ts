@@ -4,7 +4,7 @@ import { Accessible } from "./accessible";
 import { Controllable } from "./controllable";
 import { getDataFromRequest, queryString } from "../request";
 
-
+interface UpdateData {updateDoc: any, id: string }
 
 export class GenericController <T extends Accessible> 
     extends HttpResponse implements Controllable {
@@ -133,7 +133,7 @@ export class GenericController <T extends Accessible>
         }
     }
 
-    public updateAndRespond = async({ updateDoc, id }: {updateDoc: any, id: string }, res: Response) =>{
+    public updateAndRespond = async({ updateDoc, id }: UpdateData, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
         const serializedDoc = updatedDoc.toObject()
 
