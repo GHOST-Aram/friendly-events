@@ -35,23 +35,6 @@ export class Controller extends GenericController<DataAccess>{
         }   
     }
 
-    public getMany = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req)
-        const { query } = getDataFromRequest(req) 
-
-        const searchDocument = queryString.createSearchDocument(query, searchablePaths)
-
-        try {
-            const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
-            const serializedDocs = docuements.map(doc => doc.toObject())
-
-            this.respondWithFoundResource(serializedDocs, res)
-        } catch (error) {
-            next(error)
-        }
-    }
- 
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
