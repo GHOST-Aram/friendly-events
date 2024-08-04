@@ -19,14 +19,14 @@ export class UsersController extends GenericController<UsersDAL>{
         try {
             const user = await this.dataAccess.findByEmail(userData.email)
 
-            if(document.exists(user))
-                this.respondWithConflict(res)
-            else {
-
+            if(!document.exists(user)){
                 const user = await this.dataAccess.createNew(userData)
                 const userInfo = domainData.createMinizedUserObject(user.toObject())
                 
                 this.respondWithCreatedResource(userInfo, res)
+            }
+            else {
+                this.respondWithConflict(res)
             }
         } catch (error) {
             next(error)
