@@ -16,38 +16,37 @@ export class GenericController <T extends Accessible>
     constructor(dataAccess: T, microserViceName: string){
         super(microserViceName)
         this.dataAccess = dataAccess
-}
-
-public addNew = (domainData: DomainData) =>{
-    return async(req: Request, res: Response, next: NextFunction) =>{
-            
-        const data = getDataFromRequest(req)
-        const inputData = domainData.aggregateInputDocument(data)
-        const searchDoc = domainData.createUniqueSearchDocument(inputData)
-    
-        try {
-            const existingEventCategory = await this.dataAccess.findExistingDocument(searchDoc)
-    
-            if(!document.exists(existingEventCategory)){
-                this.createAndRespond(inputData, res)
-            } else {
-                this.respondWithConflict(res)
-            }
-        } catch (error) {
-            next(error)
-        }   
     }
-}
 
-public createAndRespond = async(document: any, res: Response) =>{
-    const newDocument = await this.dataAccess.createNew(document)
-    const serializedDoc = newDocument.toObject()
-    
-    this.respondWithCreatedResource(serializedDoc, res)
-}
+    public addNew = (domainData: DomainData) =>{
+        return async(req: Request, res: Response, next: NextFunction) =>{
+                
+            const data = getDataFromRequest(req)
+            const inputData = domainData.aggregateInputDocument(data)
+            const searchDoc = domainData.createUniqueSearchDocument(inputData)
+        
+            try {
+                const existingEventCategory = await this.dataAccess.findExistingDocument(searchDoc)
+        
+                if(!document.exists(existingEventCategory)){
+                    this.createAndRespond(inputData, res)
+                } else {
+                    this.respondWithConflict(res)
+                }
+            } catch (error) {
+                next(error)
+            }   
+        }
+    }
 
+    public createAndRespond = async(document: any, res: Response) =>{
+        const newDocument = await this.dataAccess.createNew(document)
+        const serializedDoc = newDocument.toObject()
+        
+        this.respondWithCreatedResource(serializedDoc, res)
+    }
 
-    public getOne = async(req: Request, res: Response, next: NextFunction) =>{
+        public getOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
 
         try {
@@ -81,20 +80,6 @@ public createAndRespond = async(document: any, res: Response) =>{
             } catch (error) {
                 next(error)
             }
-        }
-    }
-
-    public getByCreator = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req) 
-        const creatorId = req.params.creatorId
-
-        try {
-            const documents = await this.dataAccess.findByCreatorId(creatorId, paginator)
-            const serializedDocs = documents.map(doc => doc.toObject())
-
-            this.respondWithFoundResource(serializedDocs, res)
-        } catch (error) {
-            next(error)
         }
     }
 
