@@ -7,8 +7,9 @@ const getDataFromRequest = (req: Request): RequestData =>{
     const file = req.file as Express.Multer.File
     const files = req.files as Express.Multer.File[]
     const currentUserId: string = user ? user._id.toString() : ''
+    const query = req.query
 
-    return { referenceId, reqBody, user, file, files, currentUserId }
+    return { referenceId, reqBody, user, file, files, currentUserId, query }
 }
 export interface RequestData{
     referenceId: string
@@ -17,5 +18,6 @@ export interface RequestData{
     currentUserId: string
     file: Express.Multer.File
     files: Express.Multer.File[]
+    query: any
 }
-export default getDataFromRequest
+export default getDataFromRequest    
