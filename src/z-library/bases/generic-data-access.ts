@@ -32,6 +32,7 @@ export class GenericDataAccess<T extends Model<any>, RawData> implements Accessi
 
     public findBySearchDocument = async(searchDoc: any, paginator: Paginator) =>{
         return await this.model.find(searchDoc).skip(paginator.skipDocs).limit(paginator.limit)
+        .collation({ locale:'en', strength: 2 })
     }
 
     public findWithPagination = async(paginator: Paginator): Promise<HydratedDocument<RawData>[]> => {
