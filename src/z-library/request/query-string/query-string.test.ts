@@ -33,4 +33,13 @@ describe("Query String class", () =>{
             expect(searchDoc).not.toHaveProperty('nationality')
         }
     )
+
+    test("Returns an empty search document if query is undefined or empty", () =>{
+        const query = {}
+
+        const searchablePaths = ['name', 'height', 'age', 'fitness']
+        const searchDoc:any = queryString.createSearchDocument(query, searchablePaths)
+
+        expect(Object.keys(searchDoc).length).toEqual(0)
+    })
 })
