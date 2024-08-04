@@ -3,6 +3,9 @@ import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases";
 import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
+import { Paginator } from "../../../z-library/http";
+import { queryString } from "../../../z-library/request";
+import { searchablePaths } from "../data-access/model";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -27,6 +30,22 @@ export class UsersController extends GenericController<UsersDAL>{
                 
                 this.respondWithCreatedResource(userInfo, res)
             }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public getMany = async(req: Request, res: Response, next: NextFunction) =>{
+        const paginator: Paginator = this.paginate(req)
+        const { query } = getDataFromRequest(req) 
+
+        const searchDocument = queryString.createSearchDocument(query, searchablePaths)
+
+        try {
+            const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
+            const serializedDocs = docuements.map(doc => doc.toObject())
+
+            this.respondWithFoundResource(serializedDocs, res)
         } catch (error) {
             next(error)
         }

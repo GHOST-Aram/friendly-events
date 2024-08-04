@@ -13,6 +13,7 @@ export interface User{
     email: string
     password: string
 }
+const searchablePaths = ['fullName', 'userGroup']
 
 interface UserMethods{
     isValidPassword:(password: string) => Promise<boolean>
@@ -75,3 +76,5 @@ userSchema.pre('save', async function(){
 export type HydratedUserDoc = HydratedDocument<User, UserMethods & UserVirtuals>
 
 export const User: UserModel = model<User, UserModel>('User', userSchema)
+
+export { searchablePaths    }
