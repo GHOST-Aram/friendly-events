@@ -1,6 +1,6 @@
 import { assert} from "../../../z-library/testing";
 import { app } from "./config/app";
-import { describe, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 import request from 'supertest'
 
 describe('GET events Route', () =>{
@@ -45,9 +45,14 @@ describe('GET events Route', () =>{
         async() =>{
             const response = await request(app).get(
                 '/events?title=cool title&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
-
+            
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
+
+            response.body.forEach((item: any) =>{
+                expect(item.title).toBe('cool title')
+                expect(item.createdBy).toBe('64c9e4f2df7cc072af2ac9e4')
+            })
         } 
     )
 

@@ -1,6 +1,6 @@
 import { assert} from "../../../z-library/testing";
 import { app } from "./config/app";
-import { describe, test } from "@jest/globals";
+import { describe, test, expect } from "@jest/globals";
 import request from 'supertest'
 
 describe('GET categories Route', () =>{
@@ -49,6 +49,11 @@ describe('GET categories Route', () =>{
 
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
+
+            response.body.forEach((item: any) =>{
+                expect(item.name).toBe('cool name')
+                expect(item.createdBy).toBe('64c9e4f2df7cc072af2ac9e4')
+            })
         } 
     )
 
