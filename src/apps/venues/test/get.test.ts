@@ -41,6 +41,16 @@ describe('GET venues Route', () =>{
         } 
     )
 
+    test('Responds with paginated array (Status 200): Length equals given query params.', 
+        async() =>{
+            const response = await request(app).get(
+                '/categories?name=cool name&city=nairobi&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
+
+            assert.respondsWithSuccess(response)
+            assert.respondsWithPaginatedResource(response, 23)
+        } 
+    )
+
     test('Responds with Validation Errors (status 400): Invalid reference Id', 
         async() =>{
             const response = await request(app).get('/venues/creators/64c9e4f2df7cc072af2acxx')
