@@ -11,28 +11,6 @@ export class UsersController extends GenericController<UsersDAL>{
         super(dataAccessLayer, microserviceName)
     }
 
-    public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-
-        const data = getDataFromRequest(req)
-        const userData = domainData.aggregateInputDocument(data)
-
-        try {
-            const user = await this.dataAccess.findByEmail(userData.email)
-
-            if(!document.exists(user)){
-                const user = await this.dataAccess.createNew(userData)
-                const userInfo = domainData.createMinizedUserObject(user.toObject())
-                
-                this.respondWithCreatedResource(userInfo, res)
-            }
-            else {
-                this.respondWithConflict(res)
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
         
         const data = getDataFromRequest(req)
@@ -47,7 +25,7 @@ export class UsersController extends GenericController<UsersDAL>{
             if(updatedDoc){
                 this.respondWithUpdatedResource(updatedDoc.toObject(), res)
             } else{
-                this.addNew(req, res, next)
+                this.createAndRespond(updateDoc, res)
             }
 
         } catch (error) {

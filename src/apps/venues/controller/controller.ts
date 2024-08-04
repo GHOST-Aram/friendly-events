@@ -11,21 +11,6 @@ export class Controller extends GenericController<DataAccess>{
         super(dataAccess, microserviceName)
     }
 
-    public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-
-        const data = getDataFromRequest(req)
-        const venueData = domainData.aggregateInputDocument(data)
-
-        try {
-            const newDocument = await this.dataAccess.createNew(venueData)
-            const serializedDoc = newDocument.toObject()
-
-            this.respondWithCreatedResource(serializedDoc, res)
-        } catch (error) {
-            next(error)
-        }   
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
@@ -46,7 +31,7 @@ export class Controller extends GenericController<DataAccess>{
                     this.respondWithForbidden(res)
                 }
             } else {
-                this.addNew(req, res, next)
+                this.createAndRespond(updateDoc, res)
             }
 
         } catch (error) {

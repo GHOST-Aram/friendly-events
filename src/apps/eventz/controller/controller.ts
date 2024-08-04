@@ -11,28 +11,6 @@ export class EventsController extends GenericController<EventsDataAccess>{
         super(dataAccess, microserviceName)
     }
 
-    public addNew = async(req: Request, res: Response, next: NextFunction) =>{
-
-        const reqData = getDataFromRequest(req)
-        const eventData = domainData.aggregateInputDocument(reqData)
-
-        try {
-            const existingEvent = await this.dataAccess.findExactMatch(reqData.reqBody)
-
-            if(!document.exists(existingEvent)){
-                const newDocument = await this.dataAccess.createNew(eventData)
-                const serializedDoc = newDocument.toObject()
-                
-                this.respondWithCreatedResource(serializedDoc, res)
-            } else {
-                this.respondWithConflict(res)
-            }
-
-        } catch (error) {
-            next(error)
-        }   
-    }
-
     public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
 
         const data = getDataFromRequest(req)
@@ -47,13 +25,13 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
                 if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
 
-                    this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
+                    this.updateAndRespond({ updateDoc, id: data.referenceId}, res)
 
                 } else {
                     this.respondWithForbidden(res)
                 }
             } else {
-                this.addNew(req, res, next)
+                this.createAndRespond(updateDoc, res)
             }
 
         } catch (error) {
