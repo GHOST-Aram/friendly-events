@@ -5,6 +5,7 @@ import { fileUploader } from "../../../z-library/uploads";
 import { permission } from "../../../utils/permissions";
 import { domainData } from "../domain/data";
 import { GhostRouter } from "../../../z-library/routing";
+import { searchablePaths } from "../data-access/model";
 
 
 export class UsersRouter extends GhostRouter{
@@ -39,7 +40,7 @@ export class UsersRouter extends GhostRouter{
         this.router.get('/', 
             this.authenticator.authenticate(),
             this.authenticator.restrictAccess(permission.allowAdmin),
-            this.controller.getMany
+            this.controller.getMany(searchablePaths)
         )
         
         this.router.get('/:id',

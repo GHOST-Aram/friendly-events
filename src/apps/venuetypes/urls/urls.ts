@@ -3,6 +3,7 @@ import { validator, validationChains } from "./input-validation";
 import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
 import { GhostRouter } from "../../../z-library/routing";
+import { searchablePaths } from "../data-access/model";
 
 export class VenuesTypesRouter extends GhostRouter{
     
@@ -32,7 +33,7 @@ export class VenuesTypesRouter extends GhostRouter{
     }
 
     private get = () =>{
-        this.router.get('/', this.controller.getMany )
+        this.router.get('/', this.controller.getMany(searchablePaths) )
         this.router.get('/:id', 
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
@@ -41,7 +42,8 @@ export class VenuesTypesRouter extends GhostRouter{
         this.router.get('/creators/:creatorId',
             validator.validateReferenceId('creatorId', { required: true }),
             validator.handleValidationErrors, 
-            this.controller.getByCreator )
+            this.controller.getByCreator 
+        )
     }
 
     private put = () =>{

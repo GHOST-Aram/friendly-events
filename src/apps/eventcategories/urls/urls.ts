@@ -4,6 +4,7 @@ import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
 import { fileUploader } from "../../../z-library/uploads";
 import { GhostRouter } from "../../../z-library/routing";
+import { searchablePaths } from "../data-access/model";
 
 export class CategoryRouter extends GhostRouter{
     
@@ -36,7 +37,7 @@ export class CategoryRouter extends GhostRouter{
     }
 
     private get = () =>{
-        this.router.get('/', this.controller.getMany )
+        this.router.get('/', this.controller.getMany(searchablePaths) )
         this.router.get('/:id', 
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
