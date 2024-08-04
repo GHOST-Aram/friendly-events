@@ -2,6 +2,9 @@ import { NextFunction, Response, Request } from "express";
 import { HttpResponse, Paginator } from "../http"
 import { Accessible } from "./accessible";
 import { Controllable } from "./controllable";
+import { getDataFromRequest, queryString } from "../request";
+
+
 
 export class GenericController <T extends Accessible> 
     extends HttpResponse implements Controllable {
@@ -41,16 +44,23 @@ export class GenericController <T extends Accessible>
         }
     }
 
-    public getMany = async(req: Request, res: Response, next: NextFunction) =>{
-        const paginator: Paginator = this.paginate(req) 
+    public getMany = (searchablePaths: string[]) => {
+        
+        return async(req: Request, res: Response, next: NextFunction) =>{
 
-        try {
-            const docuements = await this.dataAccess.findWithPagination(paginator)
-            const serializedDocs = docuements.map(doc => doc.toObject())
+            const paginator: Paginator = this.paginate(req)
+            const { query } = getDataFromRequest(req) 
 
-            this.respondWithFoundResource(serializedDocs, res)
-        } catch (error) {
-            next(error)
+            const searchDocument = queryString.createSearchDocument(query, searchablePaths)
+
+            try {
+                const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
+                const serializedDocs = docuements.map(doc => doc.toObject())
+
+                this.respondWithFoundResource(serializedDocs, res)
+            } catch (error) {
+                next(error)
+            }
         }
     }
 
