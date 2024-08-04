@@ -44,7 +44,13 @@ describe('GET venues Route', () =>{
     test('Responds with paginated array (Status 200): Length equals given query params.', 
         async() =>{
             const response = await request(app).get(
-                '/categories?name=cool name&city=nairobi&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
+                '/venues?name=cool name&type=stadium&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
+
+            response.body.forEach((item: any) =>{
+                expect(item.name).toBe('cool name')
+                expect(item.type).toBe('stadium')
+                expect(item.createdBy).toBe('64c9e4f2df7cc072af2ac9e4')
+            })
 
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
