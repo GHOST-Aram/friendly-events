@@ -16,13 +16,14 @@ export class Controller extends GenericController<DataAccess>{
         const data = getDataFromRequest(req)
         const inputData = domainData.aggregateInputDocument(data)
 
-        
         try {
             const existingVenueType = await this.dataAccess.findByName(inputData.name)
 
-            if(existingVenueType === null){
+            if(!document.exists(existingVenueType)){
                 const newDocument = await this.dataAccess.createNew(inputData)
-                this.respondWithCreatedResource(newDocument, res)
+                const serializedDoc = newDocument.toObject()
+
+                this.respondWithCreatedResource(serializedDoc, res)
             } else{
                 this.respondWithConflict(res)
             }
