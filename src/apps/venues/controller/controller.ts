@@ -5,9 +5,6 @@ import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
 import { document } from "../../../z-library/document";
 import { userGroup } from "../../../utils/user-group/user-group";
-import { Paginator } from "../../../z-library/http";
-import { queryString } from "../../../z-library/request";
-import { searchablePaths } from "../data-access/model";
 
 export class Controller extends GenericController<DataAccess>{
     constructor (dataAccess: DataAccess, microserviceName: string){
