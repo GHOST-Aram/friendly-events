@@ -19,7 +19,7 @@ export class Controller extends GenericController<DataAccess>{
         try {
             const existingEventCategory = await this.dataAccess.findByName(inputData.name)
 
-            if(existingEventCategory === null){
+            if(!document.exists(existingEventCategory)){
                 const newDocument = await this.dataAccess.createNew(inputData)
                 const serializedDoc = newDocument.toObject()
     
