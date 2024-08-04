@@ -34,7 +34,7 @@ export class HttpResponse{
         }
 
         try {
-            const page = Math.abs(Number(req.query.page))
+            const page = Math.abs(Number(req.query.page)) || 1
             const limit = Math.abs(Number(req.query.limit))
 
             if(page && limit){
