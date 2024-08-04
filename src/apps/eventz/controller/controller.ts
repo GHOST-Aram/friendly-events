@@ -21,7 +21,9 @@ export class EventsController extends GenericController<EventsDataAccess>{
 
             if(!document.exists(existingEvent)){
                 const newDocument = await this.dataAccess.createNew(eventData)
-                this.respondWithCreatedResource(newDocument.toObject(), res)
+                const serializedDoc = newDocument.toObject()
+                
+                this.respondWithCreatedResource(serializedDoc, res)
             } else {
                 this.respondWithConflict(res)
             }
