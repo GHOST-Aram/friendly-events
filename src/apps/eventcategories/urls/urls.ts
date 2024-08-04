@@ -40,13 +40,9 @@ export class CategoryRouter extends GhostRouter{
         this.router.get('/:id', 
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
-            this.controller.getOne )
-
-        this.router.get('/creators/:creatorId', 
-            validator.validateReferenceId('creatorId', { required: true }),
-            validator.handleValidationErrors,
-            this.controller.getByCreator
+            this.controller.getOne 
         )
+
     }
 
     private put = () =>{
