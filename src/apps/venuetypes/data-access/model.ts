@@ -6,7 +6,12 @@ export interface VenueCategory {
     createdBy: ObjectId
 }
 
+//Keys that an be searched using query string
 const searchablePaths = ['name', 'createdBy']
+
+// A combination of keys for a search document 
+// that can be used to search a specific document in the DB
+const uniqueObjectkeys = ['name']
 
 export type VenueCategoryModel = Model<VenueCategory>
 
@@ -31,4 +36,4 @@ export type HydratedVenueCategory = HydratedDocument<VenueCategory>
 
 export const VenueCategory = model('VenueCategory', venueCatSchema)
 
-export { searchablePaths }
+export { searchablePaths, uniqueObjectkeys }

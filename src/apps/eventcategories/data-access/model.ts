@@ -43,3 +43,4 @@ export type HydratedCategoryDoc = HydratedDocument<EventCategory>
 export const EventCategory = model<EventCategory, CategoryModel>('EventCategory', categorySchema)
 
 export const searchablePaths = ['name', 'createdBy']
+export const uniqueObjectkeys = ['name']

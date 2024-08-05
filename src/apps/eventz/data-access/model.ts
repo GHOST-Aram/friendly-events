@@ -27,6 +27,7 @@ export interface Event{
 }
 
 const searchablePaths = ['category', 'venue', 'title', 'createdBy', 'city' ]
+const uniqueObjectkeys = ['venue', 'title', 'date', 'time', 'city']
 
 export type EventModel = Model<Event>
 
@@ -97,5 +98,5 @@ export type HydratedEventDoc = HydratedDocument<Event>
 
 export const Event = model<Event, EventModel>('Event', eventSchema)
 
-export { searchablePaths }
+export { searchablePaths, uniqueObjectkeys }
 
