@@ -68,8 +68,8 @@ export class GenericController <T extends Accessible>
         
         return async(req: Request, res: Response, next: NextFunction) =>{
 
-            const paginator: Paginator = this.getPaginationParams(req)
             const { query } = getDataFromRequest(req) 
+            const paginator: Paginator = this.getPaginationParams(query)
 
             const searchDocument = queryString.createSearchDocument(query, searchablePaths)
 

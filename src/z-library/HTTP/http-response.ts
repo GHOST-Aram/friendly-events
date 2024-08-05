@@ -1,6 +1,7 @@
 import { Response, Request } from "express"
 import { HydratedDocument } from "mongoose"
 import { Paginator } from "./types"
+import {ParsedQs} from 'qs'
 
 export class HttpResponse{
 
@@ -27,15 +28,15 @@ export class HttpResponse{
             res.status(200).json(resource)
     }
 
-    public getPaginationParams = (req: Request): Paginator =>{
+    public getPaginationParams = (query: ParsedQs): Paginator =>{
         const paginator = {
             skipDocs: 0,
             limit: 10
         }
 
         try {
-            const page = Math.abs(Number(req.query.page)) || 1
-            const limit = Math.abs(Number(req.query.limit))
+            const page = Math.abs(Number(query.page)) || 1
+            const limit = Math.abs(Number(query.limit))
 
             if(page && limit){
                 paginator.skipDocs = (page - 1) * limit
