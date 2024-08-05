@@ -10,6 +10,7 @@ import { createObjectFromKeys } from "../../../utils/data-object/data-object"
 class UserData implements DomainData{
     public createUniqueSearchDocument = (inputData: any): {} => {
         const uniqueSearchDoc = createObjectFromKeys(uniqueObjectkeys, inputData)
+
         return uniqueSearchDoc
     }
     
@@ -22,7 +23,7 @@ class UserData implements DomainData{
         return dataWithEncryptedPassword   
     }
 
-    private encyptPassword = async( updateDoc: any ): Promise<User> =>{
+    private encyptPassword = ( updateDoc: any ): Promise<User> =>{
         return { ...updateDoc, password: hashSync(updateDoc.password, 10) }  
     }
 
