@@ -27,7 +27,7 @@ export class Server{
         this.app.use(cors())
     }
 
-    public enforceSecurity = () =>{
+    public setUpSecurityMiddleware = () =>{
         this.app.use(helmet())
     }
 
