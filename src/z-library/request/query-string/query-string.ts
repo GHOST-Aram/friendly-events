@@ -1,4 +1,5 @@
 import {ParsedQs} from 'qs'
+import { Paginator } from '../../http'
 
 class QueryString{
     public createSearchDocument = (query:ParsedQs, searchablePaths: string[]): {} =>{
@@ -20,6 +21,27 @@ class QueryString{
         keys.forEach(key =>{ searchDoc = { ...searchDoc, [key]: query[key] } })
     
         return searchDoc
+    }
+
+    public getPaginationParams = (query: ParsedQs): Paginator =>{
+        const paginator = {
+            skipDocs: 0,
+            limit: 10
+        }
+
+        try {
+            const page = Math.abs(Number(query.page)) || 1
+            const limit = Math.abs(Number(query.limit))
+
+            if(page && limit){
+                paginator.skipDocs = (page - 1) * limit
+                paginator.limit = limit
+            }
+        } catch (error) {
+            console.log(error)
+        }   
+
+        return paginator
     }
 }
 

@@ -28,27 +28,6 @@ export class HttpResponse{
             res.status(200).json(resource)
     }
 
-    public getPaginationParams = (query: ParsedQs): Paginator =>{
-        const paginator = {
-            skipDocs: 0,
-            limit: 10
-        }
-
-        try {
-            const page = Math.abs(Number(query.page)) || 1
-            const limit = Math.abs(Number(query.limit))
-
-            if(page && limit){
-                paginator.skipDocs = (page - 1) * limit
-                paginator.limit = limit
-            }
-        } catch (error) {
-            console.log(error)
-        }   
-
-        return paginator
-    }
-
     public respondWithNotFound = (res: Response) =>{
         res.status(404).json('Not Found')
     }
