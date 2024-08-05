@@ -1,11 +1,11 @@
-import { server } from "../z-library/server"
+import { siztim } from "../z-library/siztim"
 import { ConnectionPool } from "../z-library/db"
 import { dbUri, secretOrKey, PORT } from "../_environment"
 
-server.initializePayloadParsers()
-server.allowCrossOriginResourceSharing()
-server.setUpSecurityMiddleware()
-server.logRequestsandResponses()
+siztim.initializePayloadParsers()
+siztim.allowCrossOriginResourceSharing()
+siztim.setUpSecurityMiddleware()
+siztim.logRequestsandResponses()
 
 let connectionPool: ConnectionPool
 
@@ -17,7 +17,7 @@ try {
         const authDbConnection = connectionPool.getInitialConnection()
         
         if(secretOrKey){
-            server.setUpAuthenticator(secretOrKey, authDbConnection)
+            siztim.setUpAuthenticator(secretOrKey, authDbConnection)
         } else {
            throw new Error('Authentication Secret Key is Undefined In Environment variables.')
         }
@@ -29,7 +29,7 @@ try {
     console.warn(error.message)
 }
 
-server.listenToRequests(PORT,'')
+siztim.listenToRequests(PORT,'')
 
-export { connectionPool, server }
+export { connectionPool, siztim }
 

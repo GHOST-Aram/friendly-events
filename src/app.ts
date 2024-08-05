@@ -1,11 +1,11 @@
-import { server } from "./_config/config";
+import { siztim } from "./_config/config";
 import { usersRouter } from "./apps/users/app";
 import { authRouter } from "./apps/authenticator/app";
 import { eventsRouter } from "./apps/eventz/app";
 import { venuesRouter } from "./apps/venues/app";
 import { categoriesRouter } from "./apps/eventcategories/app";
 import { venueTypesRouter } from "./apps/venuetypes/app";
-import { URLMetadata } from "./z-library/Siztim/types";
+import { URLMetadata } from "./z-library/siztim/types";
 
 const urlsData: URLMetadata[] = [
     { path: '/auth', router: authRouter },
@@ -17,11 +17,11 @@ const urlsData: URLMetadata[] = [
 ]
 
 try {
-    server.configureUrls(urlsData)
+    siztim.configureUrls(urlsData)
     
 } catch (error:any) {
     console.warn("Error occured while configuring urls: ", error.message)
 }
 
-server.handleUnknownUrls()
-server.handleServerErrors()
+siztim.handleUnknownUrls()
+siztim.handleServerErrors()
