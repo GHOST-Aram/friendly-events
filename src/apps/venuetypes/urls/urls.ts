@@ -4,6 +4,7 @@ import { Authenticator } from "../../../z-library/auth/auth";
 import { permission } from "../../../utils/permissions";
 import { GhostRouter } from "../../../z-library/routing";
 import { searchablePaths } from "../data-access/model";
+import { domainData } from "../domain/data";
 
 export class VenuesTypesRouter extends GhostRouter{
     
@@ -28,7 +29,7 @@ export class VenuesTypesRouter extends GhostRouter{
             this.authenticator.restrictAccess(permission.allowHostOrAdmin),
             validationChains.validatePostData,
             validator.handleValidationErrors,
-            this.controller.addNew
+            this.controller.addNew(domainData)
         )
     }
 

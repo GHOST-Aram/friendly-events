@@ -5,6 +5,7 @@ import { permission } from "../../../utils/permissions";
 import { fileUploader } from "../../../z-library/uploads";
 import { GhostRouter } from "../../../z-library/routing";
 import { searchablePaths } from "../data-access/model";
+import { domainData } from "../domain/data";
 
 export class EventsRouter extends GhostRouter{
     
@@ -32,7 +33,7 @@ export class EventsRouter extends GhostRouter{
             validator.validateFile,
             validationChains.validatePostData,
             validator.handleValidationErrors,
-            this.controller.addNew
+            this.controller.addNew(domainData)
         ) 
     }
     

@@ -32,7 +32,7 @@ export class UsersRouter extends GhostRouter{
             validator.validateFile,
             validationChains.validatePostData ,
             validator.handleValidationErrors,
-            this.controller.addNew
+            this.controller.addNew(domainData)
         )
     }
 
