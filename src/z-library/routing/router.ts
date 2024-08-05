@@ -15,7 +15,7 @@ export class GhostRouter implements AppRouter{
     }
     
     
-    public authenticateAndControlRoutes = (): Router =>{
+    public registerRoutes = (): Router =>{
         return this.router
     }
     
