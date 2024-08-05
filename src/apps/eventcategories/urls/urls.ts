@@ -6,6 +6,7 @@ import { fileUploader } from "../../../z-library/uploads";
 import { GhostRouter } from "../../../z-library/routing";
 import { searchablePaths } from "../data-access/model";
 import { domainData } from "../domain/data";
+import { userGroup } from "../../../utils/user-group/user-group";
 
 export class CategoryRouter extends GhostRouter{
     
@@ -57,7 +58,7 @@ export class CategoryRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData,
             validator.handleValidationErrors,
-            this.controller.updateOne
+            this.controller.updateOne(domainData, userGroup)
         )
     }
 
@@ -71,7 +72,7 @@ export class CategoryRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
-            this.controller.modifyOne
+            this.controller.modifyOne(domainData, userGroup)
         )
     }
 
@@ -82,7 +83,7 @@ export class CategoryRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
             this.authenticator.restrictAccess(permission.allowOrganizerOrAdmin),
-            this.controller.deleteOne
+            this.controller.deleteOne(userGroup)
         )
     }
 }

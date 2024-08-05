@@ -5,6 +5,7 @@ import { permission } from "../../../utils/permissions";
 import { GhostRouter } from "../../../z-library/routing";
 import { searchablePaths } from "../data-access/model";
 import { domainData } from "../domain/data";
+import { userGroup } from "../../../utils/user-group/user-group";
 
 export class VenuesTypesRouter extends GhostRouter{
     
@@ -50,7 +51,7 @@ export class VenuesTypesRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData,
             validator.handleValidationErrors,
-            this.controller.updateOne
+            this.controller.updateOne(domainData, userGroup)
         )
     }
 
@@ -62,7 +63,7 @@ export class VenuesTypesRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData,
             validator.handleValidationErrors,
-            this.controller.modifyOne
+            this.controller.modifyOne(domainData, userGroup)
         )
     }
 
@@ -73,7 +74,7 @@ export class VenuesTypesRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
             this.authenticator.restrictAccess(permission.allowHostOrAdmin),
-            this.controller.deleteOne
+            this.controller.deleteOne(userGroup)
         )
     }
 }
