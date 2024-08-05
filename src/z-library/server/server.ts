@@ -42,7 +42,7 @@ export class Server{
         })
     }
 
-    public setUpRouter = (config: AppConfig): Router =>{
+    public configureRouter = (config: AppConfig): Router =>{
 
         //Switch to another database in the connection pool
         const connection = config.connectionPool.switchConnection(config.dBName)
