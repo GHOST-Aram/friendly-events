@@ -10,7 +10,7 @@ import { URLMetadata } from "./types"
 import { httpErrors } from "../http"
 import { GhostRouter } from "../routing/router"
 
-export class Server{
+export class Siztim{
 
     private app:Application
 
@@ -80,7 +80,7 @@ export class Server{
 
 }
 
-const server = new Server()
-export default server
+const siztim = new Siztim()
+export default siztim
 
 
