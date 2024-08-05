@@ -1,5 +1,5 @@
 import { describe } from "@jest/globals";
-import { queryString } from "./query-string";
+import { queryString } from "../query-string";
 
 describe("Query String class", () =>{
     
