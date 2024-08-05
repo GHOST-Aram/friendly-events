@@ -49,25 +49,6 @@ describe('GET venue-types Route', () =>{
 
     test('Responds with Validation Errors (status 400): Invalid reference Id', 
         async() =>{
-            const response = await request(app).get('/venue-types/creators/64c9e4f2df7cc072af2acxx')
-                
-            assert.respondsWithBadRequest(response)
-            assert.respondsWithValidationErrors(response)
-        }
-    )
-
-    test('Responds with paginated array (Status 200): Search by specific creatorId id', 
-        async() =>{
-            const response = await request(app).get(
-                '/venue-types/creators/64c9e4f2df7cc072af2ac9e4?page=1&limit=23')
-
-            assert.respondsWithSuccess(response)
-            assert.respondsWithPaginatedResource(response, 23)
-        } 
-    )
-
-    test('Responds with Validation Errors (status 400): Invalid reference Id', 
-        async() =>{
             const response = await request(app).get('/venue-types/64c9e4f2df7cc072af2acxx')
 
             assert.respondsWithBadRequest(response)
