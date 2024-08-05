@@ -48,7 +48,7 @@ export class GenericController <T extends Accessible>
         this.respondWithCreatedResource(serializedDoc, res)
     }
 
-        public getOne = async(req: Request, res: Response, next: NextFunction) =>{
+    public getOne = async(req: Request, res: Response, next: NextFunction) =>{
         const referenceId = req.params.id
 
         try {
@@ -91,17 +91,17 @@ export class GenericController <T extends Accessible>
             
             const data = getDataFromRequest(req)
             const updateDoc = domainData.aggregateInputDocument(data)
-    
+            
             try {
                 const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
-    
+                
                 if(document.exists(targetDoc)){
-    
+                    
                     const creatorId = targetDoc?.createdBy.toString() as string
-    
+                    
                     if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
     
-                        this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
+                        this.updateAndRespond({ updateDoc, id: data.referenceId }, res)
     
                     } else {
                         this.respondWithForbidden(res)
@@ -123,21 +123,22 @@ export class GenericController <T extends Accessible>
     }
 
     public modifyOne = (domainData: DomainData, userGroup: UserGroup) =>{
+        
         return async(req: Request, res: Response, next: NextFunction) =>{
             
             const data = getDataFromRequest(req)
-            const updateDoc = domainData.aggregateInputDocument(data)
-
+            
             try {
                 const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
-
+                
                 if(document.exists(targetDoc)){
 
                     const creatorId = targetDoc?.createdBy.toString() as string
-
+                    
                     if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
-
-                        this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
+                        
+                        const updateDoc = domainData.aggregateInputDocument(data)
+                        this.updateAndRespond({ updateDoc, id: data.referenceId }, res)
 
                     } else {
                         this.respondWithForbidden(res)
