@@ -1,9 +1,10 @@
 import { Response, Request, NextFunction } from "../../../z-library/types";
 import { UsersDAL } from "../data-access/data-access";
 import { GenericController } from "../../../z-library/bases";
-import { domainData } from "../domain/data";
 import { getDataFromRequest } from "../../../z-library/request";
 import { document } from "../../../z-library/document";
+import { DomainData } from "../../../z-library/domain-data";
+import { UserGroup } from "../../../z-library/user-group";
 
 export class UsersController extends GenericController<UsersDAL>{
 
@@ -11,61 +12,68 @@ export class UsersController extends GenericController<UsersDAL>{
         super(dataAccessLayer, microserviceName)
     }
 
-    public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
+    public updateOne = (domainData: DomainData, userGroup: UserGroup) =>{
+        return async(req: Request, res: Response, next: NextFunction) =>{
         
-        const data = getDataFromRequest(req)
-        let updateDoc = domainData.aggregateInputDocument(data)
-            
-        try {            
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
-                updateDoc)
+            const data = getDataFromRequest(req)
+            let updateDoc = domainData.aggregateInputDocument(data)
+                
+            try {            
+                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
+                    updateDoc)
 
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc.toObject(), res)
-            } else{
-                this.createAndRespond(updateDoc, res)
+                if(updatedDoc){
+                    this.respondWithUpdatedResource(updatedDoc.toObject(), res)
+                } else{
+                    this.createAndRespond(updateDoc, res)
+                }
+
+            } catch (error) {
+                next(error)
             }
-
-        } catch (error) {
-            next(error)
         }
     }
 
-    public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
+    public modifyOne = (domainData: DomainData, userGroup: UserGroup) =>{
+        return async(req: Request, res: Response, next: NextFunction) =>{
 
-        const data = getDataFromRequest(req)
-        let updateDoc = domainData.aggregateInputDocument(data)
+            const data = getDataFromRequest(req)
+            let updateDoc = domainData.aggregateInputDocument(data)
 
-        try {
-            
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
+            try {
+                
+                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
 
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc.toObject(), res)
-            } else{
-                this.respondWithNotFound(res)
+                if(updatedDoc){
+                    this.respondWithUpdatedResource(updatedDoc.toObject(), res)
+                } else{
+                    this.respondWithNotFound(res)
+                }
+
+            } catch (error) {
+                next(error)
             }
-
-        } catch (error) {
-            next(error)
         }
     }
 
-    public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
+    public deleteOne = (userGroup: UserGroup) =>{
 
-        const { referenceId } = getDataFromRequest(req)
+        return async(req: Request, res: Response, next: NextFunction) => {
 
-        try {
-            const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
+            const { referenceId } = getDataFromRequest(req)
 
-            if(deletedDoc){
-                this.respondWithDeletedResource(deletedDoc.id, res)
-            } else{
-                this.respondWithNotFound(res)
+            try {
+                const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
+
+                if(deletedDoc){
+                    this.respondWithDeletedResource(deletedDoc.id, res)
+                } else{
+                    this.respondWithNotFound(res)
+                }
+
+            } catch (error) {
+                next(error)
             }
-
-        } catch (error) {
-            next(error)
         }
     }
 }

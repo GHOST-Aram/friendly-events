@@ -6,6 +6,7 @@ import { permission } from "../../../utils/permissions";
 import { domainData } from "../domain/data";
 import { GhostRouter } from "../../../z-library/routing";
 import { searchablePaths } from "../data-access/model";
+import { userGroup } from "../../../utils/user-group/user-group";
 
 
 export class UsersRouter extends GhostRouter{
@@ -61,7 +62,7 @@ export class UsersRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePostData, 
             validator.handleValidationErrors,
-            this.controller.updateOne
+            this.controller.updateOne(domainData, userGroup)
         )
     }
 
@@ -75,7 +76,7 @@ export class UsersRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validationChains.validatePatchData, 
             validator.handleValidationErrors,
-            this.controller.modifyOne
+            this.controller.modifyOne(domainData, userGroup)
         )
     }
 
@@ -86,7 +87,7 @@ export class UsersRouter extends GhostRouter{
             validator.validateReferenceId('id', { required: true }),
             validator.handleValidationErrors,
             domainData.allowOwnerOrAdmin,
-            this.controller.deleteOne
+            this.controller.deleteOne(userGroup)
         )
     }
 }
