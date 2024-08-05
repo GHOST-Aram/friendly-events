@@ -23,4 +23,4 @@ class EventData implements DomainData{
 
 }
 
-export const eventData = new EventData()
+export const domainData = new EventData()
