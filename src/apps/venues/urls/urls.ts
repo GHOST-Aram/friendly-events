@@ -44,12 +44,6 @@ export class VenuesRouter extends GhostRouter{
             validator.handleValidationErrors,
             this.controller.getOne 
         )
-
-        this.router.get('/creators/:creatorId', 
-            validator.validateReferenceId('creatorId', { required: true }),
-            validator.handleValidationErrors,
-            this.controller.getByCreator 
-        )
     }
 
     private put = () =>{
