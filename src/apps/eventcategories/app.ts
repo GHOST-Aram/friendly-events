@@ -26,7 +26,7 @@ try {
             GhostRouter: CategoryRouter,
         }
 
-        categoriesRouter = server.setUpRouter(appConf)
+        categoriesRouter = server.configureRouter(appConf)
 
     } else {
         throw new Error("Database name not found in environment Variables")

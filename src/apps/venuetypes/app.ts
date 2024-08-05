@@ -24,7 +24,7 @@ try {
             GhostRouter: VenuesTypesRouter
         }
 
-        venueTypesRouter = server.setUpRouter(appConf)
+        venueTypesRouter = server.configureRouter(appConf)
     } else {
         throw new Error("Database name not found in environment Variables")
     }
