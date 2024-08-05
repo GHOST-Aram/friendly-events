@@ -18,10 +18,9 @@ export class Server{
         this.app = express()
     }
 
-    public useJSONPayloads = () =>{
+    public initializePayloadParsers = () =>{
         this.app.use(express.urlencoded({ extended: false }))
         this.app.use(express.json())
-
     }
 
     public allowCrossOriginResourceSharing = () =>{
