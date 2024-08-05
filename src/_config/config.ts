@@ -2,7 +2,7 @@ import { server } from "../z-library/server"
 import { ConnectionPool } from "../z-library/db"
 import { dbUri, secretOrKey, PORT } from "../_environment"
 
-server.useJSONPayloads()
+server.initializePayloadParsers()
 server.allowCrossOriginResourceSharing()
 server.enforceSecurity()
 server.logRequestsandResponses()
