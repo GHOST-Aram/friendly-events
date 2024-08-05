@@ -1,4 +1,4 @@
-import { hash } from "bcrypt"
+import { hashSync } from "bcrypt"
 import { createFileBuffer } from "../../../z-library/uploads"
 import { uniqueObjectkeys, User } from "../data-access/model"
 import { Response, Request, NextFunction } from "../../../z-library/types"
@@ -15,13 +15,15 @@ class UserData implements DomainData{
     
     public aggregateInputDocument = (reqData: RequestData): User  =>{
         const { file, reqBody } = reqData
+        
         const userData = file ? {...reqBody, profilePicture: createFileBuffer(file) } : reqBody
-
-        return userData   
+        const dataWithEncryptedPassword = userData.password ? this.encyptPassword(userData) : userData
+        
+        return dataWithEncryptedPassword   
     }
 
-    public encyptPassword = async( updateDoc: any ): Promise<User> =>{
-        return { ...updateDoc, password: await hash(updateDoc.password, 10) }  
+    private encyptPassword = async( updateDoc: any ): Promise<User> =>{
+        return { ...updateDoc, password: hashSync(updateDoc.password, 10) }  
     }
 
     public allowOwnerOrAdmin = (req: Request, res: Response, next: NextFunction) =>{

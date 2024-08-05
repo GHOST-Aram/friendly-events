@@ -16,9 +16,7 @@ export class UsersController extends GenericController<UsersDAL>{
         const data = getDataFromRequest(req)
         let updateDoc = domainData.aggregateInputDocument(data)
             
-        try {
-            updateDoc = await domainData.encyptPassword(updateDoc)
-            
+        try {            
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
                 updateDoc)
 
@@ -39,7 +37,6 @@ export class UsersController extends GenericController<UsersDAL>{
         let updateDoc = domainData.aggregateInputDocument(data)
 
         try {
-            updateDoc = updateDoc.password ? await domainData.encyptPassword(updateDoc) : updateDoc
             
             const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
 
