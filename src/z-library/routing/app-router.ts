@@ -6,5 +6,5 @@ export interface AppRouter{
     router: Router
     controller: Controller
     authenticator: Authenticator
-    authenticateAndControlRoutes: ()=> Router
+    registerRoutes: ()=> Router
 }
