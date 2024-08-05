@@ -5,7 +5,7 @@ import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { ZRouter } from "../../z-library/types";
-import { AppConfig } from "../../z-library/server/types";
+import { RouterConfig } from "../../z-library/server/types";
 import { usersDbName } from "../../_environment";
 
 let usersRouter: ZRouter
@@ -13,7 +13,7 @@ let usersRouter: ZRouter
 
 try {
     if(usersDbName) {
-        const appConf: AppConfig  = {
+        const routerConfig: RouterConfig  = {
             connectionPool,
             dBName: usersDbName,
             modelName: 'User',
@@ -25,7 +25,7 @@ try {
             GhostRouter: UsersRouter,
         }
 
-        usersRouter = server.configureRouter(appConf)
+        usersRouter = server.configureRouter(routerConfig)
     } else {
         throw new Error("Database name not found in environment Variables")
     }

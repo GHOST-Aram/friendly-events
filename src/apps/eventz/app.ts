@@ -6,14 +6,14 @@ import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { ZRouter } from "../../z-library/types";
 import { eventsDbName } from "../../_environment";
-import { AppConfig } from "../../z-library/server/types";
+import { RouterConfig } from "../../z-library/server/types";
 
 let eventsRouter: ZRouter
 
 
 try {
     if(eventsDbName) {
-        const appConf: AppConfig  = {
+        const routerConfig: RouterConfig  = {
             connectionPool,
             dBName: eventsDbName,
             modelName: 'VenueCategory',
@@ -25,7 +25,7 @@ try {
             GhostRouter: EventsRouter,
         }
 
-        eventsRouter = server.configureRouter(appConf)
+        eventsRouter = server.configureRouter(routerConfig)
     } else {
         throw new Error("Database name not found in environment Variables")
     }
