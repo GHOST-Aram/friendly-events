@@ -13,45 +13,59 @@ export class UsersController extends GenericController<UsersDAL>{
     }
 
     public updateOne = (domainData: DomainData, userGroup: UserGroup) =>{
+
         return async(req: Request, res: Response, next: NextFunction) =>{
         
             const data = getDataFromRequest(req)
-            let updateDoc = domainData.aggregateInputDocument(data)
+            
+            if(document.isOwnedByCurrentUser(data.referenceId, data.currentUserId) || userGroup.isAdmin(data.user)){
+
+                const updateDoc = domainData.aggregateInputDocument(data)
                 
-            try {            
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
-                    updateDoc)
-
-                if(updatedDoc){
-                    this.respondWithUpdatedResource(updatedDoc.toObject(), res)
-                } else{
-                    this.createAndRespond(updateDoc, res)
+                try {            
+                    const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, 
+                        updateDoc)
+    
+                    if(updatedDoc){
+                        this.respondWithUpdatedResource(updatedDoc.toObject(), res)
+                    } else{
+                        this.createAndRespond(updateDoc, res)
+                    }
+    
+                } catch (error) {
+                    next(error)
                 }
-
-            } catch (error) {
-                next(error)
+            } else {
+                this.respondWithForbidden(res)
             }
         }
     }
 
     public modifyOne = (domainData: DomainData, userGroup: UserGroup) =>{
+
         return async(req: Request, res: Response, next: NextFunction) =>{
 
             const data = getDataFromRequest(req)
-            let updateDoc = domainData.aggregateInputDocument(data)
+            
+            if(document.isOwnedByCurrentUser(data.referenceId, data.currentUserId) || userGroup.isAdmin(data.user)){
 
-            try {
-                
-                const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
+                const updateDoc = domainData.aggregateInputDocument(data)
 
-                if(updatedDoc){
-                    this.respondWithUpdatedResource(updatedDoc.toObject(), res)
-                } else{
-                    this.respondWithNotFound(res)
+                try {
+                    
+                    const updatedDoc = await this.dataAccess.findByIdAndUpdate(data.referenceId, updateDoc)
+    
+                    if(updatedDoc){
+                        this.respondWithUpdatedResource(updatedDoc.toObject(), res)
+                    } else{
+                        this.respondWithNotFound(res)
+                    }
+    
+                } catch (error) {
+                    next(error)
                 }
-
-            } catch (error) {
-                next(error)
+            } else{
+                this.respondWithForbidden(res)
             }
         }
     }
@@ -60,19 +74,24 @@ export class UsersController extends GenericController<UsersDAL>{
 
         return async(req: Request, res: Response, next: NextFunction) => {
 
-            const { referenceId } = getDataFromRequest(req)
+            const { referenceId, currentUserId, user } = getDataFromRequest(req)
 
-            try {
-                const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
+            if(document.isOwnedByCurrentUser(referenceId, currentUserId) || userGroup.isAdmin(user)){
 
-                if(deletedDoc){
-                    this.respondWithDeletedResource(deletedDoc.id, res)
-                } else{
-                    this.respondWithNotFound(res)
+                try {
+                    const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
+
+                    if(deletedDoc){
+                        this.respondWithDeletedResource(deletedDoc.id, res)
+                    } else{
+                        this.respondWithNotFound(res)
+                    }
+
+                } catch (error) {
+                    next(error)
                 }
-
-            } catch (error) {
-                next(error)
+            } else{
+                this.respondWithForbidden(res)
             }
         }
     }
