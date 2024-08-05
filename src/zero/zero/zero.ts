@@ -30,6 +30,11 @@ export class Zero{
         this.app.use(helmet())
     }
 
+    public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
+        authenticator.configureStrategy(secretOrKey, authDbConnection)
+        authenticator.initialize(this.app)
+    }
+
     public logRequestsandResponses = () =>{
         this.app.use(morgan('dev'))
     }
@@ -56,11 +61,6 @@ export class Zero{
         const routes =  appRouter.registerRoutes()
 
         return routes
-    }
-
-    public setUpAuthenticator = (secretOrKey: string, authDbConnection: Connection) =>{
-        authenticator.configureStrategy(secretOrKey, authDbConnection)
-        authenticator.initialize(this.app)
     }
 
     public configureUrls = (routesMetadata: URLMetadata[]) =>{
