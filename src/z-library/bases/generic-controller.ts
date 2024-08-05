@@ -6,7 +6,6 @@ import { getDataFromRequest, queryString } from "../request";
 import { document } from "../document";
 import { DomainData } from "../domain-data";
 import { UserGroup } from "../user-group";
-// import { userGroup } from "../../utils/user-group/user-group";
 
 interface UpdateData {updateDoc: any, id: string }
 
