@@ -1,11 +1,11 @@
 import { UsersRouter } from "./urls/urls";
 import { UsersDAL } from "./data-access/data-access";
 import { UsersController } from "./controller/controller";
-import { connectionPool, siztim } from "../../_config/config";
+import { connectionPool, zero } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../zero/auth";
 import { ZRouter } from "../../zero/types";
-import { RouterConfig } from "../../zero/siztim/types";
+import { RouterConfig } from "../../zero/zero/types";
 import { usersDbName } from "../../_environment";
 
 let usersRouter: ZRouter
@@ -25,7 +25,7 @@ try {
             GhostRouter: UsersRouter,
         }
 
-        usersRouter = siztim.configureRouter(routerConfig)
+        usersRouter = zero.configureRouter(routerConfig)
     } else {
         throw new Error("Database name not found in environment Variables")
     }

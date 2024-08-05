@@ -1,12 +1,12 @@
 import { CategoryRouter } from "./urls/urls";
 import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
-import { connectionPool, siztim } from "../../_config/config";
+import { connectionPool, zero } from "../../_config/config";
 import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../zero/auth";
 import { ZRouter } from "../../zero/types";
 import { categoriesDbName } from "../../_environment";
-import { RouterConfig } from "../../zero/siztim/types";
+import { RouterConfig } from "../../zero/zero/types";
 
 let categoriesRouter: ZRouter
 
@@ -26,7 +26,7 @@ try {
             GhostRouter: CategoryRouter,
         }
 
-        categoriesRouter = siztim.configureRouter(routerConfig)
+        categoriesRouter = zero.configureRouter(routerConfig)
 
     } else {
         throw new Error("Database name not found in environment Variables")

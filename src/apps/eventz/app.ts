@@ -1,12 +1,12 @@
 import { EventsRouter } from "./urls/urls";
 import { EventsDataAccess } from "./data-access/data-access";
 import { EventsController } from "./controller/controller";
-import { connectionPool, siztim } from "../../_config/config";
+import { connectionPool, zero } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
 import { authenticator } from "../../zero/auth";
 import { ZRouter } from "../../zero/types";
 import { eventsDbName } from "../../_environment";
-import { RouterConfig } from "../../zero/siztim/types";
+import { RouterConfig } from "../../zero/zero/types";
 
 let eventsRouter: ZRouter
 
@@ -25,7 +25,7 @@ try {
             GhostRouter: EventsRouter,
         }
 
-        eventsRouter = siztim.configureRouter(routerConfig)
+        eventsRouter = zero.configureRouter(routerConfig)
     } else {
         throw new Error("Database name not found in environment Variables")
     }
