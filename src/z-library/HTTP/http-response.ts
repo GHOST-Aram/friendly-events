@@ -27,7 +27,7 @@ export class HttpResponse{
             res.status(200).json(resource)
     }
 
-    public paginate = (req: Request): Paginator =>{
+    public getPaginationParams = (req: Request): Paginator =>{
         const paginator = {
             skipDocs: 0,
             limit: 10
