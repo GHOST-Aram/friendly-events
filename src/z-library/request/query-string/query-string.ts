@@ -31,7 +31,7 @@ class QueryString{
 
         try {
             const page = Math.abs(Number(query.page)) || 1
-            const limit = Math.abs(Number(query.limit))
+            const limit = Math.abs(Number(query.limit)) || 10
 
             if(page && limit){
                 paginator.skipDocs = (page - 1) * limit
