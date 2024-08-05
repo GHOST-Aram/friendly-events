@@ -4,7 +4,7 @@ import { dbUri, secretOrKey, PORT } from "../_environment"
 
 server.initializePayloadParsers()
 server.allowCrossOriginResourceSharing()
-server.enforceSecurity()
+server.setUpSecurityMiddleware()
 server.logRequestsandResponses()
 
 let connectionPool: ConnectionPool
