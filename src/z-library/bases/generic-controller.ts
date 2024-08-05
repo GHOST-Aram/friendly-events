@@ -5,6 +5,8 @@ import { Controllable } from "./controllable";
 import { getDataFromRequest, queryString } from "../request";
 import { document } from "../document";
 import { DomainData } from "../domain-data";
+import { UserGroup } from "../user-group";
+// import { userGroup } from "../../utils/user-group/user-group";
 
 interface UpdateData {updateDoc: any, id: string }
 
@@ -83,58 +85,33 @@ export class GenericController <T extends Accessible>
         }
     }
 
-    public updateOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const updateDoc = req.body
+    public updateOne = (domainData: DomainData, userGroup: UserGroup ) =>{
 
-        try {
-            const updatedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
-
-            if(updatedDoc){
-                this.respondWithUpdatedResource(updatedDoc, res)
-            } else{
-                this.createAndRespond(updateDoc, res)
+        return async(req: Request, res: Response, next: NextFunction) =>{
+            
+            const data = getDataFromRequest(req)
+            const updateDoc = domainData.aggregateInputDocument(data)
+    
+            try {
+                const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
+    
+                if(document.exists(targetDoc)){
+    
+                    const creatorId = targetDoc?.createdBy.toString() as string
+    
+                    if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
+    
+                        this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
+    
+                    } else {
+                        this.respondWithForbidden(res)
+                    }
+                } else {
+                    this.createAndRespond(updateDoc, res)
+                }
+            } catch (error) {
+                next(error)
             }
-
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    public modifyOne = async(req: Request, res: Response, next: NextFunction) =>{
-        const referenceId = req.params.id
-        const updateDoc = req.body
-
-        try {
-            const modifiedDoc = await this.dataAccess.findByIdAndUpdate(referenceId, 
-                updateDoc)
-
-            if(modifiedDoc){
-                this.respondWithModifiedResource(modifiedDoc, res)
-            } else{
-              this.respondWithNotFound(res)
-            }
-
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    public deleteOne = async(req: Request, res: Response, next: NextFunction) => {
-        const referenceId = req.params.id
-
-        try {
-            const deletedDoc = await this.dataAccess.findByIdAndDelete(referenceId)
-
-            if(deletedDoc){
-                this.respondWithDeletedResource(deletedDoc.id, res)
-            } else{
-              this.respondWithNotFound(res)
-            }
-
-        } catch (error) {
-            next(error)
         }
     }
 
@@ -143,6 +120,66 @@ export class GenericController <T extends Accessible>
         const serializedDoc = updatedDoc.toObject()
 
         this.respondWithUpdatedResource(serializedDoc, res)
+    }
+
+    public modifyOne = (domainData: DomainData, userGroup: UserGroup) =>{
+        return async(req: Request, res: Response, next: NextFunction) =>{
+            
+            const data = getDataFromRequest(req)
+            const updateDoc = domainData.aggregateInputDocument(data)
+
+            try {
+                const targetDoc = await this.dataAccess.findByReferenceId(data.referenceId)
+
+                if(document.exists(targetDoc)){
+
+                    const creatorId = targetDoc?.createdBy.toString() as string
+
+                    if(document.isOwnedByCurrentUser(data.currentUserId, creatorId) || userGroup.isAdmin(data.user)){
+
+                        this.updateAndRespond({updateDoc: updateDoc, id: data.referenceId}, res)
+
+                    } else {
+                        this.respondWithForbidden(res)
+                    }
+                } else {
+                    this.respondWithNotFound(res)
+                }
+
+            } catch (error) {
+                next(error)
+            }
+        }
+    }
+
+    public deleteOne = (userGroup: UserGroup) =>{
+
+        return async(req: Request, res: Response, next: NextFunction) =>{
+                
+            const { referenceId, currentUserId, user } = getDataFromRequest(req)
+    
+            try {
+                const targetDoc = await this.dataAccess.findByReferenceId(referenceId)
+    
+                if(document.exists(targetDoc)){
+    
+                    const creatorId = targetDoc?.createdBy.toString() as string
+    
+                    if(document.isOwnedByCurrentUser(currentUserId, creatorId) || userGroup.isAdmin(user)){
+    
+                        this.deleteAndRespond(referenceId, res)
+    
+                    } else {
+                        this.respondWithForbidden(res)
+                    }
+                } else {
+                    this.respondWithNotFound(res)
+                }
+    
+            } catch (error) {
+                next(error)
+            }
+        }
     }
 
     public deleteAndRespond = async(referenceId: string, res: Response) =>{
