@@ -7,6 +7,6 @@ const controller = new AuthController(dataAccess)
 
 
 
-export const authRouter = new AuthRouter(controller).controlRoutes()
+export const authRouter = new AuthRouter(controller).registerRoutes()
 
 

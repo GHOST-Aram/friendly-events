@@ -13,7 +13,7 @@ export class AuthRouter{
         this.controller = controller
     }
 
-    public controlRoutes = () =>{
+    public registerRoutes = () =>{
         this.router.post('/:id', this.controller.respondWithMethodNotAllowed)
         this.router.post('/', 
             validateLoginInput,

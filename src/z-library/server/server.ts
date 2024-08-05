@@ -55,7 +55,7 @@ export class Server{
 
         const appRouter: GhostRouter = new config.GhostRouter(controller, config.authenticator)
 
-        const routes =  appRouter.authenticateAndControlRoutes()
+        const routes =  appRouter.registerRoutes()
 
         return routes
     }

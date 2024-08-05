@@ -14,7 +14,7 @@ export class EventsRouter extends GhostRouter{
         super(controller, authenticator)
     }
 
-    public authenticateAndControlRoutes = () =>{
+    public registerRoutes = () =>{
 
         this.post()
         this.get()

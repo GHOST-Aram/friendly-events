@@ -8,13 +8,13 @@ import { searchablePaths } from "../data-access/model";
 import { domainData } from "../domain/data";
 import { userGroup } from "../../../utils/user-group/user-group";
 
-export class CategoryRouter extends GhostRouter{
+export class CategoryRouter extends GhostRouter {
     
     constructor(controller: Controller, authenticator: Authenticator){
         super(controller, authenticator)
     }
 
-    public authenticateAndControlRoutes = () =>{
+    public registerRoutes = () =>{
 
         this.post()
         this.get()

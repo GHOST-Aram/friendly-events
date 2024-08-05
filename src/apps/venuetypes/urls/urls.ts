@@ -13,7 +13,7 @@ export class VenuesTypesRouter extends GhostRouter{
         super(controller, authenticator)
     }
 
-    public authenticateAndControlRoutes = () =>{
+    public registerRoutes = () =>{
         this.post()
         this.get()
         this.put()
