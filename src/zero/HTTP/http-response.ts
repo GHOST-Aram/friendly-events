@@ -1,7 +1,5 @@
 import { Response, Request } from "express"
 import { HydratedDocument } from "mongoose"
-import { Paginator } from "./types"
-import {ParsedQs} from 'qs'
 
 export class HttpResponse{
 
