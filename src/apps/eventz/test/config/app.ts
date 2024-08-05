@@ -13,6 +13,6 @@ const authenticator = new Authenticator(user)
 
 const eventsRouter = new EventsRouter(controller, authenticator)
 
-app.use('/events', eventsRouter.authenticateAndControlRoutes())
+app.use('/events', eventsRouter.registerRoutes())
 
 export { app }

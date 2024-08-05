@@ -14,6 +14,6 @@ const authenticator = new Authenticator(user)
 const venuesRouter = new VenuesRouter(controller, authenticator)
 
 
-app.use('/venues', venuesRouter.authenticateAndControlRoutes())
+app.use('/venues', venuesRouter.registerRoutes())
 
 export { app }

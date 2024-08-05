@@ -12,6 +12,6 @@ const controller = new UsersController(usersDAL, 'users')
 const authenticator = new Authenticator(user)
 
 const usersRouter = new UsersRouter(controller, authenticator)
-app.use('/users', usersRouter.authenticateAndControlRoutes())
+app.use('/users', usersRouter.registerRoutes())
 
 export { app }

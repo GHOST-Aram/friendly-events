@@ -12,6 +12,6 @@ user.userGroup = 'host'
 const authenticator = new Authenticator(user)
 
 const venueTypesRouter = new VenuesTypesRouter(controller, authenticator)
-app.use('/venue-types', venueTypesRouter.authenticateAndControlRoutes())
+app.use('/venue-types', venueTypesRouter.registerRoutes())
 
 export { app }

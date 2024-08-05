@@ -6,6 +6,6 @@ import { app } from "../../../../z-library/testing";
 const controller = new AuthController(dataAccess)
 const authRouter = new AuthRouter(controller)
 
-app.use('/auth', authRouter.controlRoutes())
+app.use('/auth', authRouter.registerRoutes())
 
 export { app }

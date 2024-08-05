@@ -13,6 +13,6 @@ user.userGroup = 'superuser'
 const authenticator = new Authenticator(user)
 
 const categoriesRouter = new CategoryRouter(controller, authenticator)
-app.use('/categories', categoriesRouter.authenticateAndControlRoutes())
+app.use('/categories', categoriesRouter.registerRoutes())
 
 export { app }
