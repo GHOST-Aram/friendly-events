@@ -9,7 +9,7 @@ export interface URLMetadata{
 }
 
 
-interface AppConfig{
+interface RouterConfig{
     connectionPool: ConnectionPool 
     dBName: string, 
     dataSchema: Schema<any>,

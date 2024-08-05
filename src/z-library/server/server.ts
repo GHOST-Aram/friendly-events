@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import { Connection } from "mongoose"
 import { DB } from "../db"
 import { authenticator } from "../auth"
-import { AppConfig} from "./types"
+import { RouterConfig} from "./types"
 import { URLMetadata } from "./types"
 import { httpErrors } from "../http"
 import { GhostRouter } from "../routing/router"
@@ -42,7 +42,7 @@ export class Server{
         })
     }
 
-    public configureRouter = (config: AppConfig): Router =>{
+    public configureRouter = (config: RouterConfig): Router =>{
 
         //Switch to another database in the connection pool
         const connection = config.connectionPool.switchConnection(config.dBName)
