@@ -6,7 +6,7 @@ import { venueCatSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { ZRouter } from "../../z-library/types";
 import { venueCategoryDbName } from "../../_environment";
-import { RouterConfig } from "../../z-library/server/types";
+import { RouterConfig } from "../../z-library/Siztim/types";
 
 let venueTypesRouter: ZRouter
 

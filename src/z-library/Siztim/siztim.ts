@@ -5,8 +5,7 @@ import morgan from 'morgan'
 import { Connection } from "mongoose"
 import { DB } from "../db"
 import { authenticator } from "../auth"
-import { RouterConfig} from "./types"
-import { URLMetadata } from "./types"
+import { URLMetadata, RouterConfig } from './types'
 import { httpErrors } from "../http"
 import { GhostRouter } from "../routing/router"
 
@@ -81,6 +80,6 @@ export class Siztim{
 }
 
 const siztim = new Siztim()
-export default siztim
+export  { siztim }
 
 

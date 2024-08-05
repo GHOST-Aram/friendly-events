@@ -6,7 +6,7 @@ import { categorySchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { ZRouter } from "../../z-library/types";
 import { categoriesDbName } from "../../_environment";
-import { RouterConfig } from "../../z-library/server/types";
+import { RouterConfig } from "../../z-library/Siztim/types";
 
 let categoriesRouter: ZRouter
 

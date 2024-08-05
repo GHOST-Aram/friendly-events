@@ -5,7 +5,7 @@ import { connectionPool, server } from "../../_config/config";
 import { userSchema } from "./data-access/model";
 import { authenticator } from "../../z-library/auth";
 import { ZRouter } from "../../z-library/types";
-import { RouterConfig } from "../../z-library/server/types";
+import { RouterConfig } from "../../z-library/Siztim/types";
 import { usersDbName } from "../../_environment";
 
 let usersRouter: ZRouter
