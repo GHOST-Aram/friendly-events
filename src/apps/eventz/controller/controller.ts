@@ -1,4 +1,4 @@
-import { GenericController } from "../../../z-library/bases";
+import { GenericController } from "../../../zero/bases";
 import { EventsDataAccess } from "../data-access/data-access";
 
 export class EventsController extends GenericController<EventsDataAccess>{

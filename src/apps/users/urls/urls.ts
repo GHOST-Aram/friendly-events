@@ -1,10 +1,10 @@
 import { UsersController } from "../controller/controller";
 import { validator, validationChains} from "./input-validation";
-import { Authenticator } from "../../../z-library/auth/auth";
-import { fileUploader } from "../../../z-library/uploads";
+import { Authenticator } from "../../../zero/auth/auth";
+import { fileUploader } from "../../../zero/uploads";
 import { permission } from "../../../utils/permissions";
 import { domainData } from "../domain/data";
-import { GhostRouter } from "../../../z-library/routing";
+import { GhostRouter } from "../../../zero/routing";
 import { searchablePaths } from "../data-access/model";
 import { userGroup } from "../../../utils/user-group/user-group";
 

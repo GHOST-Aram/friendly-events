@@ -1,4 +1,4 @@
-import { assert} from "../../../z-library/testing";
+import { assert} from "../../../zero/testing";
 import { describe, test } from '@jest/globals'
 import request from 'supertest'
 import {app} from './config/app'

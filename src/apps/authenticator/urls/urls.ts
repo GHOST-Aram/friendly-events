@@ -1,6 +1,6 @@
 import { AuthController } from '../controller/controller'
 import { validateLoginInput, validator } from './input-validators'
-import { ZRouter } from '../../../z-library/types'
+import { ZRouter } from '../../../zero/types'
 import Router  from 'express'
 
 

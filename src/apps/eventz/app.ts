@@ -3,10 +3,10 @@ import { EventsDataAccess } from "./data-access/data-access";
 import { EventsController } from "./controller/controller";
 import { connectionPool, siztim } from "../../_config/config";
 import { eventSchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth";
-import { ZRouter } from "../../z-library/types";
+import { authenticator } from "../../zero/auth";
+import { ZRouter } from "../../zero/types";
 import { eventsDbName } from "../../_environment";
-import { RouterConfig } from "../../z-library/siztim/types";
+import { RouterConfig } from "../../zero/siztim/types";
 
 let eventsRouter: ZRouter
 

@@ -2,7 +2,7 @@ import { Controller } from "../../controller/controller";
 import { VenuesTypesRouter } from "../../urls/urls";
 import { VenueCategoryDAL } from "../mocks/data-access";
 import { VenueCategory } from "../../data-access/model";
-import { Authenticator, user, app } from "../../../../z-library/testing";
+import { Authenticator, user, app } from "../../../../zero/testing";
 import { validData } from "../mocks/raw-data";
 
 const dataAccess = new VenueCategoryDAL(VenueCategory, validData)

@@ -1,7 +1,7 @@
-import { createFileBuffer } from "../../../z-library/uploads"
+import { createFileBuffer } from "../../../zero/uploads"
 import { EventCategory, uniqueObjectkeys } from "../data-access/model"
-import { DomainData } from "../../../z-library/domain-data"
-import { RequestData } from "../../../z-library/request"
+import { DomainData } from "../../../zero/domain-data"
+import { RequestData } from "../../../zero/request"
 import { createObjectFromKeys } from "../../../utils/data-object/data-object"
 
 class CategoryData implements DomainData{

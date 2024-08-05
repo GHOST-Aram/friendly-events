@@ -2,7 +2,7 @@ import { UsersDAL } from "../mocks/data-access";
 import { UsersController } from "../../controller/controller";
 import { User } from "../../data-access/model";
 import { Authenticator } from "../mocks/auth";
-import { user, app } from "../../../../z-library/testing";
+import { user, app } from "../../../../zero/testing";
 import { validUserData } from "../mocks/raw-data";
 import { UsersRouter } from "../../urls/urls";
 

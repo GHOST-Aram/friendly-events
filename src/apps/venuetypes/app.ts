@@ -3,10 +3,10 @@ import { DataAccess } from "./data-access/data-access";
 import { Controller } from "./controller/controller";
 import { connectionPool, siztim } from "../../_config/config";
 import { venueCatSchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth";
-import { ZRouter } from "../../z-library/types";
+import { authenticator } from "../../zero/auth";
+import { ZRouter } from "../../zero/types";
 import { venueCategoryDbName } from "../../_environment";
-import { RouterConfig } from "../../z-library/siztim/types";
+import { RouterConfig } from "../../zero/siztim/types";
 
 let venueTypesRouter: ZRouter
 

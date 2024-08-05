@@ -1,7 +1,7 @@
-import { Paginator } from "../../../../z-library/HTTP/types"
+import { Paginator } from "../../../../zero/HTTP/types"
 import { HydratedUserDoc, User, UserModel } from "../../data-access/model"
 import { jest } from "@jest/globals"
-import { MockDataAccess } from "../../../../z-library/testing"
+import { MockDataAccess } from "../../../../zero/testing"
 
 
 export class UsersDAL extends MockDataAccess<UserModel, User>{

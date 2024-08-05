@@ -1,4 +1,4 @@
-import { GenericDataAccess } from "../../../z-library/bases"
+import { GenericDataAccess } from "../../../zero/bases"
 import { EventCategory, CategoryModel } from "./model";
 
 export class DataAccess extends GenericDataAccess<CategoryModel, EventCategory>{

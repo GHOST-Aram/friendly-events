@@ -1,6 +1,6 @@
-import { DomainData } from "../../../z-library/domain-data";
+import { DomainData } from "../../../zero/domain-data";
 import { VenueCategory, uniqueObjectkeys } from "../data-access/model";
-import { RequestData } from "../../../z-library/request";
+import { RequestData } from "../../../zero/request";
 import { createObjectFromKeys } from "../../../utils/data-object/data-object";
 
 class VenueTData implements DomainData{

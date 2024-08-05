@@ -1,9 +1,9 @@
 import { hashSync } from "bcrypt"
-import { createFileBuffer } from "../../../z-library/uploads"
+import { createFileBuffer } from "../../../zero/uploads"
 import { uniqueObjectkeys, User } from "../data-access/model"
-import { Response, Request, NextFunction } from "../../../z-library/types"
-import { getDataFromRequest, RequestData } from "../../../z-library/request"
-import { DomainData } from "../../../z-library/domain-data"
+import { Response, Request, NextFunction } from "../../../zero/types"
+import { getDataFromRequest, RequestData } from "../../../zero/request"
+import { DomainData } from "../../../zero/domain-data"
 import { userGroup } from "../../../utils/user-group/user-group"
 import { createObjectFromKeys } from "../../../utils/data-object/data-object"
 

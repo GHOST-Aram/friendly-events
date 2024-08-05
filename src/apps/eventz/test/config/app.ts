@@ -2,7 +2,7 @@ import { EventsController } from "../../controller/controller";
 import { EventsRouter } from "../../urls/urls";
 import { EventsDAL } from "../mocks/data-access";
 import { Event } from "../../data-access/model";
-import { Authenticator, user, app } from "../../../../z-library/testing";
+import { Authenticator, user, app } from "../../../../zero/testing";
 import { validData } from "../mocks/raw-data";
 
 const dataAccess = new EventsDAL(Event, validData)

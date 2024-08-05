@@ -1,5 +1,5 @@
-import { siztim } from "../z-library/siztim"
-import { ConnectionPool } from "../z-library/db"
+import { siztim } from "../zero/siztim"
+import { ConnectionPool } from "../zero/db"
 import { dbUri, secretOrKey, PORT } from "../_environment"
 
 siztim.initializePayloadParsers()

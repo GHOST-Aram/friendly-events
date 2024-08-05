@@ -3,9 +3,9 @@ import { UsersDAL } from "./data-access/data-access";
 import { UsersController } from "./controller/controller";
 import { connectionPool, siztim } from "../../_config/config";
 import { userSchema } from "./data-access/model";
-import { authenticator } from "../../z-library/auth";
-import { ZRouter } from "../../z-library/types";
-import { RouterConfig } from "../../z-library/siztim/types";
+import { authenticator } from "../../zero/auth";
+import { ZRouter } from "../../zero/types";
+import { RouterConfig } from "../../zero/siztim/types";
 import { usersDbName } from "../../_environment";
 
 let usersRouter: ZRouter

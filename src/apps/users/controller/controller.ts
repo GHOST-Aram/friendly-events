@@ -1,10 +1,10 @@
-import { Response, Request, NextFunction } from "../../../z-library/types";
+import { Response, Request, NextFunction } from "../../../zero/types";
 import { UsersDAL } from "../data-access/data-access";
-import { GenericController } from "../../../z-library/bases";
-import { getDataFromRequest } from "../../../z-library/request";
-import { document } from "../../../z-library/document";
-import { DomainData } from "../../../z-library/domain-data";
-import { UserGroup } from "../../../z-library/user-group";
+import { GenericController } from "../../../zero/bases";
+import { getDataFromRequest } from "../../../zero/request";
+import { document } from "../../../zero/document";
+import { DomainData } from "../../../zero/domain-data";
+import { UserGroup } from "../../../zero/user-group";
 
 export class UsersController extends GenericController<UsersDAL>{
 

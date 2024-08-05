@@ -1,5 +1,5 @@
 import { VenueCategory, VenueCategoryModel } from "../../data-access/model"
-import { MockDataAccess } from "../../../../z-library/testing"
+import { MockDataAccess } from "../../../../zero/testing"
 
 export class VenueCategoryDAL extends MockDataAccess<VenueCategoryModel, VenueCategory>{
     
