@@ -30,6 +30,3 @@ type GhostRouterConstructor<GhostRouter> = new(
         authenticator: Authenticator
     ) => GhostRouter
 
-    
-    // interface Controller extends GenericController<GenericDataAccess<Model<any>, any>>{}
-    // interface DataAccess extends GenericDataAccess<Model<any>, any>{}
