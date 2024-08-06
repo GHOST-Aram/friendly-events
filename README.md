@@ -5,7 +5,7 @@ This project is the Backend software for an events listing and booking platform.
 ```
 - node_modules
 - src
-    |- _config
+    |- _config(system configs)
     |- apps
         |- authenticator
             |- controller
@@ -23,7 +23,7 @@ This project is the Backend software for an events listing and booking platform.
     |- zero (the system library)
     - _environment.ts (import-export for environment varriables)
     - app.ts
-    
+
 - package.json
 - package-lock.json
 - tsconfig.json
