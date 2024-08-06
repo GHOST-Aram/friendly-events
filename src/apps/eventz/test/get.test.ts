@@ -41,7 +41,7 @@ describe('GET events Route', () =>{
         } 
     )
 
-    test('Responds with paginated array (Status 200): Length equals given query params.', 
+    test('Responds with paginated array (Status 200) containing document matching search params.', 
         async() =>{
             const response = await request(app).get(
                 '/events?title=cool title&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
