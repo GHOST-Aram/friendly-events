@@ -39,7 +39,7 @@ const acceptedPaths = [
 const validatePostData = [
     validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateString('category', { required: true }),
-    validator.validateString('venue', { required: true }),
+    validator.validateObjectId('venue', { required: true }),
     validator.validateString('title', { required: true }),
     validator.validateString('city', { required: true }),
     validator.validateDate('date', { required: true }),
@@ -55,7 +55,7 @@ const validatePostData = [
 const validatePatchData = [
     validator.rejectUnwantedPaths(acceptedPaths),
     validator.validateString('category', { required: false }),
-    validator.validateString('venue', { required: false }),
+    validator.validateObjectId('venue', { required: false }),
     validator.validateString('title', { required: false }),
     validator.validateString('city', { required: false }),
     validator.validateDate('date', { required: false }),

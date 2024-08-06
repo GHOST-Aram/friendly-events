@@ -2,7 +2,7 @@ import { HydratedDocument, Model, ObjectId, Schema, model } from "mongoose"
 
 export interface Event{
     category: string
-    venue: string
+    venue: ObjectId
     title: string
     createdBy: ObjectId,
     graphic?: {
@@ -41,7 +41,8 @@ export const eventSchema = new Schema<Event, EventModel>({
         required: true
     },
     venue: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Venue',
         required: true
     },
 
