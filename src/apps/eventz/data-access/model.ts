@@ -26,7 +26,10 @@ export interface Event{
     ticketPrice: number
 }
 
-const searchablePaths = ['category', 'venue', 'title', 'createdBy', 'city' ]
+const searchablePaths = [
+    'category', 'venue', 'title', 'createdBy', 'city', 'time', 'ageLimit', 'ticketPrice',
+    'availableTickets'
+]
 const uniqueObjectkeys = ['venue', 'title', 'date', 'time', 'city']
 
 export type EventModel = Model<Event>

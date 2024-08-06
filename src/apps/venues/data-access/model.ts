@@ -36,7 +36,10 @@ export interface Venue{
     }
 }
 
-const searchablePaths = ['type', 'name', 'createdBy']
+const searchablePaths = [
+    'type', 'name', 'createdBy', 'capacity', 'bookingTerms', 'availabilityStatus',
+    'address', 'accessibilityFeatures'
+]
 const uniqueObjectkeys = ['type', 'name', 'capacity', 'address']
 
 export type VenueModel = Model<Venue>
