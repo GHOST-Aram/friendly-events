@@ -41,7 +41,7 @@ describe('GET venues Route', () =>{
         } 
     )
 
-    test('Responds with paginated array (Status 200): Length equals given query params.', 
+    test('Search by Query params: Result contains documents with properties that match the search values.', 
         async() =>{
             const response = await request(app).get(
                 '/venues?name=cool name&type=stadium&createdBy=64c9e4f2df7cc072af2ac9e4&limit=23')
@@ -54,6 +54,20 @@ describe('GET venues Route', () =>{
 
             assert.respondsWithSuccess(response)
             assert.respondsWithPaginatedResource(response, 23)
+        } 
+    )
+
+    test('Nested search params: Responds with correct documents if search query contains nested properties.', 
+        async() =>{
+            const response = await request(app).get(
+                '/venues?bookingTerms.fee=5000&address.cityOrTown=New York')
+
+            response.body.forEach((item: any) =>{
+                expect(item.bookingTerms.fee).toBe(5000)
+                expect(item.address.cityOrTown).toBe('New York')
+            })
+
+            assert.respondsWithSuccess(response)
         } 
     )
 

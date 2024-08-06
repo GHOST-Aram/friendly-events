@@ -56,6 +56,21 @@ describe('GET events Route', () =>{
         } 
     )
 
+    test('Nested search params: Responds with correct search results if query'+
+        ' string contains nested properties', 
+        async() =>{
+            const response = await request(app).get(
+                '/events?ageLimit.min=18&ageLimit.max=35&time.start=9:00 PM&time.end=6:00 AM')
+            
+            assert.respondsWithSuccess(response)
+            response.body.forEach((item: any) =>{
+                expect(item.ageLimit.min).toBe(18)
+                expect(item.ageLimit.max).toBe(35)
+                expect(item.time.start).toBe('9:00 PM')
+            })
+        } 
+    )
+
     test('Responds with found resource (status 200): GET operation success.', 
         async() =>{
             const response = await request(app).get(
