@@ -49,7 +49,8 @@ The events app allows event organizers create and manage listings of events. The
 - All users can retrieve events listings based on:
     * Event id,
     * All Events with pagination
-    * Events organizer's id
+    * Search queries with event properties
+    
 - Event organizers can update event information
 - Event organizers can delete events from listings
 
