@@ -3,15 +3,15 @@ import { Validator } from "../../../zero/validation";
 class EventsValidator extends Validator{
     public validateDate = (path: string, { required }: {required: boolean }) =>{
         return this.validateString(path, { required })
-            .matches(/^[0-9]{1,2}\s[a-z]+\s[0-9]{4}$/i)
+            .matches(/^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$/i)
             .withMessage(
-                "Date String must be in the form \'day MonthName year\' eg \'4 January 2027\'")
+                "Date String must be in the form \'day-month-year\' eg \'30-12-2024\'")
     }
 
     public validateTime = (path: string, { required }: {required: boolean }) =>{
         return this.validateString(path, { required })
-            .matches(/^[0-9]{1,2}\:[0-9]{2}\:[0-9]{2}\sAM|PM$/i)
-            .withMessage('Time String must be in the form \'hr:min:sec AM or PM\'')
+            .matches(/^[0-9]{4}$/)
+            .withMessage('Time String must be in 24-hr clock format')
     }
 
     public validateTimeZone = (path: string, { required }: { required: boolean }) =>{
