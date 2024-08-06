@@ -1,6 +1,35 @@
 # Friendly Events
 
-This project houses the Backend software for an events listing and booking platform. The software is decoupled into the following apps:
+This project is the Backend software for an events listing and booking platform. The following sketch shows an overview of the architecture of the system:
+
+```
+- node_modules
+- src
+    |- _config
+    |- apps
+        |- authenticator
+            |- controller
+            |- data-access
+            |- domain
+            |- test
+            |- urls
+            - app.ts
+        |- eventcategories
+        |- eventz
+        |- users
+        |- venues
+        |- venuetypes
+    |- utils
+    |- zero (the system library)
+    - _environment.ts (import-export for environment varriables)
+    - app.ts
+    
+- package.json
+- package-lock.json
+- tsconfig.json
+```
+
+The system is decoupled into the following apps:
 
 #### 1. Authenticator [*View Code*](./src/apps/authenticator/)
 The authenticator acts as an authorization service for the platform. It allows or denies access to various groups of users. Visit the [authenticator documentation](https://github.com/GHOST-Aram/friendly-docs/blob/main/authentication/authentication.md) for guidance on how to take advantage of this app.
