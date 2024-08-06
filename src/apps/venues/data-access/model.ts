@@ -37,8 +37,14 @@ export interface Venue{
 }
 
 const searchablePaths = [
-    'type', 'name', 'createdBy', 'capacity', 'bookingTerms', 'availabilityStatus',
-    'address', 'accessibilityFeatures'
+    'type', 'name', 'createdBy', 'capacity', 'availabilityStatus',
+
+    'address.cityOrTown', 'address.street','address.block.name', 'address.block.floor', 
+
+    'accessibilityFeatures.stairCase', 'accessibilityFeatures.elevator', 
+    'accessibilityFeatures.ramp', 'accessibilityFeatures.escallator', 
+
+    `bookingTerms.fee`, `bookingTerms.timeSpan`,
 ]
 const uniqueObjectkeys = ['type', 'name', 'capacity', 'address']
 

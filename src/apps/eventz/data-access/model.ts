@@ -27,8 +27,9 @@ export interface Event{
 }
 
 const searchablePaths = [
-    'category', 'venue', 'title', 'createdBy', 'city', 'time', 'ageLimit', 'ticketPrice',
-    'availableTickets'
+    'category', 'venue', 'title', 'createdBy', 'city', 'ticketPrice',
+    'availableTickets', 'ageLimit.min', 'ageLimit.max', 'time.end', 'time.zone',
+    'time.start',
 ]
 const uniqueObjectkeys = ['venue', 'title', 'date', 'time', 'city']
 
