@@ -3,7 +3,7 @@ export const validData:any = {
     venue: "Quiver Lounge",
     title:"Ramogi Night",
     city: "Nairobi",
-    date: "23 July 2024",
+    date: "23-7-2024",
     time: {
         start: "1237",
         end: "1537",
@@ -22,7 +22,7 @@ export const invalidData = {
     category: "",
     title:"",
     city: "",
-    date: "7/23/2024",
+    date: "8 July 2024",
     time: {
         start: "12:00 PM",
         end: "12:00 AM",
