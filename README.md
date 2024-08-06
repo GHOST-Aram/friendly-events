@@ -3,30 +3,30 @@
 This project is the Backend software for an events listing and booking platform. The following sketch shows an overview of the architecture of the system:
 
 ```
-- node_modules
-- src
-    |- _config(system configs)
-    |- apps
-        |- authenticator
-            |- controller
-            |- data-access
-            |- domain
-            |- test
-            |- urls
-            - app.ts
-        |- eventcategories
-        |- eventz
-        |- users
-        |- venues
-        |- venuetypes
-    |- utils
-    |- zero (the system library)
-    - _environment.ts (import-export for environment varriables)
-    - app.ts
-
-- package.json
-- package-lock.json
-- tsconfig.json
+|- node_modules
+|- src
+|    |- _config(system configs)
+|    |- apps
+|        |- authenticator
+|           |- controller
+|           |- data-access
+|           |- domain
+|           |- test
+|           |- urls
+|           - app.ts
+|        |- eventcategories
+|        |- eventz
+|        |- users
+|        |- venues
+|        |- venuetypes
+|    |- utils
+|    |- zero (the system library)
+|    - _environment.ts (import-export for environment varriables)
+|    - app.ts
+|
+|- package.json
+|- package-lock.json
+|- tsconfig.json
 ```
 
 The system is decoupled into the following apps:
@@ -50,7 +50,7 @@ The events app allows event organizers create and manage listings of events. The
     * Event id,
     * All Events with pagination
     * Search queries with event properties
-    
+
 - Event organizers can update event information
 - Event organizers can delete events from listings
 
