@@ -10,8 +10,8 @@ class EventsValidator extends Validator{
 
     public validateTime = (path: string, { required }: {required: boolean }) =>{
         return this.validateString(path, { required })
-            .matches(/^[0-9]{1,2}\:[0-9]{2}\:[0-9]{2}\sAM|PM$/i)
-            .withMessage('Time String must be in the form \'hr:min:sec AM or PM\'')
+            .matches(/^[0-9]{4}$/)
+            .withMessage('Time String must be in 24-hr clock format')
     }
 
     public validateTimeZone = (path: string, { required }: { required: boolean }) =>{
