@@ -6,6 +6,7 @@ import { venuesRouter } from "./apps/venues/app";
 import { categoriesRouter } from "./apps/eventcategories/app";
 import { venueTypesRouter } from "./apps/venuetypes/app";
 import { URLMetadata } from "./zero/zero/types";
+import { docsRouter } from "./apps/open-api/app";
 
 const urlsData: URLMetadata[] = [
     { path: '/auth', router: authRouter },
@@ -14,6 +15,7 @@ const urlsData: URLMetadata[] = [
     { path: '/venues', router: venuesRouter },
     { path: '/venue-types', router: venueTypesRouter },
     { path: '/event-categories', router: categoriesRouter },
+    { path: '/docs', router: docsRouter }
 ]
 
 try {

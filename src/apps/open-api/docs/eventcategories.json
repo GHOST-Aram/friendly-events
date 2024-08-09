@@ -1,0 +1,239 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Event Categories API",
+      "version": "1.0.0",
+      "description": "API for managing event categories"
+    },
+    "paths": {
+      "/categories": {
+        "post": {
+          "tags": ["Event Categories"],
+          "summary": "Create a new event category",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Event category created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventCategory"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Event Categories"],
+          "summary": "Get all event categories",
+          "responses": {
+            "200": {
+              "description": "List of event categories",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EventCategory"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/categories/{id}": {
+        "get": {
+          "tags": ["Event Categories"],
+          "summary": "Get a specific event category by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event category ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Event category details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventCategory"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Event category not found"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Event Categories"],
+          "summary": "Update an event category by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event category ID"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Event category updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventCategory"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            },
+            "404": {
+              "description": "Event category not found"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Event Categories"],
+          "summary": "Delete an event category by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event category ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Event category deleted successfully"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            },
+            "404": {
+              "description": "Event category not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "EventCategory": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Event category ID",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the event category",
+              "example": "Technology"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the event category",
+              "example": "Category for technology-related events"
+            },
+            "createdBy": {
+              "type": "string",
+              "description": "User ID who created the category",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "graphic": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "category_image.png"
+                },
+                "data": {
+                  "type": "string",
+                  "format": "byte",
+                  "description": "Binary data of the graphic"
+                },
+                "contentType": {
+                  "type": "string",
+                  "example": "image/png"
+                }
+              }
+            }
+          }
+        },
+        "CreateCategoryInput": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the event category",
+              "example": "Technology"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the event category",
+              "example": "Category for technology-related events"
+            },
+            "graphic": {
+              "type": "string",
+              "format": "binary",
+              "description": "Optional graphic for the category"
+            }
+          },
+          "required": ["name", "description"]
+        }
+      }
+    }
+  }
+  

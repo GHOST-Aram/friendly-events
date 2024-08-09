@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Events API",
+      "version": "1.0.0",
+      "description": "API for managing events"
+    },
+    "paths": {
+      "/events": {
+        "post": {
+          "tags": ["Events"],
+          "summary": "Create a new event",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEventInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Event created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Events"],
+          "summary": "Get all events",
+          "responses": {
+            "200": {
+              "description": "List of events",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Event"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/{id}": {
+        "get": {
+          "tags": ["Events"],
+          "summary": "Get a specific event by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Event details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Event not found"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Events"],
+          "summary": "Update an event by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event ID"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEventInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Event updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            },
+            "404": {
+              "description": "Event not found"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Events"],
+          "summary": "Delete an event by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Event ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Event deleted successfully"
+            },
+            "401": {
+              "description": "Unauthorized - Access token is missing or invalid"
+            },
+            "404": {
+              "description": "Event not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Event": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Event ID",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "category": {
+              "type": "string",
+              "description": "Category of the event",
+              "example": "Technology"
+            },
+            "venue": {
+              "type": "string",
+              "description": "Venue ID where the event is held",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the event",
+              "example": "Tech Conference 2024"
+            },
+            "createdBy": {
+              "type": "string",
+              "description": "User ID who created the event",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "graphic": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "event_image.png"
+                },
+                "data": {
+                  "type": "string",
+                  "format": "byte",
+                  "description": "Binary data of the graphic"
+                },
+                "contentType": {
+                  "type": "string",
+                  "example": "image/png"
+                }
+              }
+            },
+            "city": {
+              "type": "string",
+              "description": "City where the event is held",
+              "example": "New York"
+            },
+            "date": {
+              "type": "string",
+              "description": "Date of the event",
+              "example": "2024-08-20"
+            },
+            "time": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "example": "09:00 AM"
+                },
+                "end": {
+                  "type": "string",
+                  "example": "05:00 PM"
+                },
+                "zone": {
+                  "type": "string",
+                  "description": "Time zone of the event",
+                  "example": "EST"
+                }
+              }
+            },
+            "duration": {
+              "type": "string",
+              "description": "Duration of the event",
+              "example": "8 hours"
+            },
+            "ageLimit": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "description": "Minimum age limit for the event",
+                  "example": 18
+                },
+                "max": {
+                  "type": "integer",
+                  "description": "Maximum age limit for the event",
+                  "example": 65
+                }
+              }
+            },
+            "availableTickets": {
+              "type": "integer",
+              "description": "Number of available tickets",
+              "example": 100
+            },
+            "ticketPrice": {
+              "type": "number",
+              "description": "Price of a ticket",
+              "example": 50.0
+            }
+          }
+        },
+        "CreateEventInput": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Category of the event",
+              "example": "Technology"
+            },
+            "venue": {
+              "type": "string",
+              "description": "Venue ID where the event is held",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the event",
+              "example": "Tech Conference 2024"
+            },
+            "graphic": {
+              "type": "string",
+              "format": "binary",
+              "description": "Optional graphic for the event"
+            },
+            "city": {
+              "type": "string",
+              "description": "City where the event is held",
+              "example": "New York"
+            },
+            "date": {
+              "type": "string",
+              "description": "Date of the event",
+              "example": "2024-08-20"
+            },
+            "time": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "example": "09:00 AM"
+                },
+                "end": {
+                  "type": "string",
+                  "example": "05:00 PM"
+                },
+                "zone": {
+                  "type": "string",
+                  "description": "Time zone of the event",
+                  "example": "EST"
+                }
+              }
+            },
+            "duration": {
+              "type": "string",
+              "description": "Duration of the event",
+              "example": "8 hours"
+            },
+            "ageLimit": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "description": "Minimum age limit for the event",
+                  "example": 18
+                },
+                "max": {
+                  "type": "integer",
+                  "description": "Maximum age limit for the event",
+                  "example": 65
+                }
+              }
+            },
+            "availableTickets": {
+              "type": "integer",
+              "description": "Number of available tickets",
+              "example": 100
+            },
+            "ticketPrice": {
+              "type": "number",
+              "description": "Price of a ticket",
+              "example": 50.0
+            }
+          },
+          "required": ["category", "venue", "title", "city", "date", "time.start", "time.zone", "duration", "ageLimit.min", "availableTickets", "ticketPrice"]
+        }
+      }
+    }
+  }
+  
