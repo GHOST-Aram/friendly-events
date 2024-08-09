@@ -12,7 +12,14 @@ class UserValidator extends Validator{
 }
 
 const validator = new UserValidator()
-const acceptedPaths = ['userGroup', 'fullName', 'password', 'email', 'pictureUrl']
+const acceptedPaths = [
+    'userGroup', 
+    'fullName', 
+    'password', 
+    'email', 
+    'pictureUrl', 
+    'profilePicture'
+]
 
 const validatePostData = [
     validator.rejectUnwantedPaths(acceptedPaths),
