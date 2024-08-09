@@ -1,13 +1,7 @@
 import { ValidationChain } from "express-validator";
 import { Validator } from "../../../zero/validation";
 
-class VenuesValidator extends Validator{
-    public validateDescription = (field: string, { required }: { required: boolean }) =>{
-        return validator.validateString(field, { required }).isLength({ min: 100, max: 1000})
-            .withMessage(
-                `Category description should be a string of length 100 - 1000 characters long.`)
-    }
-}
+class VenuesValidator extends Validator{}
 
 const validator = new VenuesValidator()
 const acceptedPaths = ['name', 'description']

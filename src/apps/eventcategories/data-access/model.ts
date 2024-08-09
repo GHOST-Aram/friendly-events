@@ -18,12 +18,13 @@ export const categorySchema = new Schema<EventCategory,CategoryModel>({
     name: { 
         type: String, 
         maxlength: 100,
+        minlength: 2,
         required: true 
     },
 
     description: {
         type: String,
-        minlength: 100,
+        minlength: 10,
         maxlength: 1000,
     },
     createdBy: {

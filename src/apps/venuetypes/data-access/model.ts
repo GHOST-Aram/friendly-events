@@ -22,7 +22,7 @@ export const venueCatSchema = new Schema<VenueCategory, VenueCategoryModel>({
     },
     description: { 
         type: String, 
-        minlength: 100,
+        minlength: 10,
         maxlength: 1000,
         required: true,
     },
