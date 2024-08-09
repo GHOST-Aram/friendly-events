@@ -1,0 +1,434 @@
+{
+    "paths": {
+      "/venues": {
+        "post": {
+          "tags": ["Venues"],
+          "summary": "Create a new venue",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateVenueInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Venue created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Venue"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          }
+        },
+        "get": {
+          "tags": ["Venues"],
+          "summary": "Get all venues",
+          "responses": {
+            "200": {
+              "description": "List of venues",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Venue"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/venues/{id}": {
+        "get": {
+          "tags": ["Venues"],
+          "summary": "Get a specific venue by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Venue ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Venue details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Venue"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Venue not found"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Venues"],
+          "summary": "Update a venue by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Venue ID"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateVenueInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Venue updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Venue"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Venue not found"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Venues"],
+          "summary": "Delete a venue by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "example": "64bdf04ff13f81c14b0a77c7"
+              },
+              "description": "Venue ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Venue deleted successfully"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Venue not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Venue": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Venue ID",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "type": {
+              "type": "string",
+              "description": "Type of the venue",
+              "example": "Conference Hall"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the venue",
+              "example": "Grand Hall"
+            },
+            "capacity": {
+              "type": "integer",
+              "description": "Capacity of the venue",
+              "example": 500
+            },
+            "bookingTerms": {
+              "type": "object",
+              "properties": {
+                "fee": {
+                  "type": "number",
+                  "description": "Booking fee",
+                  "example": 500.0
+                },
+                "timeSpan": {
+                  "type": "string",
+                  "description": "Time span for the booking",
+                  "example": "day"
+                }
+              }
+            },
+            "availabilityStatus": {
+              "type": "string",
+              "description": "Availability status of the venue",
+              "example": "available"
+            },
+            "createdBy": {
+              "type": "string",
+              "description": "User ID who created the venue",
+              "example": "64bdf04ff13f81c14b0a77c7"
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "cityOrTown": {
+                  "type": "string",
+                  "description": "City or town of the venue",
+                  "example": "New York"
+                },
+                "street": {
+                  "type": "string",
+                  "description": "Street address of the venue",
+                  "example": "5th Avenue"
+                },
+                "block": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Block name",
+                      "example": "Building A"
+                    },
+                    "floor": {
+                      "type": "integer",
+                      "description": "Floor number",
+                      "example": 3
+                    }
+                  }
+                }
+              }
+            },
+            "pictures": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Picture file name",
+                    "example": "venue_image.png"
+                  },
+                  "data": {
+                    "type": "string",
+                    "format": "byte",
+                    "description": "Binary data of the picture"
+                  },
+                  "contentType": {
+                    "type": "string",
+                    "description": "Content type of the picture",
+                    "example": "image/png"
+                  }
+                }
+              }
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the venue",
+              "example": "A spacious hall suitable for large conferences."
+            },
+            "accessibilityFeatures": {
+              "type": "object",
+              "properties": {
+                "stairCase": {
+                  "type": "boolean",
+                  "description": "Whether the venue has a staircase",
+                  "example": true
+                },
+                "elevator": {
+                  "type": "boolean",
+                  "description": "Whether the venue has an elevator",
+                  "example": true
+                },
+                "escallator": {
+                  "type": "boolean",
+                  "description": "Whether the venue has an escalator",
+                  "example": false
+                },
+                "ramp": {
+                  "type": "boolean",
+                  "description": "Whether the venue has a ramp",
+                  "example": true
+                }
+              }
+            },
+            "coordinates": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "description": "Latitude of the venue",
+                  "example": 40.712776
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Longitude of the venue",
+                  "example": -74.005974
+                }
+              }
+            }
+          }
+        },
+        "CreateVenueInput": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the venue",
+              "example": "Conference Hall"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the venue",
+              "example": "Grand Hall"
+            },
+            "capacity": {
+              "type": "integer",
+              "description": "Capacity of the venue",
+              "example": 500
+            },
+            "bookingTerms": {
+              "type": "object",
+              "properties": {
+                "fee": {
+                  "type": "number",
+                  "description": "Booking fee",
+                  "example": 500.0
+                },
+                "timeSpan": {
+                  "type": "string",
+                  "description": "Time span for the booking",
+                  "example": "day"
+                }
+              }
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "cityOrTown": {
+                  "type": "string",
+                  "description": "City or town of the venue",
+                  "example": "New York"
+                },
+                "street": {
+                  "type": "string",
+                  "description": "Street address of the venue",
+                  "example": "5th Avenue"
+                },
+                "block": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Block name",
+                      "example": "Building A"
+                    },
+                    "floor": {
+                      "type": "integer",
+                      "description": "Floor number",
+                      "example": 3
+                    }
+                  }
+                }
+              }
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the venue",
+              "example": "A spacious hall suitable for large conferences."
+            },
+            "pictures": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Picture files in base64"
+              }
+            },
+            "accessibilityFeatures": {
+              "type": "object",
+              "properties": {
+                "stairCase": {
+                  "type": "boolean",
+                  "description": "Whether the venue has a staircase",
+                  "example": true
+                },
+                "elevator": {
+                  "type": "boolean",
+                  "description": "Whether the venue has an elevator",
+                  "example": true
+                },
+                "escallator": {
+                  "type": "boolean",
+                  "description": "Whether the venue has an escalator",
+                  "example": false
+                },
+                "ramp": {
+                  "type": "boolean",
+                  "description": "Whether the venue has a ramp",
+                  "example": true
+                }
+              }
+            },
+            "coordinates": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "description": "Latitude of the venue",
+                  "example": 40.712776
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Longitude of the venue",
+                  "example": -74.005974
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
