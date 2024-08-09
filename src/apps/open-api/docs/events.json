@@ -1,10 +1,4 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "Events API",
-      "version": "1.0.0",
-      "description": "API for managing events"
-    },
     "paths": {
       "/events": {
         "post": {

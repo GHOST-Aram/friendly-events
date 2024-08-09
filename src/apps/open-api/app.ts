@@ -7,6 +7,7 @@ import { merge } from 'lodash';
 
 const docsRouter = Router()
 
+const baseSpec = JSON.parse(fs.readFileSync(path.join(__dirname, 'docs', 'openapi.json'), 'utf8'));
 const authSpec = JSON.parse(fs.readFileSync(path.join(__dirname, 'docs', 'auth.json'), 'utf8'));
 const eventsSpec = JSON.parse(fs.readFileSync(path.join(__dirname, 'docs', 'events.json'), 'utf8'));
 const usersSpec = JSON.parse(fs.readFileSync(path.join(__dirname, 'docs', 'users.json'), 'utf8'));
@@ -14,12 +15,11 @@ const eventcategoriesSpec = JSON.parse(fs.readFileSync(path.join(
     __dirname, 'docs', 'eventcategories.json'), 'utf8'));
     
 
-[authSpec, eventsSpec, eventcategoriesSpec, usersSpec].forEach(spec =>{
-    spec.servers = updateServerInfo()
-})
+
+baseSpec.servers = updateServerInfo()
 
 
-const mergedSpecs = merge(authSpec, eventsSpec, eventcategoriesSpec, usersSpec)
+const mergedSpecs = merge(baseSpec, authSpec, eventsSpec, eventcategoriesSpec, usersSpec)
 
 docsRouter.use('/', ...renderDocumentationUI(mergedSpecs))
 
