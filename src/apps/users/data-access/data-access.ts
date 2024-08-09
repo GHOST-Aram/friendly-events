@@ -6,6 +6,13 @@ export class UsersDAL extends GenericDataAccess<UserModel, User>{
     constructor (model : UserModel){
         super(model)
     }
+
+    public createNew = async (data: User) => {
+        const user:any = await this.model.create(data)
+        user.password = undefined
+
+        return user
+    }
     
     public findByEmail = async(email: string): Promise<HydratedUserDoc | null> =>{
         return await this.model.findOne({ email })
