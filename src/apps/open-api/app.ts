@@ -19,7 +19,7 @@ const eventcategoriesSpec = JSON.parse(fs.readFileSync(path.join(
 baseSpec.servers = updateServerInfo()
 
 
-const mergedSpecs = merge(baseSpec, authSpec, eventsSpec, eventcategoriesSpec, usersSpec)
+const mergedSpecs = merge(baseSpec, authSpec, usersSpec, eventsSpec, eventcategoriesSpec)
 
 docsRouter.use('/', ...renderDocumentationUI(mergedSpecs))
 
