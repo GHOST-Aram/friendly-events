@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "../../../zero/types"
 import { DataAccess } from "../data-access/data-access"
 import { auth } from "../domain/authenticator"
-import { createTokenPayload } from "../../../utils/auth-user-data"
+import { createTokenPayload } from "../../../zero/auth"
 import { getDataFromRequest } from "../../../zero/request"
 import { secretOrKey } from "../../../_environment"
 

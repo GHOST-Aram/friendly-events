@@ -1,4 +1,4 @@
-import { TokenPayload } from "../zero/auth/types"
+import { TokenPayload } from "./types"
 
 //Decide which parts of user data should be stored in the JSON web token
 export const createTokenPayload = (user: any): TokenPayload =>{
