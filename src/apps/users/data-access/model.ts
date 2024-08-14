@@ -1,7 +1,8 @@
 import { compare, hash } from "bcrypt"
 import { HydratedDocument, Model, Schema, model } from "mongoose"
+import { ZeroUser } from "../../../zero/bases/user"
 
-export interface User{
+export interface User extends ZeroUser{
     profilePicture?: {
         name: string,
         data: Buffer,
