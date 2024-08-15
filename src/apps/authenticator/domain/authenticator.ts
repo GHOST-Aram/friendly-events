@@ -1,6 +1,7 @@
 import { compareSync } from "bcrypt"
 import jwt from 'jsonwebtoken'
 import { tokenPayloadCreator, TokenPayload } from "../../../zero/auth/types"
+import { ZeroUser } from "../../../zero/bases/user"
 
 export class Authenticator{
 
@@ -8,19 +9,19 @@ export class Authenticator{
         return compareSync(incomingPassword, savedPassword)
     }
 
-    public issueToken = (user: any, secretOrkey: string): string =>{
+    public issueToken = (tokenPayload: TokenPayload, secretOrkey: string): string =>{
         return jwt.sign({
-            ...user
+            ...tokenPayload
         }, 
         secretOrkey, 
         
         {
             expiresIn: '30d',
-            subject: user.id
+            subject: tokenPayload.id
         })
     }
 
-    public createTokenPayload = (user: any, callBack: tokenPayloadCreator): TokenPayload =>{
+    public createTokenPayload = (user: ZeroUser, callBack: tokenPayloadCreator): TokenPayload =>{
         return callBack(user)
     }
 }
