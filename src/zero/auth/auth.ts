@@ -45,7 +45,7 @@ export class Authenticator{
 
     public restrictAccess = (allowthisUserGroup: (user:any) => boolean ) =>{
 
-        const handler =  (req: Request, res: Response, next: NextFunction) =>{
+        return (req: Request, res: Response, next: NextFunction) =>{
             const user:any = req.user
 
             if(allowthisUserGroup(user)){
@@ -54,8 +54,6 @@ export class Authenticator{
                 this.respondWithForbidden(res)
             }
         }
-
-        return handler
     }
 
     private respondWithForbidden = (res: Response) =>{
