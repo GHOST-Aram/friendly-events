@@ -4,9 +4,10 @@ import mongoose from "mongoose"
 import passport, { DoneCallback } from "passport"
 import {ExtractJwt, Strategy, } from 'passport-jwt'
 import { TokenPayload } from './types'
+import { ZeroUser } from '../bases/user'
 
 
-export class Authenticator{
+export default class Authenticator{
    
 
     public configureStrategy = (secretOrKey: string, authDbConnection: mongoose.Connection) =>{
@@ -43,12 +44,12 @@ export class Authenticator{
         return passport.authenticate('jwt',{ session: false})
     }
 
-    public restrictAccess = (allowthisUserGroup: (user:any) => boolean ) =>{
+    public restrictAccess = (allowThisUserGroup: (user:any) => boolean ) =>{
 
         return (req: Request, res: Response, next: NextFunction) =>{
             const user:any = req.user
 
-            if(allowthisUserGroup(user)){
+            if(allowThisUserGroup(user)){
                 next()
             } else {
                 this.respondWithForbidden(res)
@@ -60,17 +61,12 @@ export class Authenticator{
         res.status(403).json( 'Forbidden. Access denied')
     }
 
-    public createTokenPayload = (user: any): TokenPayload =>{
+    public createTokenPayload = (user: ZeroUser): TokenPayload =>{
         return {
             email: user.email,
             fullName: user.fullName,
             userGroup: user.userGroup,
-            id: user._id ? user._id.toString() : user.id,
+            id: user?._id?.toString() || '',
         }
     }
 }
-
-
-const authenticator = new Authenticator()
-
-export default authenticator
