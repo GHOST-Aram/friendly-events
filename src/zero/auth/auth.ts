@@ -4,7 +4,6 @@ import mongoose from "mongoose"
 import passport, { DoneCallback } from "passport"
 import {ExtractJwt, Strategy, } from 'passport-jwt'
 import { TokenPayload } from './types'
-import 'dotenv/config'
 
 
 export class Authenticator{
