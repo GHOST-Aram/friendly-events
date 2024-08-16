@@ -3,6 +3,7 @@ import { JwtPayload } from 'jsonwebtoken'
 import mongoose from "mongoose"
 import passport, { DoneCallback } from "passport"
 import {ExtractJwt, Strategy, } from 'passport-jwt'
+import { TokenPayload } from './types'
 import 'dotenv/config'
 
 
@@ -58,6 +59,15 @@ export class Authenticator{
 
     private respondWithForbidden = (res: Response) =>{
         res.status(403).json( 'Forbidden. Access denied')
+    }
+
+    public createTokenPayload = (user: any): TokenPayload =>{
+        return {
+            email: user.email,
+            fullName: user.fullName,
+            userGroup: user.userGroup,
+            id: user._id ? user._id.toString() : user.id,
+        }
     }
 }
 

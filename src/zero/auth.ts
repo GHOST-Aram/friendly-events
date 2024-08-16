@@ -1,4 +1,5 @@
 import authenticator from "./auth/auth";
-import { createTokenPayload } from "./auth/auth-user-data";
+
+const createTokenPayload = authenticator.createTokenPayload
 
 export { authenticator, createTokenPayload }
