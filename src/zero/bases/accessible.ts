@@ -7,7 +7,7 @@ export interface Accessible{
     findBySearchDocument: (searchDoc: any, paginator: Paginator) =>Promise<HydratedDocument<any>[]>
     findExistingDocument: (searchDoc: {})=> Promise<HydratedDocument<any>>
     findWithPagination: (paginator: Paginator) => Promise<HydratedDocument<any>[]>
-    findByIdAndUpdate: (id: string, updateDoc: HydratedDocument<any>
+    findByIdAndUpdate: (id: string, updateDoc: any
         ) => Promise<HydratedDocument<any> | null>
     
     findByIdAndDelete: (id: string) => Promise<HydratedDocument<any> | null>
