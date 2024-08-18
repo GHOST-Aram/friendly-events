@@ -9,7 +9,7 @@ export class HttpResponse{
         this.microserviceName = microserviceName
     }
 
-    public respondWithMethodNotAllowed = (req: Request, res: Response) =>{
+    public respondWithMethodNotAllowed = (res: Response) =>{
         res.status(405).json('Method not allowed' )
     }
 
