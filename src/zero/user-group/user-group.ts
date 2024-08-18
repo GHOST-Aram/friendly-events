@@ -1,3 +1,5 @@
-export interface UserGroup{
-    isAdmin: (user:any) => boolean
+import { ZeroUser } from "../bases/user";
+
+export interface UserGroup {
+    isAdmin: (user: ZeroUser) => boolean
 }
