@@ -7,7 +7,7 @@ import { document } from "../document";
 import { DomainData } from "../domain-data";
 import { UserGroup } from "../user-group";
 
-interface UpdateData {updateDoc: any, id: string }
+export interface UpdateData {updateDoc: any, id: string }
 
 export class GenericController <T extends Accessible> 
     extends HttpResponse implements Controllable {
