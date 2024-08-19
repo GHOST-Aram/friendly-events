@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Authenticator as Auth } from "../../auth/auth";
+import Auth from "../../auth/auth";
 
 export class Authenticator extends Auth{
 

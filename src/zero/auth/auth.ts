@@ -70,3 +70,5 @@ export default class Authenticator{
         }
     }
 }
+
+export { Authenticator }
