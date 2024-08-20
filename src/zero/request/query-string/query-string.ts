@@ -47,4 +47,4 @@ class QueryString{
 
 const queryString = new QueryString()
 
-export { queryString }
+export { queryString, QueryString }
