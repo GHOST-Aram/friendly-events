@@ -1,6 +1,6 @@
 import multer, { Multer, StorageEngine } from 'multer'
 
-class FileUploader {
+export class FileUploader {
 
     private storage: StorageEngine
     public uploader: Multer

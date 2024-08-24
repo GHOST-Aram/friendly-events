@@ -1,4 +1,5 @@
 import createFileBuffer from "./uploads/file-buffer";
-import fileUploader from "./uploads/upload";
+import fileUploader, { FileUploader } from "./uploads/upload";
 
-export { fileUploader, createFileBuffer }
+
+export { fileUploader, createFileBuffer, FileUploader }
