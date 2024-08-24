@@ -33,7 +33,7 @@ export class ResponseAssertion{
         expect(response.header.location).toMatch(/^\/\w+(?:-\w+)*\/[0-9a-fA-F]{24}$/)
     }
 
-    public respondsWithAllDataProperties = (properties: any[], response: Response) =>{
+    public respondsWithAllDataProperties = (properties: string[], response: Response) =>{
         properties.forEach(property =>{
             expect(response.body).toHaveProperty(property)
         })
