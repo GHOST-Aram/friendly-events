@@ -3,7 +3,7 @@ import multer, { Multer, StorageEngine } from 'multer'
 export class FileUploader {
 
     private storage: StorageEngine
-    public uploader: Multer
+    private uploader: Multer
 
     constructor(){
         this.storage = multer.memoryStorage()
