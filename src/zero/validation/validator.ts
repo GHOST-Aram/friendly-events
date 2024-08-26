@@ -4,11 +4,8 @@ import {
 import { isValidObjectId } from "mongoose"
 import { formatter } from "../formatting/formatter"
 import { Request, Response, NextFunction } from "express"
-import { FileError } from "./types"
+import { FileError, ValidationOption } from "./types"
 
-interface ValidationOption{
-    required?: boolean
-}
 
 export class Validator {
 
