@@ -42,9 +42,13 @@ export class GenericController <T extends Accessible>
 
     public createAndRespond = async(document: any, res: Response) =>{
         const newDocument = await this.dataAccess.createNew(document)
-        const serializedDoc = newDocument.toObject()
+        const serializedDoc = this.serializeDocument(newDocument)
         
         this.respondWithCreatedResource(serializedDoc, res)
+    }
+
+    private serializeDocument = (doc: any) =>{
+        return doc.toObject()
     }
 
     public getOne = async(req: Request, res: Response, next: NextFunction) =>{
@@ -53,8 +57,8 @@ export class GenericController <T extends Accessible>
         try {
             const foundDocument = await this.dataAccess.findByReferenceId(referenceId)
 
-            if(foundDocument){
-                const serializedDoc = foundDocument.toObject()
+            if(foundDocument != null){
+                const serializedDoc = this.serializeDocument(foundDocument)
                 this.respondWithFoundResource(serializedDoc, res)
             } else{
                 this.respondWithNotFound(res)
@@ -75,7 +79,7 @@ export class GenericController <T extends Accessible>
 
             try {
                 const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
-                const serializedDocs = docuements.map(doc => doc.toObject())
+                const serializedDocs = docuements.map(doc => this.serializeDocument(doc))
 
                 this.respondWithFoundResource(serializedDocs, res)
             } catch (error) {
@@ -116,7 +120,7 @@ export class GenericController <T extends Accessible>
 
     public updateAndRespond = async({ updateDoc, id }: UpdateData, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
-        const serializedDoc = updatedDoc.toObject()
+        const serializedDoc = this.serializeDocument(updatedDoc)
 
         this.respondWithUpdatedResource(serializedDoc, res)
     }
