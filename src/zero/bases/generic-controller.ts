@@ -78,8 +78,8 @@ export class GenericController <T extends Accessible>
             const searchDocument = queryString.createSearchDocument(query, searchablePaths)
 
             try {
-                const docuements = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
-                const serializedDocs = docuements.map(doc => this.serializeDocument(doc))
+                const documents = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
+                const serializedDocs = documents.map(doc => this.serializeDocument(doc))
 
                 this.respondWithFoundResource(serializedDocs, res)
             } catch (error) {
