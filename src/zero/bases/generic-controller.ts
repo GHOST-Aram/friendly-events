@@ -27,9 +27,9 @@ export class GenericController <T extends Accessible>
             const searchDoc = domainData.createUniqueSearchDocument(inputData)
         
             try {
-                const existingEventCategory = await this.dataAccess.findExistingDocument(searchDoc)
+                const existingDocument = await this.dataAccess.findExistingDocument(searchDoc)
         
-                if(!document.exists(existingEventCategory)){
+                if(!document.exists(existingDocument)){
                     this.createAndRespond(inputData, res)
                 } else {
                     this.respondWithConflict(res)
