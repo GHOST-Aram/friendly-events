@@ -98,4 +98,8 @@ export class MockDataAccess<T extends Model<any>, RawData> implements Accessible
     public findByIdAndDelete = async(id: string): Promise<HydratedDocument<RawData> | null> =>{
         return this.documentOrNull(id)
     }
+
+    public serializeDocument = (doc: any) =>{
+        return doc.toObject()
+    }
 }

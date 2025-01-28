@@ -13,4 +13,5 @@ export interface Accessible{
     findByIdAndDelete: (id: string) => Promise<HydratedDocument<any> | null>
     findByCreatorId: (creatorId: string, paginator:Paginator) => 
             Promise<HydratedDocument<any>[]>
+    serializeDocument:(doc:any) => any
 }

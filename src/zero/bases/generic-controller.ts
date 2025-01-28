@@ -42,13 +42,9 @@ export class GenericController <T extends Accessible>
 
     public createAndRespond = async(document: any, res: Response) =>{
         const newDocument = await this.dataAccess.createNew(document)
-        const serializedDoc = this.serializeDocument(newDocument)
+        const serializedDoc = this.dataAccess.serializeDocument(newDocument)
         
         this.respondWithCreatedResource(serializedDoc, res)
-    }
-
-    private serializeDocument = (doc: any) =>{
-        return doc.toObject()
     }
 
     public getOne = async(req: Request, res: Response, next: NextFunction) =>{
@@ -58,7 +54,7 @@ export class GenericController <T extends Accessible>
             const foundDocument = await this.dataAccess.findByReferenceId(referenceId)
 
             if(foundDocument != null){
-                const serializedDoc = this.serializeDocument(foundDocument)
+                const serializedDoc = this.dataAccess.serializeDocument(foundDocument)
                 this.respondWithFoundResource(serializedDoc, res)
             } else{
                 this.respondWithNotFound(res)
@@ -79,7 +75,7 @@ export class GenericController <T extends Accessible>
 
             try {
                 const documents = await this.dataAccess.findBySearchDocument(searchDocument, paginator)
-                const serializedDocs = documents.map(doc => this.serializeDocument(doc))
+                const serializedDocs = documents.map(doc => this.dataAccess.serializeDocument(doc))
 
                 this.respondWithFoundResource(serializedDocs, res)
             } catch (error) {
@@ -120,7 +116,7 @@ export class GenericController <T extends Accessible>
 
     public updateAndRespond = async({ updateDoc, id }: UpdateData, res: Response) =>{
         const updatedDoc = await this.dataAccess.findByIdAndUpdate(id, updateDoc)
-        const serializedDoc = this.serializeDocument(updatedDoc)
+        const serializedDoc = this.dataAccess.serializeDocument(updatedDoc)
 
         this.respondWithUpdatedResource(serializedDoc, res)
     }

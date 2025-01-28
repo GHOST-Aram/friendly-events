@@ -54,4 +54,7 @@ export class GenericDataAccess<T extends Model<any>, RawData> implements Accessi
         return await this.model.findByIdAndDelete(id)
     }
 
+    public serializeDocument = (doc: any) =>{
+        return doc.toObject()
+    }
 }
