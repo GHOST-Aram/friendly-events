@@ -56,18 +56,18 @@ export class ResponseAssertion{
     }
 
     public respondsWithPaginatedResource = ( response: Response, limit: number) =>{
-            const resource = response.body
+        const resource = response.body
 
-            expect(resource[0]).toHaveProperty('_id')
+        expect(resource[0]).toHaveProperty('_id')
 
-            expect(Array.isArray(resource)).toBeTruthy()
-            expect(resource.length).toEqual(limit)
+        expect(Array.isArray(resource)).toBeTruthy()
+        expect(resource.length).toEqual(limit)
     }
     public respondsWithItemsArray = ( response: Response) =>{
-            const resource = response.body
+        const resource = response.body
 
-            expect(resource[0]).toHaveProperty('_id')
-            expect(Array.isArray(resource)).toBeTruthy()
+        expect(resource[0]).toHaveProperty('_id')
+        expect(Array.isArray(resource)).toBeTruthy()
     }
 
     public respondsWithModifedResource = (response: Response) =>{
